@@ -1,5 +1,9 @@
+"use client";
+
 import { Poppins, Roboto_Mono } from "next/font/google";
 import "@/src/styles/globals.css";
+import { usePathname } from "next/navigation";
+import { SideBar } from "../components/ui/SideBar";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -18,9 +22,22 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+
+  const isAuthRoute = pathname.startsWith("/auth");
+
   return (
-   <html lang="en" className={`${poppins.variable} ${roboto_mono.variable}`}>
-      <body>{children}</body>
+    <html lang="en" className={`${poppins.variable} ${roboto_mono.variable}`}>
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,FILL,GRAD@20..48,0..1,-50..200&icon_names=123,close,crisis_alert,device_hub,favorite,group,info,key,logout,medication,menu,monitor,monitor_heart,person,refresh,schedule,settings,visibility,warning&display=block"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="h-full flex">
+        {!isAuthRoute && <SideBar />}
+        <main className="flex-grow h-full">{children}</main>
+      </body>
     </html>
   );
 }
