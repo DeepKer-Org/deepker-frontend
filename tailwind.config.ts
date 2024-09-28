@@ -7,6 +7,7 @@ const config: Config = {
       fontFamily: {
         poppins: ["var(--font-poppins)", "sans-serif"],
         "roboto-mono": ["var(--font-roboto-mono)", "monospace"],
+        "merriweather": ["var(--font-merriweather)", "serif"],
       },
     },
     colors: {

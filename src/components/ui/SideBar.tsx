@@ -1,18 +1,19 @@
 import { IconNames } from "@/src/enums/IconNames";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { IconBlock } from "./IconBlock";
+import { SectionBlock } from "./SectionBlock";
 
 export const SideBar = () => {
   const [selected, setSelected] = useState<IconNames>(IconNames.CrisisAlert);
+  const [open, setOpen] = useState(true);
   const router = useRouter();
 
   const icons = [
-    { icon: IconNames.CrisisAlert, route: "/alerts" },
-    { icon: IconNames.Group, route: "/patients" },
-    { icon: IconNames.DeviceHub, route: "/sensors" },
-    { icon: IconNames.Info, route: "/guide" },
-    { icon: IconNames.Settings, route: "/general" },
+    { icon: IconNames.CrisisAlert, route: "/alerts", label: "Alertas" },
+    { icon: IconNames.Group, route: "/patients", label: "Pacientes" },
+    { icon: IconNames.DeviceHub, route: "/sensors", label: "Dispositivos" },
+    { icon: IconNames.Info, route: "/guide", label: "Guía Instructiva" },
+    { icon: IconNames.Settings, route: "/general", label: "General" },
   ];
 
   const handleIconClick = (icon: IconNames, path: string) => {
@@ -20,24 +21,50 @@ export const SideBar = () => {
     router.push(path);
   };
 
+  const toggleSidebar = () => {
+    setOpen((prev) => !prev);
+  };
+
   return (
-    <div className="flex flex-col items-center justify-between bg-blue-800 h-full w-16 py-4">
+    <div
+      className={`flex flex-col justify-between bg-blue-800 h-full py-4 transition-all duration-200 ${
+        open ? "w-56 px-4 relative" : "w-16 items-center"
+      }`}
+    >
       <div className="flex flex-col gap-y-16">
-        <IconBlock icon={IconNames.Menu} />
+        {open ? (
+          <div>
+            <SectionBlock
+              className="absolute top-0.5 right-0.5"
+              icon={IconNames.Close}
+              onClick={toggleSidebar}
+            />
+            <div className="title">
+              <img src="icons/deepker-original.webp" alt="logo" />
+              <p>DeepKer</p>
+            </div>
+          </div>
+        ) : (
+          <SectionBlock icon={IconNames.Menu} onClick={toggleSidebar} />
+        )}
         <div className="flex flex-col gap-y-3">
-          {icons.map(({ icon, route }) => (
-            <IconBlock
+          {icons.map(({ icon, route, label }) => (
+            <SectionBlock
               key={icon}
               icon={icon}
               selected={selected === icon}
+              label={open ? label : undefined}
               onClick={() => handleIconClick(icon, route)}
+              sidebarOpen={open}
             />
           ))}
         </div>
       </div>
-      <IconBlock
+      <SectionBlock
         icon={IconNames.Logout}
         selected={selected === IconNames.Logout}
+        label={open ? "Cerrar Sesión" : undefined}
+        sidebarOpen={open}
       />
     </div>
   );

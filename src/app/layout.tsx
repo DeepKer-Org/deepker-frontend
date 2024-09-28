@@ -1,6 +1,6 @@
 "use client";
 
-import { Poppins, Roboto_Mono } from "next/font/google";
+import { Merriweather, Poppins, Roboto_Mono } from "next/font/google";
 import "@/src/styles/globals.css";
 import { usePathname } from "next/navigation";
 import { SideBar } from "../components/ui/SideBar";
@@ -17,6 +17,13 @@ const roboto_mono = Roboto_Mono({
   display: "swap",
 });
 
+const merriweather = Merriweather({
+  subsets: ["latin"],
+  weight: ["300", "400", "700"],
+  variable: "--font-merriweather",
+  display: "swap",
+});
+
 export default function RootLayout({
   children,
 }: {
@@ -27,10 +34,10 @@ export default function RootLayout({
   const isAuthRoute = pathname.startsWith("/auth");
 
   return (
-    <html lang="en" className={`${poppins.variable} ${roboto_mono.variable}`}>
+    <html lang="en" className={`${poppins.variable} ${roboto_mono.variable} ${merriweather.variable}`}>
       <head>
         <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,FILL,GRAD@20..48,0..1,-50..200&icon_names=123,close,crisis_alert,device_hub,favorite,group,info,key,logout,medication,menu,monitor,monitor_heart,person,refresh,schedule,settings,visibility,warning&display=block"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,FILL,GRAD@20..48,0..1,-50..200&icon_names=123,close_small,crisis_alert,device_hub,favorite,group,info,key,logout,medication,menu,monitor,monitor_heart,person,refresh,schedule,settings,visibility,warning&display=block"
           rel="stylesheet"
         />
       </head>

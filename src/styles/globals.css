@@ -92,3 +92,23 @@ body {
     text-wrap: balance;
   }
 }
+
+@layer components {
+  .title {
+    display: flex;
+    padding-inline: 0.5rem;
+    flex-direction: row;
+    align-items: center;
+    img {
+      width: 1.5rem;
+      height: auto;
+      margin-right: 0.7rem;
+    }
+    p {
+      font-size: 1.25rem;
+      font-weight: 400;
+      font-family: var(--font-merriweather), serif;
+      color: var(--white);
+    }
+  }
+}

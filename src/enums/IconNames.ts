@@ -1,6 +1,6 @@
 export enum IconNames {
     Icon123 = "123",
-    SmallClose = "close_small",
+    Close = "close_small",
     CrisisAlert = "crisis_alert",
     DeviceHub = "device_hub",
     Favorite = "favorite",
