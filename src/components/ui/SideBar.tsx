@@ -38,6 +38,7 @@ export const SideBar = () => {
               className="absolute top-0.5 right-0.5"
               icon={IconNames.Close}
               onClick={toggleSidebar}
+              showHover={false}
             />
             <div className="title">
               <img src="icons/deepker-original.webp" alt="logo" />

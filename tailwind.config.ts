@@ -23,6 +23,7 @@ const config: Config = {
         100: "var(--blue-100)",
         500: "var(--blue-500)",
         800: "var(--blue-800)",
+        850: "var(--blue-850)",
       },
 
       green: {

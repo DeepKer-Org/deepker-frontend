@@ -12,6 +12,7 @@
   --gray-600: #717171; /* Medium gray */
 
   /* Blue shades */
+  --blue-850: #002d3d; /* Slightly darker than dark blue */
   --blue-800: #003649; /* Dark blue */
   --blue-500: #0a7ad6; /* Primary blue */
   --blue-100: #e3edff; /* Light blue */
@@ -49,6 +50,7 @@
     --gray-600: #717171; /* Medium gray */
 
     /* Blue shades */
+    --blue-850: #002d3d; /* Slightly darker than dark blue */
     --blue-800: #003649; /* Dark blue */
     --blue-500: #0a7ad6; /* Primary blue */
     --blue-100: #e3edff; /* Light blue */

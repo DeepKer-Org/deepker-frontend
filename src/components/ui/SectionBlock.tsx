@@ -9,6 +9,7 @@ interface SectionBlockProps {
   size?: number;
   label?: string;
   sidebarOpen?: boolean;
+  showHover?: boolean;
 }
 
 export const SectionBlock: React.FC<SectionBlockProps> = ({
@@ -18,7 +19,8 @@ export const SectionBlock: React.FC<SectionBlockProps> = ({
   className,
   size = 24,
   label,
-  sidebarOpen = true
+  sidebarOpen = true,
+  showHover = true,
 }) => {
   const [renderLabel, setRenderLabel] = useState(sidebarOpen);
 
@@ -34,7 +36,9 @@ export const SectionBlock: React.FC<SectionBlockProps> = ({
   return (
     <div
       className={`cursor-pointer ${
-        selected ? "selected text-blue-800 bg-white" : "text-white"
+        selected
+          ? "selected text-blue-800 bg-white"
+          : `text-white ${showHover && "hover:bg-blue-850"}`
       } p-2 rounded-md font-poppins flex flex-row ${className}`}
       onClick={onClick}
     >
