@@ -1,12 +1,13 @@
 import { IconNames } from "@/src/enums/IconNames";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { SectionBlock } from "./SectionBlock";
 
 export const SideBar = () => {
-  const [selected, setSelected] = useState<IconNames>(IconNames.CrisisAlert);
+  const [selected, setSelected] = useState<IconNames | null>(null);
   const [open, setOpen] = useState(true);
   const router = useRouter();
+  const pathname = usePathname();
 
   const icons = [
     { icon: IconNames.CrisisAlert, route: "/alerts", label: "Alertas" },
@@ -15,6 +16,13 @@ export const SideBar = () => {
     { icon: IconNames.Info, route: "/guide", label: "Guía Instructiva" },
     { icon: IconNames.Settings, route: "/general", label: "General" },
   ];
+
+  useEffect(() => {
+    const matchingIcon = icons.find((icon) => icon.route === pathname);
+    if (matchingIcon) {
+      setSelected(matchingIcon.icon);
+    }
+  }, [pathname]);
 
   const handleIconClick = (icon: IconNames, path: string) => {
     setSelected(icon);
