@@ -12,7 +12,7 @@ interface SectionBlockProps {
   showHover?: boolean;
 }
 
-export const SectionBlock: React.FC<SectionBlockProps> = ({
+const SectionBlock: React.FC<SectionBlockProps> = ({
   icon,
   selected = false,
   onClick,
@@ -52,3 +52,5 @@ export const SectionBlock: React.FC<SectionBlockProps> = ({
     </div>
   );
 };
+
+export default SectionBlock;

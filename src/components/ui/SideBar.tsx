@@ -1,9 +1,9 @@
 import { IconNames } from "@/src/enums/IconNames";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { SectionBlock } from "./SectionBlock";
+import SectionBlock from "./SectionBlock";
 
-export const SideBar = () => {
+const SideBar = () => {
   const [selected, setSelected] = useState<IconNames | null>(null);
   const [open, setOpen] = useState(true);
   const router = useRouter();
@@ -78,3 +78,5 @@ export const SideBar = () => {
     </div>
   );
 };
+
+export default SideBar;
