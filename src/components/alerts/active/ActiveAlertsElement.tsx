@@ -10,7 +10,7 @@ const ActiveAlertsElement: React.FC<ActiveAlertsElementsProps> = ({
   alert,
 }) => {
   return (
-    <div className="table-row grid-cols-[10%_18%_10%_18%_30%_14%]">
+    <div className="table-row active-grid-cols">
       <div className="row-border table-row-group text-center">
         <p>{formatDate(alert.alertTimestamp)}</p>
         <p>{formatTime(alert.alertTimestamp)}</p>

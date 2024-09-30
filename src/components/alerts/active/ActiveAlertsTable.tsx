@@ -7,7 +7,7 @@ const ActiveAlertsTable = () => {
 
   return (
     <div className="table-container">
-      <div className="table-header-row grid-cols-[10%_18%_10%_18%_30%_14%]">
+      <div className="table-header-row active-grid-cols">
         <p>FECHA</p>
         <p>PACIENTE</p>
         <p>LUGAR</p>
