@@ -7,11 +7,24 @@ import { useEffect, useState } from "react";
 export default function ActiveAlerts() {
   const [showActiveAlerts, setShowActiveAlerts] = useState(true);
   const [updateTime, setUpdateTime] = useState<string | null>(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  useEffect(() => {
+  const updateTimeNow = () => {
     const currentTime = new Date().toLocaleTimeString();
     setUpdateTime(currentTime);
+  };
+
+  useEffect(() => {
+    updateTimeNow();
   }, []);
+
+  const handleRefresh = () => {
+    setIsRefreshing(true);
+    updateTimeNow();
+    setTimeout(() => {
+      setIsRefreshing(false);
+    }, 700);
+  };
 
   return (
     <div>
@@ -35,7 +48,13 @@ export default function ActiveAlerts() {
           <p>
             ÚLTIMA ACTUALIZACIÓN: <span className="time">{updateTime}</span>
           </p>
-          <span className="material-symbols-outlined">refresh</span>
+          <span
+            className={`material-symbols-outlined cursor-pointer ${
+              isRefreshing ? "spin-animation" : ""
+            }`} onClick={handleRefresh}
+          >
+            refresh
+          </span>
         </div>
       </div>
       {showActiveAlerts ? <ActiveAlertsTable /> : <ResolvedAlertsTable />}
