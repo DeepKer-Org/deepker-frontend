@@ -40,7 +40,7 @@ export default function RootLayout({
     >
       <head>
         <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,FILL,GRAD@20..48,0..1,-50..200&icon_names=123,arrow_forward_ios,close_small,crisis_alert,device_hub,favorite,group,info,key,logout,medication,menu,monitor,monitor_heart,person,refresh,schedule,settings,visibility,warning&display=block"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,FILL,GRAD@20..48,0..1,-50..200&icon_names=123,arrow_drop_down,arrow_forward_ios,chevron_left,chevron_right,close_small,crisis_alert,device_hub,favorite,group,info,key,logout,medication,menu,monitor,monitor_heart,person,refresh,schedule,settings,visibility,warning&display=block"
           rel="stylesheet"
         />
       </head>
