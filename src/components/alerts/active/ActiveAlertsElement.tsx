@@ -10,7 +10,7 @@ const ActiveAlertsElement: React.FC<ActiveAlertsElementsProps> = ({
   alert,
 }) => {
   return (
-    <div className="table-row active-grid-cols">
+    <div className="table-row active-grid-cols ecgBp:grid-cols-[8%_20%_10%_20%_30%_12%]">
       <div className="row-border table-row-group text-center">
         <p>{formatDate(alert.alertTimestamp)}</p>
         <p>{formatTime(alert.alertTimestamp)}</p>
@@ -28,10 +28,10 @@ const ActiveAlertsElement: React.FC<ActiveAlertsElementsProps> = ({
         </div>
       </div>
       <div className="row-border flex flex-row">
-        <div className="w-9/12 bg-red-100 flex justify-center items-center">
+        <div className="w-9/12 bg-red-100 hidden ecgBp:flex justify-center items-center">
           <p>ECG</p>
         </div>
-        <div className="w-3/12 grid grid-rows-2">
+        <div className="w-full ecgBp:w-3/12 grid grid-rows-2">
           <div className="table-row-icon border-b-border-primary border w-full justify-center">
             <span className="material-symbols-outlined text-red-500">
               favorite

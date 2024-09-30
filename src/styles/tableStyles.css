@@ -92,12 +92,12 @@
         .table-row-group {
           display: flex;
           flex-direction: column;
-
-          .table-row-subtitle {
-            color: var(--text-muted);
-          }
         }
 
+        .table-row-subtitle {
+          color: var(--text-muted);
+        }
+        
         .table-row-icon {
           display: flex;
           flex-direction: row;
@@ -119,7 +119,6 @@
   }
 
   .active-grid-cols {
-    @apply lg:grid grid-cols-[10%_18%_10%_18%_30%_14%];
-
+    @apply grid grid-cols-[13%_25%_10%_23%_14%_15%];
   }
 }
