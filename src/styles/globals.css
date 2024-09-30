@@ -21,8 +21,9 @@
   --blue-100: #e3edff; /* Light blue */
 
   /* Green shades */
-  --green-500: #08af99; /* Primary green */
   --green-100: #e3f4ca; /* Light green */
+  --green-500: #08af99; /* Primary green */
+  --green-550: #079d88;
 
   /* Red shades */
   --red-500: #da000e; /* Primary red */
@@ -59,9 +60,10 @@
     --blue-500: #0a7ad6; /* Primary blue */
     --blue-100: #e3edff; /* Light blue */
 
-    /* Green shades */
-    --green-500: #08af99; /* Primary green */
-    --green-100: #e3f4ca; /* Light green */
+  /* Green shades */
+  --green-100: #e3f4ca; /* Light green */
+  --green-500: #08af99; /* Primary green */
+  --green-550: #079d88;
 
     /* Red shades */
     --red-500: #da000e; /* Primary red */

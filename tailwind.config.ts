@@ -38,6 +38,7 @@ const config: Config = {
       green: {
         100: "var(--green-100)",
         500: "var(--green-500)",
+        550: "var(--green-550)",
       },
 
       red: {

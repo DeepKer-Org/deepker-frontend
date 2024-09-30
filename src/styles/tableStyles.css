@@ -3,6 +3,19 @@
 @tailwind utilities;
 
 @layer utilities {
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .spin-animation {
+    animation: spin 0.5s ease-in-out;
+  }
+
   .table-toolbar {
     color: var(--gray-600);
     font-family: var(--font-poppins), sans-serif;
@@ -37,19 +50,6 @@
 
     .time {
       font-weight: 500;
-    }
-
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-    
-    .spin-animation {
-      animation: spin 0.5s ease-in-out; 
     }
   }
 
@@ -110,7 +110,7 @@
         .table-row-subtitle {
           color: var(--text-muted);
         }
-        
+
         .table-row-icon {
           display: flex;
           flex-direction: row;
@@ -126,6 +126,10 @@
           justify-content: center;
           align-items: center;
           padding-inline: 1rem;
+
+          &:hover {
+            background-color: var(--green-550);
+          }
         }
       }
     }
