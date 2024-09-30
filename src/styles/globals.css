@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './tableStyles.css';
+
 :root {
   /* White and Black */
   --white: #ffffff;
@@ -9,10 +11,11 @@
 
   /* Gray shades */
   --gray-100: #e0e0e0; /* Light gray */
+  --gray-200: #f7f7f7;
   --gray-600: #717171; /* Medium gray */
 
   /* Blue shades */
-  --blue-850: #002d3d; /* Slightly darker than dark blue */
+  --blue-850: #002d3d;
   --blue-800: #003649; /* Dark blue */
   --blue-500: #0a7ad6; /* Primary blue */
   --blue-100: #e3edff; /* Light blue */
@@ -36,7 +39,7 @@
   --text-primary: #000000;
   --text-secondary: #0a7ad6;
   --text-muted: #717171;
-  --border-primary: #dee2e6;
+  --border-primary: #e0e0e0;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -47,10 +50,11 @@
 
     /* Gray shades */
     --gray-100: #e0e0e0; /* Light gray */
+    --gray-200: #f7f7f7;
     --gray-600: #717171; /* Medium gray */
 
     /* Blue shades */
-    --blue-850: #002d3d; /* Slightly darker than dark blue */
+    --blue-850: #002d3d;
     --blue-800: #003649; /* Dark blue */
     --blue-500: #0a7ad6; /* Primary blue */
     --blue-100: #e3edff; /* Light blue */
@@ -74,7 +78,7 @@
     --text-primary: #000000;
     --text-secondary: #0a7ad6;
     --text-muted: #717171;
-    --border-primary: #dee2e6;
+    --border-primary: #e0e0e0;
   }
 }
 
@@ -105,42 +109,6 @@ h1 {
 }
 
 @layer utilities {
-  .table-header {
-    color: var(--gray-600);
-    font-family: var(--font-poppins), sans-serif;
-    font-size: 0.875rem;
-    font-weight: 400;
-    line-height: normal;
-    margin-top: 0.5rem;
-    margin-bottom: 0.75rem;
-
-    .option {
-      cursor: pointer;
-      transition: color 0.3s ease;
-      position: relative;
-      margin-inline: 0.35rem;
-    }
-
-    .option-active {
-      color: var(--blue-500);
-      position: relative;
-    }
-
-    .option-active::after {
-      content: "";
-      display: block;
-      position: absolute;
-      bottom: -1px; 
-      left: -10%; 
-      width: 120%; 
-      height: 1px; 
-      background-color: var(--blue-500); 
-    }
-
-    .time {
-      font-weight: 500;
-    }
-  }
 }
 
 @layer components {

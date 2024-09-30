@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .table-toolbar {
+    color: var(--gray-600);
+    font-family: var(--font-poppins), sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
+
+    .option {
+      cursor: pointer;
+      transition: color 0.3s ease;
+      position: relative;
+      margin-inline: 0.35rem;
+    }
+
+    .option-active {
+      color: var(--blue-500);
+      position: relative;
+    }
+
+    .option-active::after {
+      content: "";
+      display: block;
+      position: absolute;
+      bottom: -1px;
+      left: -10%;
+      width: 120%;
+      height: 1px;
+      background-color: var(--blue-500);
+    }
+
+    .time {
+      font-weight: 500;
+    }
+  }
+
+  .table-container {
+    border-color: var(--border-primary);
+    border-width: 1px;
+    margin-top: 1.5rem;
+    border-radius: 8px;
+    font-size: 14px;
+
+    .table-header-row {
+      border-radius: 8px 8px 0px 0px;
+      display: grid;
+      align-items: center;
+      text-align: center;
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-primary);
+      background-color: var(--blue-800);
+      color: var(--white);
+    }
+
+    .table-body {
+      .table-row {
+        display: grid;
+        align-items: center;
+        color: var(--text-primary);
+        font-weight: 500;
+        height: 4.5rem;
+
+        &:nth-child(even) {
+          background-color: var(--gray-200);
+        }
+
+        &:nth-child(odd) {
+          background-color: var(--white);
+        }
+
+        &:not(:last-child) {
+          border-bottom: 1px solid var(--border-primary);
+        }
+
+        &:last-child {
+          border-radius: 0px 0px 8px 8px;
+        }
+
+        .row-border {
+          border-right: 1px solid var(--border-primary);
+          display: flex;
+          justify-content: center;
+          height: 100%;
+        }
+
+        .table-row-group {
+          display: flex;
+          flex-direction: column;
+
+          .table-row-subtitle {
+            color: var(--text-muted);
+          }
+        }
+
+        .table-row-icon {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 0.25rem;
+        }
+
+        .table-attend {
+          background-color: var(--green-500);
+          color: var(--white);
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding-inline: 1rem;
+        }
+      }
+    }
+  }
+
+  .active-grid-cols {
+    @apply lg:grid grid-cols-[10%_18%_10%_18%_30%_14%];
+
+  }
+}

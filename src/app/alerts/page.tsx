@@ -1,7 +1,7 @@
 "use client";
 
-import { ActiveAlertsTable } from "@/src/components/alerts/ActiveAlertsTable";
-import { ResolvedAlertsTable } from "@/src/components/alerts/ResolvedAlertsTable";
+import ActiveAlertsTable from "@/src/components/alerts/active/ActiveAlertsTable";
+import { ResolvedAlertsTable } from "@/src/components/alerts/resolved/ResolvedAlertsTable";
 import { useEffect, useState } from "react";
 
 export default function ActiveAlerts() {
@@ -16,7 +16,7 @@ export default function ActiveAlerts() {
   return (
     <div>
       <h1>Panel de Alertas</h1>
-      <div className="table-header flex flex-row justify-between">
+      <div className="table-toolbar flex flex-row justify-between">
         <div className="flex flex-row gap-x-4 mx-2">
           <div
             className={`option ${showActiveAlerts ? "option-active" : ""}`}
@@ -32,7 +32,9 @@ export default function ActiveAlerts() {
           </div>
         </div>
         <div className="flex flex-row items-center gap-x-1">
-          <p>ÚLTIMA ACTUALIZACIÓN: <span className="time">{updateTime}</span></p>
+          <p>
+            ÚLTIMA ACTUALIZACIÓN: <span className="time">{updateTime}</span>
+          </p>
           <span className="material-symbols-outlined">refresh</span>
         </div>
       </div>
