@@ -20,13 +20,13 @@ const PatientsTable = () => {
 
   return (
     <div className="table-container">
-      <div className="table-header-row patient-grid-cols">
+      <div className="table-header-row patient-grid-cols xl:grid-cols-[22%_12%_12%_22%_16%_16%] tableBp:grid-cols-[20%_9%_7%_21%_13%_14%_16%]">
         <p>NOMBRE DE PACIENTE</p>
         <p>DNI</p>
         <p>EDAD</p>
         <p>MÉDICO ASOCIADO</p>
-        <p>LUGAR</p>
-        <p>FECHA DE INGRESO</p>
+        <p className='hidden xl:block'>LUGAR</p>
+        <p className='hidden tableBp:block'>FECHA DE INGRESO</p>
         <p>OPCIONES</p>
         
       </div>

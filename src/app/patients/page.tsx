@@ -42,6 +42,7 @@ export default function Patients() {
               text="Filtros Avanzados"
               color={ButtonColor.PRIMARY}
               onClick={() => {}}
+              className="hidden xl:block"
             />
             <p className="ml-2">
               ÚLTIMA ACTUALIZACIÓN: <span className="time">{updateTime}</span>

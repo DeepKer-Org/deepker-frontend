@@ -163,6 +163,6 @@
   }
 
   .patient-grid-cols {
-    @apply grid-cols-[20%_9%_7%_21%_13%_14%_16%]
+    @apply grid-cols-[25%_15%_12%_25%_23%]
   }
 }
