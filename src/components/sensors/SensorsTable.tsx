@@ -19,10 +19,10 @@ const SensorsTable = () => {
 
   return (
     <div className="table-container">
-      <div className="table-header-row sensor-grid-cols">
+      <div className="table-header-row sensor-grid-cols tableBp:grid-cols-[20%_25%_25%_30%]">
         <p>ID DE SENSOR</p>
         <p>PACIENTE VINCULADO</p>
-        <p>VINCULADO POR</p>
+        <p className="hidden tableBp:block">VINCULADO POR</p>
         <p>OPCIONES</p>
       </div>
       <div className="table-body">

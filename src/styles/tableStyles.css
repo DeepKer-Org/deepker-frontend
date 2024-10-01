@@ -167,6 +167,6 @@
   }
 
   .sensor-grid-cols {
-    @apply grid-cols-[20%_25%_25%_30%]
+    @apply grid-cols-[20%_35%_45%]
   }
 }

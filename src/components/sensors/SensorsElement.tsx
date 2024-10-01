@@ -18,7 +18,7 @@ const SensorsElement: React.FC<SensorsElementProps> = ({ sensor }) => {
   };
 
   return (
-    <div className="table-row sensor-grid-cols">
+    <div className="table-row sensor-grid-cols tableBp:grid-cols-[20%_25%_25%_30%]">
       <div className="cell-border table-row-group px-4">
         <p>{sensor.sensorId}</p>
       </div>
@@ -26,7 +26,7 @@ const SensorsElement: React.FC<SensorsElementProps> = ({ sensor }) => {
         <p>{sensor.patient.name}</p>
         <p className="table-row-subtitle">{sensor.patient.dni}</p>
       </div>
-      <div className="cell-border table-row-group px-4">
+      <div className="hidden tableBp:flex flex-col h-full row-border px-4">
         <p>{sensor.linkedBy}</p>
         <p className="table-row-subtitle">{sensor.linkedBy}</p>
       </div>
