@@ -14,6 +14,7 @@ const ResolvedAlertsElement: React.FC<ResolvedAlertsElementsProps> = ({
   const handleDetails = () => {
     router.push(`/alerts/${alert.alertId}`);
   };
+
   return (
     <div className="table-row resolved-grid-cols xl:grid-cols-[15%_22%_10%_22%_15%_16%] tableBp:grid-cols-[10%_20%_8%_17%_19%_12%_14%]">
       <div className="cell-border table-row-group text-center">

@@ -1,0 +1,38 @@
+import React, { useState } from "react";
+
+interface SearchInputProps {
+  placeholder: string;
+  onSubmit: (value: string) => void;
+}
+
+const SearchInput: React.FC<SearchInputProps> = ({ placeholder, onSubmit }) => {
+  const [inputValue, setInputValue] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      onSubmit(inputValue);
+    }
+  };
+
+  return (
+    <div className="relative w-96">
+      <span className="absolute top-1 left-2 pointer-events-none">
+        <span className="material-symbols-outlined">search</span>
+      </span>
+      <input
+        type="text"
+        value={inputValue}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        placeholder={placeholder}
+        className="border border-border-secondary rounded-lg w-full pl-10 pr-2 py-1" 
+      />
+    </div>
+  );
+};
+
+export default SearchInput;

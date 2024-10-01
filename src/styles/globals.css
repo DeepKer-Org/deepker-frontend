@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import './tableStyles.css';
+@import "./tableStyles.css";
 
 :root {
   /* White and Black */
@@ -18,6 +18,7 @@
   --blue-850: #002d3d;
   --blue-800: #003649; /* Dark blue */
   --blue-500: #0a7ad6; /* Primary blue */
+  --blue-550: #096bbf;
   --blue-100: #e3edff; /* Light blue */
 
   /* Green shades */
@@ -27,6 +28,7 @@
 
   /* Red shades */
   --red-500: #da000e; /* Primary red */
+  --red-550: #c2000d;
   --red-100: #f0aca5; /* Light red */
 
   /* Yellow/Orange shades */
@@ -41,6 +43,7 @@
   --text-secondary: #0a7ad6;
   --text-muted: #717171;
   --border-primary: #e0e0e0;
+  --border-secondary: #717171;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -58,15 +61,17 @@
     --blue-850: #002d3d;
     --blue-800: #003649; /* Dark blue */
     --blue-500: #0a7ad6; /* Primary blue */
+    --blue-550: #096bbf;
     --blue-100: #e3edff; /* Light blue */
 
-  /* Green shades */
-  --green-100: #e3f4ca; /* Light green */
-  --green-500: #08af99; /* Primary green */
-  --green-550: #079d88;
+    /* Green shades */
+    --green-100: #e3f4ca; /* Light green */
+    --green-500: #08af99; /* Primary green */
+    --green-550: #079d88;
 
     /* Red shades */
     --red-500: #da000e; /* Primary red */
+    --red-550: #c2000d;
     --red-100: #f0aca5; /* Light red */
 
     /* Yellow/Orange shades */
@@ -81,6 +86,7 @@
     --text-secondary: #0a7ad6;
     --text-muted: #717171;
     --border-primary: #e0e0e0;
+    --border-secondary: #717171;
   }
 }
 

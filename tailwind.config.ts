@@ -26,6 +26,7 @@ const config: Config = {
       blue: {
         100: "var(--blue-100)",
         500: "var(--blue-500)",
+        550: "var(--blue-550)",
         800: "var(--blue-800)",
         850: "var(--blue-850)",
       },
@@ -39,6 +40,7 @@ const config: Config = {
       red: {
         100: "var(--red-100)",
         500: "var(--red-500)",
+        550: "var(--red-550)",
       },
 
       yellow: {
@@ -55,6 +57,7 @@ const config: Config = {
       "text-secondary": "var(--text-secondary)",
       "text-muted": "var(--text-muted)",
       "border-primary": "var(--border-primary)",
+      "border-secondary": "var(--border-secondary)",
     },
   },
   plugins: [],

@@ -1,7 +1,3 @@
-import { Biometric } from "./biometric";
-import { ComputerDiagnosis } from "./computerDiagnosis";
-import { Patient } from "./patient";
-
 export type Alert = {
     alertId: string;
     alertStatus: string;
@@ -12,4 +8,24 @@ export type Alert = {
     biometrics: Biometric;
     computerDiagnoses: ComputerDiagnosis[];
     patient: Patient;
+}
+
+type Patient = {
+    dni: string;
+    name: string;
+    currentLocation: string;
+    finalDiagnosis: string;
+    associatedDoctors: string[];
+}
+
+type Biometric = {
+    O2Saturation: number;
+    heartRate: number;
+    systolicBloodPressure: number;
+    diastolicBloodPressure: number;
+}
+
+type ComputerDiagnosis = {
+    diagnosis: string;
+    percentage: number;
 }

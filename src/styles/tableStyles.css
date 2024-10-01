@@ -90,7 +90,7 @@
         align-items: center;
         color: var(--text-primary);
         font-weight: 500;
-        height: 4.5rem;
+        height: 4.25rem;
 
         &:nth-child(even) {
           background-color: var(--gray-200);
@@ -160,5 +160,9 @@
 
   .resolved-grid-cols {
     @apply grid-cols-[20%_30%_30%_20%]
+  }
+
+  .patient-grid-cols {
+    @apply grid-cols-[20%_9%_7%_21%_13%_14%_16%]
   }
 }

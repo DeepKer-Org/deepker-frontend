@@ -1,20 +1,20 @@
-import { IconNames } from "@/src/enums/IconNames";
+import { IconName } from "@/src/enums/IconName";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import SectionBlock from "./SectionBlock";
 
 const SideBar = () => {
-  const [selected, setSelected] = useState<IconNames | null>(null);
+  const [selected, setSelected] = useState<IconName | null>(null);
   const [open, setOpen] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
 
   const icons = [
-    { icon: IconNames.CrisisAlert, route: "/alerts", label: "Alertas" },
-    { icon: IconNames.Group, route: "/patients", label: "Pacientes" },
-    { icon: IconNames.DeviceHub, route: "/sensors", label: "Dispositivos" },
-    { icon: IconNames.Info, route: "/guide", label: "Guía Instructiva" },
-    { icon: IconNames.Settings, route: "/general", label: "General" },
+    { icon: IconName.CrisisAlert, route: "/alerts", label: "Alertas" },
+    { icon: IconName.Group, route: "/patients", label: "Pacientes" },
+    { icon: IconName.DeviceHub, route: "/sensors", label: "Dispositivos" },
+    { icon: IconName.Info, route: "/guide", label: "Guía Instructiva" },
+    { icon: IconName.Settings, route: "/general", label: "General" },
   ];
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const SideBar = () => {
     }
   }, [pathname]);
 
-  const handleIconClick = (icon: IconNames, path: string) => {
+  const handleIconClick = (icon: IconName, path: string) => {
     setSelected(icon);
     router.push(path);
   };
@@ -35,7 +35,7 @@ const SideBar = () => {
 
   return (
     <div
-      className={`flex flex-col justify-between bg-blue-800 h-full py-4 transition-all duration-200 ${
+      className={`flex flex-col justify-between bg-blue-800 h-full overflow-y-auto py-4 transition-all duration-200 ${
         open ? "w-56 px-4 relative" : "w-16 items-center"
       }`}
     >
@@ -44,7 +44,7 @@ const SideBar = () => {
           <div>
             <SectionBlock
               className="absolute top-0.5 right-0.5"
-              icon={IconNames.Close}
+              icon={IconName.Close}
               onClick={toggleSidebar}
               showHover={false}
             />
@@ -54,7 +54,7 @@ const SideBar = () => {
             </div>
           </div>
         ) : (
-          <SectionBlock icon={IconNames.Menu} onClick={toggleSidebar} />
+          <SectionBlock icon={IconName.Menu} onClick={toggleSidebar} />
         )}
         <div className="flex flex-col gap-y-3">
           {icons.map(({ icon, route, label }) => (
@@ -70,8 +70,8 @@ const SideBar = () => {
         </div>
       </div>
       <SectionBlock
-        icon={IconNames.Logout}
-        selected={selected === IconNames.Logout}
+        icon={IconName.Logout}
+        selected={selected === IconName.Logout}
         label={open ? "Cerrar Sesión" : undefined}
         sidebarOpen={open}
       />

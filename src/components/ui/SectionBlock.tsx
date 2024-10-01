@@ -1,8 +1,8 @@
-import { IconNames } from "@/src/enums/IconNames";
+import { IconName } from "@/src/enums/IconName";
 import { useEffect, useState } from "react";
 
 interface SectionBlockProps {
-  icon: IconNames;
+  icon: IconName;
   selected?: boolean;
   onClick?: () => void;
   className?: string;

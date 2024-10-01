@@ -1,4 +1,4 @@
-export enum IconNames {
+export enum IconName {
     Icon123 = "123",
     Close = "close_small",
     CrisisAlert = "crisis_alert",
