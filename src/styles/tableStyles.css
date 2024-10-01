@@ -165,4 +165,8 @@
   .patient-grid-cols {
     @apply grid-cols-[25%_15%_12%_25%_23%]
   }
+
+  .sensor-grid-cols {
+    @apply grid-cols-[20%_25%_25%_30%]
+  }
 }

@@ -4,7 +4,7 @@ export interface FilterData {
   age: string;
   doctorName: string;
   location: string;
-  deviceID: string;
+  deviceId: string;
   risk: string;
   admissionDate: string;
   dischargeDate: string;

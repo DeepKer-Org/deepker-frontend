@@ -16,7 +16,7 @@ const initialFilterData: FilterData = {
   age: "",
   doctorName: "",
   location: "",
-  deviceID: "",
+  deviceId: "",
   risk: "",
   admissionDate: "",
   dischargeDate: "",
@@ -69,8 +69,8 @@ const PatientFilterModal: React.FC<PatientFilterModalProps> = ({
           label="Lugar"
         />
         <ModalInput
-          name={"deviceID"}
-          value={formValues.deviceID}
+          name={"deviceId"}
+          value={formValues.deviceId}
           onChange={handleInputChange}
           label="ID de Dispositivo"
         />
