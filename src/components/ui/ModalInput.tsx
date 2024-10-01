@@ -6,7 +6,7 @@ interface ModalInputProps {
   className?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  type?: "text" | "date" | "email" | "password";
+  type?: "text" | "date" | "email" | "password" | "number";
 }
 
 const ModalInput: React.FC<ModalInputProps> = ({

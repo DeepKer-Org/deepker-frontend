@@ -1,20 +1,23 @@
 import { useState } from "react";
 
 type FormValues = {
-  [key: string]: string;
+  [key: string]: any;
 };
 
-const useForm = (
-  initialValues: FormValues,
-  onSubmit: (values: FormValues) => void
+const useForm = <T extends FormValues> (
+  initialValues: T,
+  onSubmit: (values: T) => void
 ) => {
-  const [formValues, setFormValues] = useState<FormValues>(initialValues);
+  const [formValues, setFormValues] = useState<T>(initialValues);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
+    const newValue = e.target.type === 'number' ? Number(value) : value;
+
     setFormValues({
       ...formValues,
-      [name]: value,
+      [name]: newValue
     });
   };
 

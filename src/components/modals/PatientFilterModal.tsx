@@ -3,28 +3,31 @@ import Button from "../ui/Button";
 import { ButtonColor } from "@/src/enums/ButtonColor";
 import ModalInput from "../ui/ModalInput";
 import useForm from "@/src/hooks/useForm";
+import { FilterData } from "@/src/types/filterData";
 
 interface PatientFilterModalProps {
   onClose: () => void;
-  onFilter: (filterData: any) => void;
+  onFilter: (filterData: FilterData) => void;
 }
+
+const initialFilterData: FilterData = {
+  patientName: "",
+  dni: "",
+  age: "",
+  doctorName: "",
+  location: "",
+  deviceID: "",
+  risk: "",
+  admissionDate: "",
+  dischargeDate: "",
+};
 
 const PatientFilterModal: React.FC<PatientFilterModalProps> = ({
   onClose,
   onFilter,
 }) => {
   const { formValues, handleInputChange, handleSubmit } = useForm(
-    {
-      patientName: "",
-      dni: "",
-      age: "",
-      doctorName: "",
-      location: "",
-      deviceID: "",
-      risk: "",
-      admissionDate: "",
-      dischargeDate: "",
-    },
+    initialFilterData,
     onFilter
   );
 
@@ -48,6 +51,7 @@ const PatientFilterModal: React.FC<PatientFilterModalProps> = ({
         <ModalInput
           name={"age"}
           value={formValues.age}
+          type={"number"}
           onChange={handleInputChange}
           label="Edad"
         />

@@ -6,6 +6,7 @@ import Button from "@/src/components/ui/Button";
 import SearchInput from "@/src/components/ui/SearchInput";
 import { ButtonColor } from "@/src/enums/ButtonColor";
 import { useEffect, useState } from "react";
+import { FilterData } from "@/src/types/filterData";
 
 export default function Patients() {
   const [updateTime, setUpdateTime] = useState<string | null>(null);
@@ -36,7 +37,7 @@ export default function Patients() {
     setIsModalOpen(false);
   };
 
-  const handleFilter = (filterData: any) => {
+  const handleFilter = (filterData: FilterData) => {
     console.log("Filter Data:", filterData);
     // TODO: Implement filter logic
 
