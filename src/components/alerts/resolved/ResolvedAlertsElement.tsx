@@ -12,7 +12,7 @@ const ResolvedAlertsElement: React.FC<ResolvedAlertsElementsProps> = ({
 }) => {
   const router = useRouter();
   const handleDetails = () => {
-    router.push(`/alerts/${alert.alertId}`);
+    router.push(`/alerts/resolved/${alert.alertId}`);
   };
 
   return (

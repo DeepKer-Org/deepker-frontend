@@ -12,7 +12,7 @@ const ActiveAlertsElement: React.FC<ActiveAlertsElementsProps> = ({
 }) => {
   const router = useRouter();
   const handleDetails = () => {
-    router.push(`/alerts/${alert.alertId}`);
+    router.push(`/alerts/active/${alert.alertId}`);
   }
 
   return (
