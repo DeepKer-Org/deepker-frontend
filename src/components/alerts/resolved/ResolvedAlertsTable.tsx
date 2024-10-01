@@ -2,7 +2,7 @@
 import { resolvedAlerts } from "@/src/data/alerts";
 import ResolvedAlertsElement from "./ResolvedAlertsElement";
 import { useState } from "react";
-import Pagination from "../../shared/Pagination";
+import Pagination from "../../ui/Pagination";
 
 export const ResolvedAlertsTable = () => {
   const data = resolvedAlerts;

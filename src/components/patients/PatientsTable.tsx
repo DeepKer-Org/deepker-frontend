@@ -1,8 +1,8 @@
 "use client";
-import React, { useState } from 'react'
-import Pagination from '../shared/Pagination'
-import { patients } from '@/src/data/patients';
-import PatientsElement from './PatientsElement';
+import React, { useState } from "react";
+import Pagination from "../ui/Pagination";
+import { patients } from "@/src/data/patients";
+import PatientsElement from "./PatientsElement";
 
 const PatientsTable = () => {
   const data = patients;
@@ -25,10 +25,9 @@ const PatientsTable = () => {
         <p>DNI</p>
         <p>EDAD</p>
         <p>MÉDICO ASOCIADO</p>
-        <p className='hidden xl:block'>LUGAR</p>
-        <p className='hidden tableBp:block'>FECHA DE INGRESO</p>
+        <p className="hidden xl:block">LUGAR</p>
+        <p className="hidden tableBp:block">FECHA DE INGRESO</p>
         <p>OPCIONES</p>
-        
       </div>
       <div className="table-body">
         {paginatedData.map((patient) => (
@@ -41,7 +40,7 @@ const PatientsTable = () => {
         onPageChange={handlePageChange}
       />
     </div>
-  )
-}
+  );
+};
 
-export default PatientsTable
+export default PatientsTable;

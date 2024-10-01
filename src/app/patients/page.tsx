@@ -1,5 +1,7 @@
 "use client";
+import PatientFilterModal from "@/src/components/modals/PatientFilterModal";
 import PatientsTable from "@/src/components/patients/PatientsTable";
+import ModalWrapper from "@/src/components/ui/ModalWrapper";
 import Button from "@/src/components/ui/Button";
 import SearchInput from "@/src/components/ui/SearchInput";
 import { ButtonColor } from "@/src/enums/ButtonColor";
@@ -8,6 +10,7 @@ import { useEffect, useState } from "react";
 export default function Patients() {
   const [updateTime, setUpdateTime] = useState<string | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const updateTimeNow = () => {
     const currentTime = new Date().toLocaleTimeString();
@@ -24,6 +27,15 @@ export default function Patients() {
       setIsRefreshing(false);
     }, 700);
   };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="flex h-full">
       <div className="flex-1 overflow-x-auto">
@@ -41,7 +53,7 @@ export default function Patients() {
             <Button
               text="Filtros Avanzados"
               color={ButtonColor.PRIMARY}
-              onClick={() => {}}
+              onClick={handleOpenModal}
               className="hidden xl:block"
             />
             <p className="ml-2">
@@ -57,6 +69,9 @@ export default function Patients() {
             </span>
           </div>
         </div>
+        <ModalWrapper isOpen={isModalOpen} width="66rem">
+          <PatientFilterModal onClose={handleCloseModal} onFilter={handleCloseModal} />
+        </ModalWrapper>
         <PatientsTable />
       </div>
     </div>
