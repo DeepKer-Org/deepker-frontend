@@ -36,7 +36,7 @@ const SideBar = () => {
   return (
     <div
       className={`flex flex-col justify-between bg-blue-800 h-full overflow-y-auto py-4 transition-all duration-200 ${
-        open ? "w-56 px-4 relative" : "w-16 items-center"
+        open ? "w-56 min-w-56 max-w-56 px-4 relative" : "w-16 min-w-16 max-w-16 items-center"
       }`}
     >
       <div className="flex flex-col gap-y-16">
