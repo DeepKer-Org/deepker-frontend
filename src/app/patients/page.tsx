@@ -36,6 +36,13 @@ export default function Patients() {
     setIsModalOpen(false);
   };
 
+  const handleFilter = (filterData: any) => {
+    console.log("Filter Data:", filterData);
+    // TODO: Implement filter logic
+
+    handleCloseModal();
+  };
+
   return (
     <div className="flex h-full">
       <div className="flex-1 overflow-x-auto">
@@ -70,7 +77,7 @@ export default function Patients() {
           </div>
         </div>
         <ModalWrapper isOpen={isModalOpen} width="66rem">
-          <PatientFilterModal onClose={handleCloseModal} onFilter={handleCloseModal} />
+          <PatientFilterModal onClose={handleCloseModal} onFilter={handleFilter} />
         </ModalWrapper>
         <PatientsTable />
       </div>

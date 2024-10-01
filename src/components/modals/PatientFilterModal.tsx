@@ -2,29 +2,95 @@ import React from "react";
 import Button from "../ui/Button";
 import { ButtonColor } from "@/src/enums/ButtonColor";
 import ModalInput from "../ui/ModalInput";
+import useForm from "@/src/hooks/useForm";
 
 interface PatientFilterModalProps {
   onClose: () => void;
-  onFilter: () => void;
+  onFilter: (filterData: any) => void;
 }
 
 const PatientFilterModal: React.FC<PatientFilterModalProps> = ({
   onClose,
   onFilter,
 }) => {
+  const { formValues, handleInputChange, handleSubmit } = useForm(
+    {
+      patientName: "",
+      dni: "",
+      age: "",
+      doctorName: "",
+      location: "",
+      deviceID: "",
+      risk: "",
+      admissionDate: "",
+      dischargeDate: "",
+    },
+    onFilter
+  );
+
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <h1 className="mb-6">Búsqueda Avanzada</h1>
       <div className="grid grid-cols-4 grid-rows-3 gap-6 bg-white border border-border-primary rounded-lg p-6">
-        <ModalInput label="Nombre del Paciente" className="col-span-2" />
-        <ModalInput label="Nombre del Paciente" />
-        <ModalInput label="Nombre del Paciente" />
-        <ModalInput label="Nombre del Paciente" className="col-span-2" />
-        <ModalInput label="Nombre del Paciente" />
-        <ModalInput label="Nombre del Paciente" />
-        <ModalInput label="Nombre del Paciente" className="col-span-2" />
-        <ModalInput label="Nombre del Paciente" />
-        <ModalInput label="Nombre del Paciente" />
+        <ModalInput
+          name={"patientName"}
+          value={formValues.patientName}
+          onChange={handleInputChange}
+          label="Nombre del Paciente"
+          className="col-span-2"
+        />
+        <ModalInput
+          name={"dni"}
+          value={formValues.dni}
+          onChange={handleInputChange}
+          label="DNI"
+        />
+        <ModalInput
+          name={"age"}
+          value={formValues.age}
+          onChange={handleInputChange}
+          label="Edad"
+        />
+        <ModalInput
+          name={"doctorName"}
+          value={formValues.doctorName}
+          onChange={handleInputChange}
+          label="Doctor Asignado"
+          className="col-span-2"
+        />
+        <ModalInput
+          name={"location"}
+          value={formValues.location}
+          onChange={handleInputChange}
+          label="Lugar"
+        />
+        <ModalInput
+          name={"deviceID"}
+          value={formValues.deviceID}
+          onChange={handleInputChange}
+          label="ID de Dispositivo"
+        />
+        <ModalInput
+          name={"risk"}
+          value={formValues.risk}
+          onChange={handleInputChange}
+          label="Riesgos Preexistentes"
+          className="col-span-2"
+        />
+        <ModalInput
+          name={"admissionDate"}
+          value={formValues.admissionDate}
+          type={"date"}
+          onChange={handleInputChange}
+          label="Fecha de Admisión"
+        />
+        <ModalInput
+          name={"dischargeDate"}
+          value={formValues.dischargeDate}
+          type={"date"}
+          onChange={handleInputChange}
+          label="Fecha de Alta"
+        />
       </div>
       <div className="w-full flex justify-end gap-x-4 mt-8">
         <Button
@@ -36,11 +102,11 @@ const PatientFilterModal: React.FC<PatientFilterModalProps> = ({
         <Button
           text={"Filtrar"}
           color={ButtonColor.PRIMARY}
-          onClick={onFilter}
+          type="submit"
           className="w-40"
         />
       </div>
-    </div>
+    </form>
   );
 };
 
