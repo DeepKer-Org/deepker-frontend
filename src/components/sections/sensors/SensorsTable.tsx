@@ -1,6 +1,6 @@
 import { sensors } from '@/src/data/sensors';
 import React, { useState } from 'react'
-import Pagination from '../ui/Pagination';
+import Pagination from '../../ui/Pagination';
 import SensorsElement from './SensorsElement';
 
 const SensorsTable = () => {

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Pagination from "../ui/Pagination";
+import Pagination from "../../ui/Pagination";
 import { patients } from "@/src/data/patients";
 import PatientsElement from "./PatientsElement";
 

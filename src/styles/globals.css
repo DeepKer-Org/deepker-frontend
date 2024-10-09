@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import "./tableStyles.css";
+@import "./monitorStyles.css";
 
 :root {
   /* White and Black */
@@ -19,7 +20,7 @@
   --blue-800: #003649; /* Dark blue */
   --blue-500: #0a7ad6; /* Primary blue */
   --blue-550: #096bbf;
-  --blue-100: #e3edff; /* Light blue */
+  --blue-100: #C2EBFC; /* Light blue */
 
   /* Green shades */
   --green-100: #e3f4ca; /* Light green */
@@ -62,7 +63,7 @@
     --blue-800: #003649; /* Dark blue */
     --blue-500: #0a7ad6; /* Primary blue */
     --blue-550: #096bbf;
-    --blue-100: #e3edff; /* Light blue */
+    --blue-100: #C2EBFC; /* Light blue */
 
     /* Green shades */
     --green-100: #e3f4ca; /* Light green */
@@ -113,6 +114,14 @@ h1 {
   color: var(--text-primary);
   font-style: normal;
   font-weight: 500;
+  line-height: normal;
+}
+
+h4 {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
   line-height: normal;
 }
 

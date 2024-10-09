@@ -1,7 +1,7 @@
 import React from "react";
-import Button from "../ui/Button";
+import Button from "../../ui/buttons/Button";
 import { ButtonColor } from "@/src/enums/ButtonColor";
-import ModalInput from "../ui/ModalInput";
+import ModalInput from "../../ui/inputs/ModalInput";
 import useForm from "@/src/hooks/useForm";
 import { FilterData } from "@/src/types/filterData";
 

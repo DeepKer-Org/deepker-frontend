@@ -1,8 +1,8 @@
 import useForm from "@/src/hooks/useForm";
 import { LinkData } from "@/src/types/linkData";
 import React from "react";
-import ModalInput from "../ui/ModalInput";
-import Button from "../ui/Button";
+import ModalInput from "../../ui/inputs/ModalInput";
+import Button from "../../ui/buttons/Button";
 import { ButtonColor } from "@/src/enums/ButtonColor";
 
 interface SensorLinkModalProps {

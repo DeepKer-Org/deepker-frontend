@@ -1,9 +1,9 @@
 "use client";
-import PatientFilterModal from "@/src/components/modals/PatientFilterModal";
-import PatientsTable from "@/src/components/patients/PatientsTable";
-import ModalWrapper from "@/src/components/ui/ModalWrapper";
-import Button from "@/src/components/ui/Button";
-import SearchInput from "@/src/components/ui/SearchInput";
+import PatientFilterModal from "@/src/components/sections/modals/PatientFilterModal";
+import PatientsTable from "@/src/components/sections/patients/PatientsTable";
+import ModalWrapper from "@/src/components/ui/wrappers/ModalWrapper";
+import Button from "@/src/components/ui/buttons/Button";
+import SearchInput from "@/src/components/ui/inputs/SearchInput";
 import { ButtonColor } from "@/src/enums/ButtonColor";
 import { useEffect, useState } from "react";
 import { FilterData } from "@/src/types/filterData";

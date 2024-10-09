@@ -1,10 +1,10 @@
 "use client";
 
-import SensorLinkModal from "@/src/components/modals/SensorLinkModal";
-import SensorsTable from "@/src/components/sensors/SensorsTable";
-import Button from "@/src/components/ui/Button";
-import ModalWrapper from "@/src/components/ui/ModalWrapper";
-import SearchInput from "@/src/components/ui/SearchInput";
+import SensorLinkModal from "@/src/components/sections/modals/SensorLinkModal";
+import SensorsTable from "@/src/components/sections/sensors/SensorsTable";
+import Button from "@/src/components/ui/buttons/Button";
+import ModalWrapper from "@/src/components/ui/wrappers/ModalWrapper";
+import SearchInput from "@/src/components/ui/inputs/SearchInput";
 import { ButtonColor } from "@/src/enums/ButtonColor";
 import { LinkData } from "@/src/types/linkData";
 import { useEffect, useState } from "react";

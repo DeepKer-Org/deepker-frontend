@@ -49,7 +49,7 @@ const SideBar = () => {
               showHover={false}
             />
             <div className="title">
-              <img src="icons/deepker-original.webp" alt="logo" />
+              <img src="/icons/deepker-original.webp" alt="logo" />
               <p>DeepKer</p>
             </div>
           </div>

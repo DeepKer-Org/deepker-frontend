@@ -1,7 +1,7 @@
 "use client";
 
-import ActiveAlertsTable from "@/src/components/alerts/active/ActiveAlertsTable";
-import { ResolvedAlertsTable } from "@/src/components/alerts/resolved/ResolvedAlertsTable";
+import ActiveAlertsTable from "@/src/components/sections/alerts/active/ActiveAlertsTable";
+import { ResolvedAlertsTable } from "@/src/components/sections/alerts/resolved/ResolvedAlertsTable";
 import { useEffect, useState } from "react";
 
 export default function ActiveAlerts() {

@@ -1,7 +1,7 @@
 import { Sensor } from "@/src/types/sensor";
 import { useRouter } from "next/navigation";
 import React from "react";
-import Button from "../ui/Button";
+import Button from "../../ui/buttons/Button";
 import { ButtonColor } from "@/src/enums/ButtonColor";
 interface SensorsElementProps {
   sensor: Sensor;

@@ -1,4 +1,4 @@
-import InfoElement from "@/src/components/general/InfoElement";
+import InfoElement from "@/src/components/sections/general/InfoElement";
 
 export default function General() {
   return (

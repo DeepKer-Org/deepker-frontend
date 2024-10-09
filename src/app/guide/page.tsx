@@ -5,7 +5,7 @@ export default function Guide() {
       <div className="flex flex-row mt-6">
         <p>Le damos la bienvenida a</p>
         <div className="title-on-text">
-          <img src="icons/deepker-original.webp" alt="logo" />
+          <img src="/icons/deepker-original.webp" alt="logo" />
           <p>DeepKer</p>
         </div>
       </div>
