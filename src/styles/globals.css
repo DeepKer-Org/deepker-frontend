@@ -4,6 +4,7 @@
 
 @import "./tableStyles.css";
 @import "./monitorStyles.css";
+@import "./detailStyles.css";
 
 :root {
   /* White and Black */
@@ -123,6 +124,15 @@ h4 {
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+}
+
+p {
+  font-size: 16px;
+  font-style: normal;
+}
+
+button {
+  font-size: 14px;
 }
 
 @layer utilities {

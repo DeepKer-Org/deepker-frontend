@@ -10,7 +10,7 @@ import DetailColumnWrapper from "@/src/components/ui/wrappers/DetailColumnWrappe
 const ActiveAlertDetail = ({params}: { params: { id: string } }) => {
     console.log(params.id);
     return (
-        <div className={"h-full overflow-y-auto leading-7 "}>
+        <div className={"h-full overflow-y-auto leading-7"}>
             <div className="flex flex-row gap-x-8 items-center">
                 <ReturnButton/>
                 <Button text={"Atender"} color={ButtonColor.SUCCESS} className="w-40"/>
