@@ -18,8 +18,8 @@
     .details__container {
         flex-grow: 1;
         display: grid;
-        column-gap: 2.5rem;
-        row-gap: 2.5rem;
+        column-gap: 1.75rem;
+        row-gap: 1.75rem;
         min-width: 1200px; /* So that the screen doesn't shrink too much */
         overflow-x: auto;
 
