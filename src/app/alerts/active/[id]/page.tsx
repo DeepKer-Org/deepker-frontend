@@ -17,22 +17,22 @@ const ActiveAlertDetail = ({params}: { params: { id: string } }) => {
             </div>
             <div className={"grid grid-cols-4 mt-2 mb-4"}>
                 <DetailColumnWrapper hasLeftBorder={true}>
+                    <IconTitle icon={"person"} title={"Datos del paciente:"} className={"mb-2"}/>
                     <DetailRow label={"Nombre:"} name={"Nombre Apellido"}/>
                     <DetailRow label={"DNI:"} name={"Mi dni"}/>
                     <DetailRow label={"Lugar:"} name={"Mi lugar"}/>
-                    <DetailRow label={"Fecha:"} name={"Mi fecha"}/>
-                    <DetailRow label={"Hora Alerta:"} name={"Mi hora"}/>
+                    <DetailRow label={"Hora alerta:"} name={"Mi hora"}/>
                 </DetailColumnWrapper>
                 <DetailColumnWrapper hasLeftBorder={true}>
                     <IconTitle icon={"medication"} title={"Medicación actual:"}/>
                     <ul className={"list-disc ml-8 mt-2"}>
-                        <li><span className={"font-semibold"}>Hello:</span> 100 mg - Diario</li>
-                        <li><span className={"font-semibold"}>Hello:</span> 100 mg - Diario</li>
-                        <li><span className={"font-semibold"}>Hello:</span> 100 mg - Diario</li>
-                        <li><span className={"font-semibold"}>Hello:</span> 100 mg - Diario</li>
-                        <li><span className={"font-semibold"}>Hello:</span> 100 mg - Diario</li>
-                        <li><span className={"font-semibold"}>Hello:</span> 100 mg - Diario</li>
-                        <li><span className={"font-semibold"}>Hello:</span> 100 mg - Diario</li>
+                        <li><span className={"font-semibold mr-1"}>Hello:</span> 100 mg - Diario</li>
+                        <li><span className={"font-semibold mr-1"}>Hello:</span> 100 mg - Diario</li>
+                        <li><span className={"font-semibold mr-1"}>Hello:</span> 100 mg - Diario</li>
+                        <li><span className={"font-semibold mr-1"}>Hello:</span> 100 mg - Diario</li>
+                        <li><span className={"font-semibold mr-1"}>Hello:</span> 100 mg - Diario</li>
+                        <li><span className={"font-semibold mr-1"}>Hello:</span> 100 mg - Diario</li>
+                        <li><span className={"font-semibold mr-1"}>Hello:</span> 100 mg - Diario</li>
                     </ul>
                 </DetailColumnWrapper>
                 <DetailColumnWrapper hasLeftBorder={true}>
