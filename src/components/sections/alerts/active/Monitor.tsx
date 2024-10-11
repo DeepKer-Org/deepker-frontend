@@ -23,7 +23,7 @@ const Monitor = () => {
                 </div>
                 <h1 className={"text-green-100"}>60</h1>
             </div>
-            <div className={"flex flex-row col-span-4 text-blue-100 gap-x-10"}>
+            <div className={"flex flex-row col-span-4 text-cyan-100 gap-x-10"}>
                 <h4>PLETH</h4>
                 <svg className={"mt-10"} width="720" height="103" viewBox="0 0 720 103"
                      xmlns="http://www.w3.org/2000/svg">
@@ -34,13 +34,13 @@ const Monitor = () => {
                     </g>
                 </svg>
             </div>
-            <div className={"flex flex-row text-blue-100 col-span-1 gap-x-6 justify-end"}>
+            <div className={"flex flex-row text-cyan-100 col-span-1 gap-x-6 justify-end"}>
                 <div className={"flex flex-col mt-4"}>
                     <h4>SPO2</h4>
                     <h5 className={"text-right"}>84</h5>
                     <h5 className={"text-right"}>100</h5>
                 </div>
-                <h1 className={"text-blue-100"}>90</h1>
+                <h1 className={"text-cyan-100"}>90</h1>
             </div>
             <div className={"flex flex-col col-span-2 text-red-100"}>
                 <h4>NBP</h4>

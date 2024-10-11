@@ -1,4 +1,4 @@
-export interface FilterData {
+export type FilterData = {
   patientName: string;
   dni: string;
   age: string;
