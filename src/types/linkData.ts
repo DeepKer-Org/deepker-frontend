@@ -1,4 +1,4 @@
-export interface LinkData {
+export type LinkData = {
   sensorId: string;
   patientDni: string;
 }
