@@ -26,7 +26,7 @@ const ResolvedAlertDetail = ({params}: { params: { id: string } }) => {
                 </CardWrapper>
                 <CardWrapper className={"row-span-2"}>
                     <IconTitle className={"mb-4"} icon={"health_and_safety"} title={"Atendido por:"}/>
-                    <ul>
+                    <ul className={"ul__container"}>
                         <li>Doc. Francesco Lomparte</li>
                         <li>Enf. Juliana Bautista</li>
                     </ul>
@@ -37,7 +37,7 @@ const ResolvedAlertDetail = ({params}: { params: { id: string } }) => {
                 </CardWrapper>
                 <CardWrapper className={"row-span-2"}>
                     <IconTitle className={"mb-4"} icon={"warning"} title={"Riesgos preexistentes:"}/>
-                    <ul>
+                    <ul className={"ul__container"}>
                         <li>Diabetes Mellitus</li>
                         <li>Obesidad</li>
                         <li>Antecedente de Infarto de Miocardio (Preinfarto)</li>
@@ -46,7 +46,7 @@ const ResolvedAlertDetail = ({params}: { params: { id: string } }) => {
                 <CardWrapper className={"row-span-2"}>
                     <IconTitle altIconColor className={"mb-4"} icon={"medication"}
                                title={"Medicina previa a la alerta:"}/>
-                    <ul>
+                    <ul className={"ul__container"}>
                         <li><span>Hello:</span> 100 mg - Diario</li>
                         <li><span>Hello:</span> 100 mg - Diario</li>
                         <li><span>Hello:</span> 100 mg - Diario</li>
@@ -56,7 +56,7 @@ const ResolvedAlertDetail = ({params}: { params: { id: string } }) => {
                 <CardWrapper className={"row-span-2"}>
                     <IconTitle className={"mb-4"} icon={"medication"}
                                title={"Medicina aplicada tras la alerta:"}/>
-                    <ul>
+                    <ul className={"ul__container"}>
                         <li><span>Hello:</span> 100 mg - Diario</li>
                         <li><span>Hello:</span> 100 mg - Diario</li>
                         <li><span>Hello:</span> 100 mg - Diario</li>

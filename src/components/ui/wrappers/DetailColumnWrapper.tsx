@@ -6,7 +6,7 @@ const DetailColumnWrapper = ({children, hasLeftBorder = false}: {
 }) => {
     return (
         <div
-            className={`flex flex-col my-4 px-8 h-40 overflow-auto ${hasLeftBorder ? "border-r border-r-border-primary" : ""}`}>
+            className={`flex flex-col my-4 px-8 h-40 overflow-auto no-scrollbar ${hasLeftBorder ? "border-r border-r-border-primary" : ""}`}>
             {children}
         </div>
     )

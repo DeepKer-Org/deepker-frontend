@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 @import "./tableStyles.css";
-@import "./monitorStyles.css";
 @import "./detailStyles.css";
 
 :root {
@@ -133,6 +132,14 @@ p {
 
 button {
   font-size: 14px;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Hides scrollbar for Chrome, Safari, and Edge */
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* Hides scrollbar for IE and Edge */
+  scrollbar-width: none;     /* Hides scrollbar for Firefox */
 }
 
 @layer utilities {
