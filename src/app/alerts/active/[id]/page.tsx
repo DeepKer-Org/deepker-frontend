@@ -10,48 +10,48 @@ import DetailColumnWrapper from "@/src/components/ui/wrappers/DetailColumnWrappe
 const ActiveAlertDetail = ({params}: { params: { id: string } }) => {
     console.log(params.id);
     return (
-        <div className={"h-full overflow-y-auto leading-7"}>
-            <div className="flex flex-row gap-x-8 items-center">
+        <div className={"page__container"}>
+            <div className="button__container">
                 <ReturnButton/>
                 <Button text={"Atender"} color={ButtonColor.SUCCESS} className="w-40"/>
             </div>
-            <div className={"grid grid-cols-4 mt-2 mb-4"}>
+            <div className={"grid grid-cols-4 mb-4"}>
                 <DetailColumnWrapper hasLeftBorder={true}>
-                    <IconTitle icon={"person"} title={"Datos del paciente:"} className={"mb-2"}/>
+                    <IconTitle className={"mb-4"} icon={"person"} title={"Datos del paciente:"}/>
                     <DetailRow label={"Nombre:"} name={"Nombre Apellido"}/>
                     <DetailRow label={"DNI:"} name={"Mi dni"}/>
                     <DetailRow label={"Lugar:"} name={"Mi lugar"}/>
                     <DetailRow label={"Hora alerta:"} name={"Mi hora"}/>
                 </DetailColumnWrapper>
                 <DetailColumnWrapper hasLeftBorder={true}>
-                    <IconTitle icon={"medication"} title={"Medicación actual:"}/>
-                    <ul className={"list-disc ml-8 mt-2"}>
-                        <li><span className={"font-semibold mr-1"}>Hello:</span> 100 mg - Diario</li>
-                        <li><span className={"font-semibold mr-1"}>Hello:</span> 100 mg - Diario</li>
-                        <li><span className={"font-semibold mr-1"}>Hello:</span> 100 mg - Diario</li>
-                        <li><span className={"font-semibold mr-1"}>Hello:</span> 100 mg - Diario</li>
-                        <li><span className={"font-semibold mr-1"}>Hello:</span> 100 mg - Diario</li>
-                        <li><span className={"font-semibold mr-1"}>Hello:</span> 100 mg - Diario</li>
-                        <li><span className={"font-semibold mr-1"}>Hello:</span> 100 mg - Diario</li>
+                    <IconTitle className={"mb-4"} icon={"medication"} title={"Medicación actual:"}/>
+                    <ul className={"ul__container"}>
+                        <li><span>Hello:</span> 100 mg - Diario</li>
+                        <li><span>Hello:</span> 100 mg - Diario</li>
+                        <li><span>Hello:</span> 100 mg - Diario</li>
+                        <li><span>Hello:</span> 100 mg - Diario</li>
+                        <li><span>Hello:</span> 100 mg - Diario</li>
+                        <li><span>Hello:</span> 100 mg - Diario</li>
+                        <li><span>Hello:</span> 100 mg - Diario</li>
                     </ul>
                 </DetailColumnWrapper>
                 <DetailColumnWrapper hasLeftBorder={true}>
-                    <IconTitle icon={"monitor"} title={"Diagnósticos de Deepker:"}/>
-                    <ul className={"list-disc ml-8 mt-2 xl:mr-4"}>
+                    <IconTitle className={"mb-4"} icon={"monitor"} title={"Diagnósticos de Deepker:"}/>
+                    <ul className={"ul__container--col xl:mr-6"}>
                         <li>
-                            <div className={"flex flex-row w-full justify-between"}>
+                            <div>
                                 <p>Paro Cardíaco</p>
                                 <p className={"font-semibold"}>90%</p>
                             </div>
                         </li>
                         <li>
-                            <div className={"flex flex-row w-full justify-between"}>
+                            <div>
                                 <p>Paro Cardíaco</p>
                                 <p className={"font-semibold"}>90%</p>
                             </div>
                         </li>
                         <li>
-                            <div className={"flex flex-row w-full justify-between"}>
+                            <div>
                                 <p>Paro Cardíaco</p>
                                 <p className={"font-semibold"}>90%</p>
                             </div>
@@ -60,8 +60,8 @@ const ActiveAlertDetail = ({params}: { params: { id: string } }) => {
 
                 </DetailColumnWrapper>
                 <DetailColumnWrapper>
-                    <IconTitle icon={"warning"} title={"Riesgos preexistentes:"}/>
-                    <ul className={"list-disc ml-8 mt-2"}>
+                    <IconTitle className={"mb-4"} icon={"warning"} title={"Riesgos preexistentes:"}/>
+                    <ul className={"ul__container"}>
                         <li>Diabetes Mellitus</li>
                         <li>Diabetes Mellitus</li>
                         <li>Antecedente de Infarto de Miocardio (Preinfarto)</li>

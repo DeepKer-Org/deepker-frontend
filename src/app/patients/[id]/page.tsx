@@ -95,7 +95,7 @@ const PatientDetail = ({params}: { params: { id: string } }) => {
                 </CardWrapper>
                 <CardWrapper className={"row-span-3"}>
                     <IconTitle className={"mb-4"} icon={"warning"} title={"Riesgos preexistentes:"}/>
-                    <ul>
+                    <ul className={"ul__container"}>
                         <li>Diabetes Mellitus</li>
                         <li>Obesidad</li>
                         <li>Antecedente de Infarto de Miocardio (Preinfarto)</li>
@@ -168,19 +168,17 @@ const PatientDetail = ({params}: { params: { id: string } }) => {
                 </CardWrapper>
                 <CardWrapper className={"row-span-2"}>
                     <IconTitle className={"mb-4"} icon={"health_and_safety"} title={"Médico asociado:"}/>
-                    <ul>
-                        <li>Doc. Francesco Lomparte</li>
-                    </ul>
+                    <p>Doc. Francesco Lomparte</p>
                 </CardWrapper>
                 <CardWrapper className={"row-span-7 timeline__container relative"}>
                     <h4>Linea de tiempo</h4>
-                    <div className={"timeline__header "}>
+                    <div className={"timeline__header"}>
                         <div className={"timeline__date"}><p>Desde:</p> <MonthYearPicker
                             onDateChange={handleInitDateChange}/></div>
                         <div className={"timeline__date"}><p>Hasta:</p> <MonthYearPicker
                             onDateChange={handleDateChange}/></div>
                     </div>
-                    <div className={"timeline__body "}>
+                    <div className={"timeline__body no-scrollbar"}>
                         {timelineElements.map((element) => (
                             <TimelineElement key={element.id} date={element.date} title={element.title}
                                              description={element.description}/>
@@ -192,7 +190,7 @@ const PatientDetail = ({params}: { params: { id: string } }) => {
                 <CardWrapper className={"row-span-3"}>
                     <IconTitle className={"mb-4"} icon={"medication"}
                                title={"Medicación actual:"}/>
-                    <ul>
+                    <ul className={"ul__container"}>
                         <li><span>Hello:</span> 100 mg - Diario</li>
                         <li><span>Hello:</span> 100 mg - Diario</li>
                         <li><span>Hello:</span> 100 mg - Diario</li>

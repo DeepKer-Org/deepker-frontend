@@ -5,7 +5,7 @@ const Monitor = () => {
         <div
             className={"monitor grid-cols-5 w-[1200px] xl:w-[1320px] h-[620px] xl:h-[640px] overflow-x-auto"}>
             <div className={"flex flex-row col-span-4 text-green-100 gap-x-10"}>
-                <h4>ECG</h4>
+                <p className={"monitor__text--h4"}>ECG</p>
                 <svg className={"mt-10"} width="720" height="103" viewBox="0 0 720 103"
                      xmlns="http://www.w3.org/2000/svg">
                     <g clipPath="url(#clip0_157_778)">
@@ -17,14 +17,14 @@ const Monitor = () => {
             </div>
             <div className={"flex flex-row text-green-100 col-span-1 gap-x-6 justify-end"}>
                 <div className={"flex flex-col mt-4"}>
-                    <h4>BPM</h4>
-                    <h5 className={"text-right"}>120</h5>
-                    <h5 className={"text-right"}>60</h5>
+                    <p className={"monitor__text--h4"}>BPM</p>
+                    <p className={"text-right monitor__text--h5"}>120</p>
+                    <p className={"text-right monitor__text--h5"}>60</p>
                 </div>
-                <h1 className={"text-green-100"}>60</h1>
+                <p className={"text-green-100 monitor__text--h1"}>60</p>
             </div>
             <div className={"flex flex-row col-span-4 text-cyan-100 gap-x-10"}>
-                <h4>PLETH</h4>
+                <p className={"monitor__text--h4"}>PLETH</p>
                 <svg className={"mt-10"} width="720" height="103" viewBox="0 0 720 103"
                      xmlns="http://www.w3.org/2000/svg">
                     <g clipPath="url(#clip0_157_778)">
@@ -36,35 +36,35 @@ const Monitor = () => {
             </div>
             <div className={"flex flex-row text-cyan-100 col-span-1 gap-x-6 justify-end"}>
                 <div className={"flex flex-col mt-4"}>
-                    <h4>SPO2</h4>
-                    <h5 className={"text-right"}>84</h5>
-                    <h5 className={"text-right"}>100</h5>
+                    <p className={"monitor__text--h4"}>SPO2</p>
+                    <p className={"monitor__text__h5 text-right"}>84</p>
+                    <p className={"monitor__text__h5 text-right"}>100</p>
                 </div>
-                <h1 className={"text-cyan-100"}>90</h1>
+                <p className={"monitor__text--h1 text-cyan-100"}>90</p>
             </div>
             <div className={"flex flex-col col-span-2 text-red-100"}>
-                <h4>NBP</h4>
-                <h4>Sys.</h4>
+                <p className={"monitor__text--h4"}>NBP</p>
+                <p className={"monitor__text--h4"}>Sys.</p>
                 <div className={"flex flex-row mt-4"}>
                     <div className={"flex flex-col"}>
-                        <h5 className={"text-right"}>100</h5>
-                        <h5 className={"text-right"}>90</h5>
+                        <p className={"monitor__text--h5 text-right"}>100</p>
+                        <p className={"monitor__text--h5 text-right"}>90</p>
                     </div>
-                    <h1 className={"text-red-100"}>121/82</h1>
+                    <p className={"monitor__text--h1 text-red-100"}>121/82</p>
                 </div>
             </div>
             <div className={"flex flex-col col-span-2 text-red-100 text-right mr-8 xl:mr-20"}>
-                <h4>NBP</h4>
-                <h4>mmHg</h4>
+                <p className={"monitor__text--h4"}>NBP</p>
+                <p className={"monitor__text--h4"}>mmHg</p>
                 <div className={"flex flex-row mt-2 w-full justify-end"}>
-                    <h1 className={"text-red-100 mr-6 xl:mr-16"}>(89)</h1>
+                    <p className={"monitor__text--h1 text-red-100 mr-6 xl:mr-16"}>(89)</p>
                 </div>
             </div>
             <div className={"flex flex-col text-yellow-100 col-span-1 justify-end pb-8"}>
-                <h4 className={"ml-4"}>Temp</h4>
-                <h2 className={"text-right"}>37.3</h2>
-                <h3 className={"text-right"}>40.1</h3>
-                <h3 className={"text-right"}>36.9</h3>
+                <p className={"monitor__text--h4 ml-4"}>Temp</p>
+                <p className={"monitor__text--h2 text-right"}>37.3</p>
+                <p className={"monitor__text--h3 text-right"}>40.1</p>
+                <p className={"monitor__text--h3 text-right"}>36.9</p>
             </div>
         </div>
     )
