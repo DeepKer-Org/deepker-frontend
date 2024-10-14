@@ -32,12 +32,12 @@
       font-style: normal;
     }
 
-    .option-active {
+    .option-unattended {
       color: var(--blue-500);
       position: relative;
     }
 
-    .option-active::after {
+    .option-unattended::after {
       content: "";
       display: block;
       position: absolute;
@@ -161,11 +161,11 @@
     }
   }
 
-  .active-grid-cols {
+  .unattended-grid-cols {
     @apply grid-cols-[13%_25%_10%_23%_14%_15%];
   }
 
-  .resolved-grid-cols {
+  .attended-grid-cols {
     @apply grid-cols-[20%_30%_30%_20%]
   }
 

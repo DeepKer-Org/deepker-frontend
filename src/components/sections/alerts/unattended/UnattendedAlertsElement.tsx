@@ -3,20 +3,20 @@ import { formatDate, formatTime } from "@/src/utils/formatTime";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-interface ActiveAlertsElementsProps {
+interface UnattendedAlertsElementsProps {
   alert: Alert;
 }
 
-const ActiveAlertsElement: React.FC<ActiveAlertsElementsProps> = ({
+const UnattendedAlertsElement: React.FC<UnattendedAlertsElementsProps> = ({
   alert,
 }) => {
   const router = useRouter();
   const handleDetails = () => {
-    router.push(`/alerts/active/${alert.alertId}`);
+    router.push(`/alerts/unattended/${alert.alertId}`);
   }
 
   return (
-    <div className="table-row active-grid-cols tableBp:grid-cols-[8%_20%_10%_20%_30%_12%]">
+    <div className="table-row unattended-grid-cols tableBp:grid-cols-[8%_20%_10%_20%_30%_12%]">
       <div className="cell-border table-row-group text-center">
         <p>{formatDate(alert.alertTimestamp)}</p>
         <p>{formatTime(alert.alertTimestamp)}</p>
@@ -64,4 +64,4 @@ const ActiveAlertsElement: React.FC<ActiveAlertsElementsProps> = ({
   );
 };
 
-export default ActiveAlertsElement;
+export default UnattendedAlertsElement;

@@ -3,11 +3,11 @@ import ReturnButton from "@/src/components/ui/buttons/ReturnButton";
 import {ButtonColor} from "@/src/enums/ButtonColor";
 import React from "react";
 import DetailRow from "@/src/components/ui/DetailRow";
-import Monitor from "@/src/components/sections/alerts/active/Monitor";
+import Monitor from "@/src/components/sections/alerts/unattended/Monitor";
 import IconTitle from "@/src/components/ui/IconTitle";
 import DetailColumnWrapper from "@/src/components/ui/wrappers/DetailColumnWrapper";
 
-const ActiveAlertDetail = ({params}: { params: { id: string } }) => {
+const UnattendedAlertDetail = ({params}: { params: { id: string } }) => {
     console.log(params.id);
     return (
         <div className={"page__container"}>
@@ -74,4 +74,4 @@ const ActiveAlertDetail = ({params}: { params: { id: string } }) => {
     );
 };
 
-export default ActiveAlertDetail;
+export default UnattendedAlertDetail;

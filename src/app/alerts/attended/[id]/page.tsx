@@ -4,7 +4,7 @@ import IconTitle from "@/src/components/ui/IconTitle";
 import DetailRow from "@/src/components/ui/DetailRow";
 import ReturnButton from "@/src/components/ui/buttons/ReturnButton";
 
-const ResolvedAlertDetail = ({params}: { params: { id: string } }) => {
+const AttendedAlertDetail = ({params}: { params: { id: string } }) => {
     return (
         <div className={"page__container"}>
             <div className="button__container">
@@ -68,4 +68,4 @@ const ResolvedAlertDetail = ({params}: { params: { id: string } }) => {
     )
 }
 
-export default ResolvedAlertDetail
+export default AttendedAlertDetail

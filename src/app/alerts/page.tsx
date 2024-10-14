@@ -1,11 +1,11 @@
 "use client";
 
-import ActiveAlertsTable from "@/src/components/sections/alerts/active/ActiveAlertsTable";
-import { ResolvedAlertsTable } from "@/src/components/sections/alerts/resolved/ResolvedAlertsTable";
+import UnattendedAlertsTable from "@/src/components/sections/alerts/unattended/UnattendedAlertsTable";
+import { AttendedAlertsTable } from "@/src/components/sections/alerts/attended/AttendedAlertsTable";
 import { useEffect, useState } from "react";
 
-export default function ActiveAlerts() {
-  const [showActiveAlerts, setShowActiveAlerts] = useState(true);
+export default function UnattendedAlerts() {
+  const [showUnattendedAlerts, setShowUnattendedAlerts] = useState(true);
   const [updateTime, setUpdateTime] = useState<string | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -33,16 +33,16 @@ export default function ActiveAlerts() {
         <div className="table-toolbar flex flex-row justify-between">
           <div className="flex flex-row gap-x-4 mx-2">
             <div
-              className={`option ${showActiveAlerts ? "option-active" : ""}`}
-              onClick={() => setShowActiveAlerts(true)}
+              className={`option ${showUnattendedAlerts ? "option-unattended" : ""}`}
+              onClick={() => setShowUnattendedAlerts(true)}
             >
-              <p>Alertas Activas</p>
+              <p>No Atendidas</p>
             </div>
             <div
-              className={`option ${!showActiveAlerts ? "option-active" : ""}`}
-              onClick={() => setShowActiveAlerts(false)}
+              className={`option ${!showUnattendedAlerts ? "option-unattended" : ""}`}
+              onClick={() => setShowUnattendedAlerts(false)}
             >
-              <p>Alertas Resueltas</p>
+              <p>Atendidas</p>
             </div>
           </div>
           <div className="flex flex-row items-center gap-x-1">
@@ -59,7 +59,7 @@ export default function ActiveAlerts() {
             </span>
           </div>
         </div>
-        {showActiveAlerts ? <ActiveAlertsTable /> : <ResolvedAlertsTable />}
+        {showUnattendedAlerts ? <UnattendedAlertsTable /> : <AttendedAlertsTable />}
       </div>
     </div>
   );

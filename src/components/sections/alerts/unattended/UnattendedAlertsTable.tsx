@@ -1,13 +1,13 @@
 "use client";
 import { activeAlerts } from "@/src/data/alerts";
-import ActiveAlertsElement from "./ActiveAlertsElement";
+import UnattendedAlertsElement from "./UnattendedAlertsElement";
 
-const ActiveAlertsTable = () => {
+const UnattendedAlertsTable = () => {
   const data = activeAlerts;
 
   return (
     <div className="table-container">
-      <div className="table-header-row active-grid-cols tableBp:grid-cols-[8%_20%_10%_20%_30%_12%]">
+      <div className="table-header-row unattended-grid-cols tableBp:grid-cols-[8%_20%_10%_20%_30%_12%]">
         <p>FECHA</p>
         <p>PACIENTE</p>
         <p>LUGAR</p>
@@ -18,11 +18,11 @@ const ActiveAlertsTable = () => {
       </div>
       <div className="table-body">
         {data.map((alert) => (
-          <ActiveAlertsElement key={alert.alertId} alert={alert} />
+          <UnattendedAlertsElement key={alert.alertId} alert={alert} />
         ))}
       </div>
     </div>
   );
 };
 
-export default ActiveAlertsTable;
+export default UnattendedAlertsTable;

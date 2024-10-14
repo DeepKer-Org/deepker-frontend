@@ -1,10 +1,10 @@
 "use client";
 import { resolvedAlerts } from "@/src/data/alerts";
-import ResolvedAlertsElement from "./ResolvedAlertsElement";
+import AttendedAlertsElement from "./AttendedAlertsElement";
 import { useState } from "react";
 import Pagination from "../../../ui/Pagination";
 
-export const ResolvedAlertsTable = () => {
+export const AttendedAlertsTable = () => {
   const data = resolvedAlerts;
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -24,7 +24,7 @@ export const ResolvedAlertsTable = () => {
 
   return (
     <div className="table-container">
-      <div className="table-header-row resolved-grid-cols xl:grid-cols-[15%_22%_10%_22%_15%_16%] tableBp:grid-cols-[10%_20%_8%_17%_19%_12%_14%]">
+      <div className="table-header-row attended-grid-cols xl:grid-cols-[15%_22%_10%_22%_15%_16%] tableBp:grid-cols-[10%_20%_8%_17%_19%_12%_14%]">
         <p>FECHA</p>
         <p>PACIENTE</p>
         <p className="hidden xl:block">LUGAR</p>
@@ -36,7 +36,7 @@ export const ResolvedAlertsTable = () => {
       </div>
       <div className="table-body">
         {paginatedData.map((alert) => (
-          <ResolvedAlertsElement key={alert.alertId} alert={alert} />
+          <AttendedAlertsElement key={alert.alertId} alert={alert} />
         ))}
       </div>
       <Pagination

@@ -3,20 +3,20 @@ import { formatDate, formatTime } from "@/src/utils/formatTime";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-interface ResolvedAlertsElementsProps {
+interface AttendedAlertsElementsProps {
   alert: Alert;
 }
 
-const ResolvedAlertsElement: React.FC<ResolvedAlertsElementsProps> = ({
+const AttendedAlertsElement: React.FC<AttendedAlertsElementsProps> = ({
   alert,
 }) => {
   const router = useRouter();
   const handleDetails = () => {
-    router.push(`/alerts/resolved/${alert.alertId}`);
+    router.push(`/alerts/attended/${alert.alertId}`);
   };
 
   return (
-    <div className="table-row resolved-grid-cols xl:grid-cols-[15%_22%_10%_22%_15%_16%] tableBp:grid-cols-[10%_20%_8%_17%_19%_12%_14%]">
+    <div className="table-row attended-grid-cols xl:grid-cols-[15%_22%_10%_22%_15%_16%] tableBp:grid-cols-[10%_20%_8%_17%_19%_12%_14%]">
       <div className="cell-border table-row-group text-center">
         <p>{formatDate(alert.alertTimestamp)}</p>
         <p>{formatTime(alert.alertTimestamp)}</p>
@@ -55,4 +55,4 @@ const ResolvedAlertsElement: React.FC<ResolvedAlertsElementsProps> = ({
   );
 };
 
-export default ResolvedAlertsElement;
+export default AttendedAlertsElement;
