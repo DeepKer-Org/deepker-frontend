@@ -12,14 +12,14 @@ const UnattendedAlertsElement: React.FC<UnattendedAlertsElementsProps> = ({
 }) => {
   const router = useRouter();
   const handleDetails = () => {
-    router.push(`/alerts/unattended/${alert.alertId}`);
+    router.push(`/alerts/unattended/${alert.alert_id}`);
   }
 
   return (
     <div className="table-row unattended-grid-cols tableBp:grid-cols-[8%_20%_10%_20%_30%_12%]">
       <div className="cell-border table-row-group text-center">
-        <p>{formatDate(alert.alertTimestamp)}</p>
-        <p>{formatTime(alert.alertTimestamp)}</p>
+        <p>{formatDate(alert.alert_timestamp)}</p>
+        <p>{formatTime(alert.alert_timestamp)}</p>
       </div>
       <div className="cell-border table-row-group px-4">
         <p>{alert.patient.name}</p>
@@ -27,7 +27,7 @@ const UnattendedAlertsElement: React.FC<UnattendedAlertsElementsProps> = ({
       </div>
       <div className="cell-border table-row-group text-center">{alert.room}</div>
       <div className="cell-border table-row-group px-4">
-        <p>{alert.patient.finalDiagnosis}</p>
+        <p>{alert.patient.final_diagnosis}</p>
         <div className="table-row-subtitle table-row-icon">
           <span className="material-symbols-outlined">monitor</span>
           <p>DeepKer</p>
@@ -42,13 +42,13 @@ const UnattendedAlertsElement: React.FC<UnattendedAlertsElementsProps> = ({
             <span className="material-symbols-outlined text-red-500">
               favorite
             </span>
-            <p>{alert.biometrics.O2Saturation} %</p>
+            <p>{alert.biometric_data.o2_saturation} %</p>
           </div>
           <div className="table-row-icon justify-center">
             <span className="material-symbols-outlined text-blue-500">
               monitor_heart
             </span>
-            <p>{alert.biometrics.heartRate} bpm</p>
+            <p>{alert.biometric_data.heart_rate} bpm</p>
           </div>
         </div>
       </div>
