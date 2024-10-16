@@ -17,5 +17,6 @@ export enum IconName {
     Schedule = "schedule",
     Settings = "settings",
     Visibility = "visibility",
-    Warning = "warning"
+    Warning = "warning",
+    AccountBox = "account_box",
 }

@@ -1,11 +1,12 @@
-import InfoElement from "@/src/components/sections/general/InfoElement";
+import InfoElement from "@/src/components/sections/account/InfoElement";
 
-export default function General() {
+export default function Account() {
   return (
     <div className="w-[660px] mx-auto">
-      <h1>Información General</h1>
-      <div className="flex flex-col w-full gap-y-8 mt-8">
+      <h1>Cuenta</h1>
+      <div className="flex flex-col w-full gap-y-6 mt-6">
         <div>
+          <h4 className={"mb-4"}>Usuario</h4>
           <InfoElement
             label="Nombre Completo"
             value="Carlos Alejandro Rosales Mercedes"
@@ -15,14 +16,11 @@ export default function General() {
           <InfoElement
             label="Centro de Trabajo"
             value="Hospital General de México"
-          />
-          <InfoElement
-            label="Horarios"
-            value="L-V 8:00 AM a 5:00 PM"
             lastElement
           />
         </div>
         <div>
+          <h4 className={"mb-4"}>Aplicación</h4>
           <InfoElement label="Nombre del Sistema" value="DeepKer" />
           <InfoElement label="Versión" value="1.0.0" lastElement />
         </div>
