@@ -7,14 +7,18 @@ import DetailRow from "@/src/components/ui/DetailRow";
 import Monitor from "@/src/components/sections/alerts/unattended/Monitor";
 import IconTitle from "@/src/components/ui/IconTitle";
 import DetailColumnWrapper from "@/src/components/ui/wrappers/DetailColumnWrapper";
-import {Alert, AlertResponse} from "@/src/types/alert";
-import {fetchAlert} from "@/src/api/alerts";
+import {Alert, AlertMarkAttendanceRequest, AlertResponse} from "@/src/types/alert";
+import {fetchAlert, updateAlert} from "@/src/api/alerts";
 import {formatTime} from "@/src/utils/formatTime";
+import {enqueueSnackbar} from "notistack";
+import {useRouter} from "next/navigation";
 
 const UnattendedAlertDetail = ({params}: { params: { id: string } }) => {
     const [alertData, setAlertData] = useState<Alert | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+
+    const router = useRouter();
 
     useEffect(() => {
         const loadAlert = async () => {
@@ -31,6 +35,24 @@ const UnattendedAlertDetail = ({params}: { params: { id: string } }) => {
         };
         loadAlert();
     }, [params.id]);
+
+    const handleMarkAttendance = async () => {
+        const alertMarkAttendanceRequest: AlertMarkAttendanceRequest = {
+            attended_by_id: "44556677-8888-9999-aaaa-bbbbccccdddd", // TODO: Change to the logged in user ID
+            attended_timestamp: new Date().toISOString(),
+        };
+        try {
+            await updateAlert(params.id, alertMarkAttendanceRequest);
+            router.back(); // Go back to the previous page (tables)
+            enqueueSnackbar('¡Asistencia marcada exitosamente!', {
+                variant: 'success'
+            });
+        } catch {
+            enqueueSnackbar('Error al marcar la asistencia. Por favor, intente de nuevo.', {
+                variant: 'error'
+            });
+        }
+    }
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -49,7 +71,7 @@ const UnattendedAlertDetail = ({params}: { params: { id: string } }) => {
         <div className={"page__container"}>
             <div className="button__container">
                 <ReturnButton/>
-                <Button text={"Atender"} color={ButtonColor.SUCCESS} className="w-40"/>
+                <Button text={"Atender"} color={ButtonColor.SUCCESS} onClick={handleMarkAttendance} className="w-40"/>
             </div>
             <div className={"grid grid-cols-4 mb-4"}>
                 <DetailColumnWrapper hasLeftBorder={true}>

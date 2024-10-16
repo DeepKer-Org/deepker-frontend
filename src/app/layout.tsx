@@ -2,6 +2,7 @@ import {Merriweather, Poppins, Roboto_Mono} from "next/font/google";
 import "@/src/styles/globals.css";
 import {Metadata} from "next";
 import ClientWrapper from "@/src/components/ui/wrappers/ClientWrapper";
+import React from "react";
 
 const poppins = Poppins({
     subsets: ["latin"],

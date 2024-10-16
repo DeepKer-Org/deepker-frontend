@@ -3,6 +3,7 @@ import {formatDate, formatTime} from "@/src/utils/formatTime";
 import {useRouter} from "next/navigation";
 import React from "react";
 import {updateAlert} from "@/src/api/alerts";
+import {enqueueSnackbar} from "notistack";
 
 interface UnattendedAlertsElementsProps {
     alert: Alert;
@@ -25,10 +26,14 @@ const UnattendedAlertsElement: React.FC<UnattendedAlertsElementsProps> = ({
         };
         try {
             await updateAlert(alert.alert_id, alertMarkAttendanceRequest);
-            console.log("Attendance marked"); // TODO: Show a success message snackbar
+            enqueueSnackbar('¡Asistencia marcada exitosamente!', {
+                variant: 'success'
+            });
             onAlertUpdate(); // Trigger data reload in parent component
         } catch {
-            console.error("Error marking attendance"); // TODO: Show an error message snackbar
+            enqueueSnackbar('Error al marcar la asistencia. Por favor, intente de nuevo.', {
+                variant: 'error'
+            });
         }
     }
 
