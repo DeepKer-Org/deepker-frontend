@@ -1,31 +1,64 @@
-export type Alert = {
-    alertId: string;
-    alertStatus: string;
-    attendedBy: string;
-    room: string;
-    alertTimestamp: string;
-    attendedTimestamp: string;
-    biometrics: Biometric;
-    computerDiagnoses: ComputerDiagnosis[];
+export interface BiometricData {
+    o2_saturation: number;
+    heart_rate: number;
+    systolic_blood_pressure: number;
+    diastolic_blood_pressure: number;
+    temperature: number;
+}
+
+export interface ComputerDiagnosis {
+    diagnosis: string;
+    percentage: number;
+}
+
+interface Medications {
+    name: string;
+    start_date: string;
+    end_date: string;
+    dosage: string;
+    periodicity: string;
+}
+
+export interface Patient {
+    dni: string;
+    name: string;
+    location: string;
+    age: number;
+    sex: string;
+    doctors: string[];
+    comorbidities: string[];
+    medications: Medications[];
+}
+
+export interface Doctor {
+    doctor_id: string;
+    dni: string;
+    name: string;
+    specialization: string;
+}
+
+export interface Alert {
+    final_diagnosis: string;
+    alert_id: string;
+    alert_timestamp: string;
+    attended_by: Doctor;
+    attended_timestamp: string;
+    alert_status: string;
+    biometric_data: BiometricData;
+    computer_diagnoses: ComputerDiagnosis[];
     patient: Patient;
 }
 
-type Patient = {
-    dni: string;
-    name: string;
-    currentLocation: string;
-    finalDiagnosis: string;
-    associatedDoctors: string[];
+export interface AlertMarkAttendanceRequest {
+    attended_by_id: string;
+    attended_timestamp: string;
 }
 
-type Biometric = {
-    O2Saturation: number;
-    heartRate: number;
-    systolicBloodPressure: number;
-    diastolicBloodPressure: number;
+export interface AlertsResponse {
+    alerts: Alert[];
+    totalCount: number;
 }
 
-type ComputerDiagnosis = {
-    diagnosis: string;
-    percentage: number;
+export interface AlertResponse {
+    alert: Alert;
 }

@@ -14,7 +14,7 @@ const SideBar = () => {
     { icon: IconName.Group, route: "/patients", label: "Pacientes" },
     { icon: IconName.DeviceHub, route: "/sensors", label: "Dispositivos" },
     { icon: IconName.Info, route: "/guide", label: "Guía Instructiva" },
-    { icon: IconName.Settings, route: "/general", label: "General" },
+    { icon: IconName.AccountBox, route: "/account", label: "Cuenta" },
   ];
 
   useEffect(() => {

@@ -1,6 +1,11 @@
 import React from 'react'
+import {BiometricData} from "@/src/types/alert";
 
-const Monitor = () => {
+interface MonitorProps {
+    biometric_data: BiometricData
+}
+
+const Monitor : React.FC<MonitorProps> = ({biometric_data}) => {
     return (
         <div
             className={"monitor grid-cols-5 w-[1200px] xl:w-[1320px] h-[620px] xl:h-[640px] overflow-x-auto"}>
@@ -21,7 +26,7 @@ const Monitor = () => {
                     <p className={"text-right monitor__text--h5"}>120</p>
                     <p className={"text-right monitor__text--h5"}>60</p>
                 </div>
-                <p className={"text-green-100 monitor__text--h1"}>60</p>
+                <p className={"text-green-100 monitor__text--h1"}>{biometric_data.heart_rate}</p>
             </div>
             <div className={"flex flex-row col-span-4 text-cyan-100 gap-x-10"}>
                 <p className={"monitor__text--h4"}>PLETH</p>
@@ -40,7 +45,7 @@ const Monitor = () => {
                     <p className={"monitor__text__h5 text-right"}>84</p>
                     <p className={"monitor__text__h5 text-right"}>100</p>
                 </div>
-                <p className={"monitor__text--h1 text-cyan-100"}>90</p>
+                <p className={"monitor__text--h1 text-cyan-100"}>{biometric_data.o2_saturation}</p>
             </div>
             <div className={"flex flex-col col-span-2 text-red-100"}>
                 <p className={"monitor__text--h4"}>NBP</p>
@@ -50,19 +55,19 @@ const Monitor = () => {
                         <p className={"monitor__text--h5 text-right"}>100</p>
                         <p className={"monitor__text--h5 text-right"}>90</p>
                     </div>
-                    <p className={"monitor__text--h1 text-red-100"}>121/82</p>
+                    <p className={"monitor__text--h1 text-red-100"}>{biometric_data.systolic_blood_pressure}/{biometric_data.diastolic_blood_pressure}</p>
                 </div>
             </div>
             <div className={"flex flex-col col-span-2 text-red-100 text-right mr-8 xl:mr-20"}>
                 <p className={"monitor__text--h4"}>NBP</p>
                 <p className={"monitor__text--h4"}>mmHg</p>
                 <div className={"flex flex-row mt-2 w-full justify-end"}>
-                    <p className={"monitor__text--h1 text-red-100 mr-6 xl:mr-16"}>(89)</p>
+                    <p className={"monitor__text--h1 text-red-100 mr-6 xl:mr-16"}>({biometric_data.diastolic_blood_pressure})</p>
                 </div>
             </div>
             <div className={"flex flex-col text-yellow-100 col-span-1 justify-end pb-8"}>
                 <p className={"monitor__text--h4 ml-4"}>Temp</p>
-                <p className={"monitor__text--h2 text-right"}>37.3</p>
+                <p className={"monitor__text--h2 text-right"}>{biometric_data.temperature}</p>
                 <p className={"monitor__text--h3 text-right"}>40.1</p>
                 <p className={"monitor__text--h3 text-right"}>36.9</p>
             </div>

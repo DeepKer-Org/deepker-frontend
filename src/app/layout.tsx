@@ -2,6 +2,7 @@ import {Merriweather, Poppins, Roboto_Mono} from "next/font/google";
 import "@/src/styles/globals.css";
 import {Metadata} from "next";
 import ClientWrapper from "@/src/components/ui/wrappers/ClientWrapper";
+import React from "react";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -40,7 +41,7 @@ export default function RootLayout({
         >
         <head>
             <link
-                href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,FILL,GRAD@20..48,0..1,-50..200&icon_names=123,arrow_back_ios,arrow_drop_down,arrow_forward_ios,chevron_left,chevron_right,close_small,crisis_alert,device_hub,favorite,group,health_and_safety,info,key,logout,medication,menu,monitor,monitor_heart,person,refresh,schedule,search,settings,visibility,warning&display=block"
+                href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,FILL,GRAD@20..48,0..1,-50..200&icon_names=123,account_box,arrow_back_ios,arrow_drop_down,arrow_forward_ios,chevron_left,chevron_right,close_small,crisis_alert,device_hub,favorite,group,health_and_safety,info,key,logout,medication,menu,monitor,monitor_heart,person,refresh,schedule,search,settings,visibility,warning&display=block"
                 rel="stylesheet"
             />
         </head>
