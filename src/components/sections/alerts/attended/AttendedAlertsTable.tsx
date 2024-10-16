@@ -1,10 +1,14 @@
 "use client";
 import AttendedAlertsElement from "./AttendedAlertsElement";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Pagination from "../../../ui/Pagination";
 import {fetchAlerts} from "@/src/api/alerts";
 
-export const AttendedAlertsTable = () => {
+interface AttendedAlertsTableProps {
+    refresh: boolean;
+}
+
+export const AttendedAlertsTable: React.FC<AttendedAlertsTableProps> = ({refresh}) => {
     const [data, setData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -28,7 +32,7 @@ export const AttendedAlertsTable = () => {
 
     useEffect(() => {
         loadData(currentPage, rowsPerPage);
-    }, [currentPage, rowsPerPage]);
+    }, [currentPage, rowsPerPage, refresh]);
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
@@ -43,10 +47,9 @@ export const AttendedAlertsTable = () => {
     return (
         <div className="table-container">
             <div
-                className="table-header-row attended-grid-cols xl:grid-cols-[15%_22%_10%_22%_15%_16%] tableBp:grid-cols-[10%_20%_8%_17%_19%_12%_14%]">
+                className="table-header-row attended-grid-cols xl:grid-cols-[10%_25%_25%_20%_20%] tableBp:grid-cols-[10%_20%_20%_20%_15%_15%]">
                 <p>FECHA</p>
                 <p>PACIENTE</p>
-                <p className="hidden xl:block">LUGAR</p>
                 <p>DIAGNÓSTICO</p>
                 <p className="hidden tableBp:block">ATENDIDO POR</p>
                 <p className="hidden xl:block">HORA DE ATENCIÓN</p>

@@ -1,14 +1,50 @@
+"use client";
 import Button from "@/src/components/ui/buttons/Button";
 import ReturnButton from "@/src/components/ui/buttons/ReturnButton";
 import {ButtonColor} from "@/src/enums/ButtonColor";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import DetailRow from "@/src/components/ui/DetailRow";
 import Monitor from "@/src/components/sections/alerts/unattended/Monitor";
 import IconTitle from "@/src/components/ui/IconTitle";
 import DetailColumnWrapper from "@/src/components/ui/wrappers/DetailColumnWrapper";
+import {Alert, AlertResponse} from "@/src/types/alert";
+import {fetchAlert} from "@/src/api/alerts";
+import {formatTime} from "@/src/utils/formatTime";
 
 const UnattendedAlertDetail = ({params}: { params: { id: string } }) => {
-    console.log(params.id);
+    const [alertData, setAlertData] = useState<Alert | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const loadAlert = async () => {
+            setIsLoading(true);
+            setError(null);
+            try {
+                const data: AlertResponse = await fetchAlert(params.id);
+                setAlertData(data.alert);
+            } catch (err) {
+                setError('Failed to fetch alert details: ' + err.message);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        loadAlert();
+    }, [params.id]);
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>{error}</div>;
+    }
+
+    if (!alertData) {
+        return <div>No data found</div>;
+    }
+
+
     return (
         <div className={"page__container"}>
             <div className="button__container">
@@ -18,58 +54,54 @@ const UnattendedAlertDetail = ({params}: { params: { id: string } }) => {
             <div className={"grid grid-cols-4 mb-4"}>
                 <DetailColumnWrapper hasLeftBorder={true}>
                     <IconTitle className={"mb-4"} icon={"person"} title={"Datos del paciente:"}/>
-                    <DetailRow label={"Nombre:"} name={"Nombre Apellido"}/>
-                    <DetailRow label={"DNI:"} name={"Mi dni"}/>
-                    <DetailRow label={"Lugar:"} name={"Mi lugar"}/>
-                    <DetailRow label={"Hora alerta:"} name={"Mi hora"}/>
+                    <DetailRow label={"Nombre:"} name={alertData.patient.name}/>
+                    <DetailRow label={"DNI:"} name={alertData.patient.dni}/>
+                    <DetailRow label={"Lugar:"} name={alertData.patient.location}/>
+                    <DetailRow label={"Hora alerta:"} name={formatTime(alertData.alert_timestamp)}/>
                 </DetailColumnWrapper>
                 <DetailColumnWrapper hasLeftBorder={true}>
                     <IconTitle className={"mb-4"} icon={"medication"} title={"Medicación actual:"}/>
                     <ul className={"ul__container"}>
-                        <li><span>Hello:</span> 100 mg - Diario</li>
-                        <li><span>Hello:</span> 100 mg - Diario</li>
-                        <li><span>Hello:</span> 100 mg - Diario</li>
-                        <li><span>Hello:</span> 100 mg - Diario</li>
-                        <li><span>Hello:</span> 100 mg - Diario</li>
-                        <li><span>Hello:</span> 100 mg - Diario</li>
-                        <li><span>Hello:</span> 100 mg - Diario</li>
+                        {
+                            alertData.patient.medications &&
+                            alertData.patient.medications.map((med, index) => (
+                                <li key={index}>
+                                    <span>{med.name}:</span>
+                                    <div>
+                                        {med.dosage} - {med.periodicity}
+                                    </div>
+                                </li>
+                            ))
+                        }
                     </ul>
                 </DetailColumnWrapper>
                 <DetailColumnWrapper hasLeftBorder={true}>
                     <IconTitle className={"mb-4"} icon={"monitor"} title={"Diagnósticos de Deepker:"}/>
                     <ul className={"ul__container--col xl:mr-6"}>
-                        <li>
-                            <div>
-                                <p>Paro Cardíaco</p>
-                                <p className={"font-semibold"}>90%</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <p>Paro Cardíaco</p>
-                                <p className={"font-semibold"}>90%</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <p>Paro Cardíaco</p>
-                                <p className={"font-semibold"}>90%</p>
-                            </div>
-                        </li>
+                        {alertData.computer_diagnoses.map((diag, index) => (
+                            <li key={index}>
+                                <div>
+                                    <p>{diag.diagnosis}</p>
+                                    <p className="font-semibold">{diag.percentage}%</p>
+                                </div>
+                            </li>
+                        ))}
                     </ul>
 
                 </DetailColumnWrapper>
                 <DetailColumnWrapper>
                     <IconTitle className={"mb-4"} icon={"warning"} title={"Riesgos preexistentes:"}/>
                     <ul className={"ul__container"}>
-                        <li>Diabetes Mellitus</li>
-                        <li>Diabetes Mellitus</li>
-                        <li>Antecedente de Infarto de Miocardio (Preinfarto)</li>
+                        {
+                            alertData.patient.comorbidities.map((comorbidity, index) => (
+                                <li key={index}>{comorbidity}</li>
+                            ))
+                        }
                     </ul>
 
                 </DetailColumnWrapper>
             </div>
-            <Monitor/>
+            <Monitor biometric_data={alertData.biometric_data}/>
         </div>
     );
 };

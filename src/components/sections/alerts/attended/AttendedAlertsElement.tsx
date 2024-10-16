@@ -16,7 +16,7 @@ const AttendedAlertsElement: React.FC<AttendedAlertsElementsProps> = ({
   };
 
   return (
-    <div className="table-row attended-grid-cols xl:grid-cols-[15%_22%_10%_22%_15%_16%] tableBp:grid-cols-[10%_20%_8%_17%_19%_12%_14%]">
+    <div className="table-row attended-grid-cols xl:grid-cols-[10%_25%_25%_20%_20%] tableBp:grid-cols-[10%_20%_20%_20%_15%_15%]">
       <div className="cell-border table-row-group text-center">
         <p>{formatDate(alert.alert_timestamp)}</p>
         <p>{formatTime(alert.alert_timestamp)}</p>
@@ -24,9 +24,6 @@ const AttendedAlertsElement: React.FC<AttendedAlertsElementsProps> = ({
       <div className="cell-border table-row-group px-4">
         <p>{alert.patient.name}</p>
         <p className="table-row-subtitle">{alert.patient.dni}</p>
-      </div>
-      <div className="hidden xl:flex row-border text-center items-center justify-center h-full">
-        {alert.room}
       </div>
       <div className="cell-border table-row-group px-4">
         <p>{alert.patient.final_diagnosis}</p>

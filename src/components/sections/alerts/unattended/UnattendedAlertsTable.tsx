@@ -1,10 +1,14 @@
 "use client";
 import UnattendedAlertsElement from "./UnattendedAlertsElement";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {fetchAlerts} from "@/src/api/alerts";
 import Pagination from "@/src/components/ui/Pagination";
 
-const UnattendedAlertsTable = () => {
+interface UnattendedAlertsTableProps {
+    refresh: boolean;
+}
+
+const UnattendedAlertsTable: React.FC<UnattendedAlertsTableProps> = ({refresh}) => {
     const [data, setData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -28,7 +32,7 @@ const UnattendedAlertsTable = () => {
 
     useEffect(() => {
         loadData(currentPage, rowsPerPage);
-    }, [currentPage, rowsPerPage]);
+    }, [currentPage, rowsPerPage, refresh]);
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
@@ -37,7 +41,10 @@ const UnattendedAlertsTable = () => {
     const handleRowsPerPageChange = (rows: number) => {
         setRowsPerPage(rows);
         setCurrentPage(1);
-        console.log(rows)
+    };
+
+    const handleAlertUpdate = () => {
+        loadData(currentPage, rowsPerPage);
     };
 
     return (
@@ -58,7 +65,7 @@ const UnattendedAlertsTable = () => {
                     <p>{error}</p>
                 ) : (
                     data.map((alert) => (
-                        <UnattendedAlertsElement key={alert.alert_id} alert={alert}/>
+                        <UnattendedAlertsElement key={alert.alert_id} alert={alert} onAlertUpdate={handleAlertUpdate}/>
                     ))
                 )}
             </div>
