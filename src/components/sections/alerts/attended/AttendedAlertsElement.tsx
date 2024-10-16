@@ -26,7 +26,7 @@ const AttendedAlertsElement: React.FC<AttendedAlertsElementsProps> = ({
         <p className="table-row-subtitle">{alert.patient.dni}</p>
       </div>
       <div className="cell-border table-row-group px-4">
-        <p>{alert.patient.final_diagnosis}</p>
+        <p>{alert.final_diagnosis}</p>
         <div className="table-row-subtitle table-row-icon">
           <span className="material-symbols-outlined">monitor</span>
           <p>DeepKer</p>

@@ -49,7 +49,7 @@ const UnattendedAlertsElement: React.FC<UnattendedAlertsElementsProps> = ({
             </div>
             <div className="cell-border table-row-group text-center">{alert.patient.location}</div>
             <div className="cell-border table-row-group px-4">
-                <p>{alert.patient.final_diagnosis}</p>
+                <p>{alert.computer_diagnoses.length > 0 ? alert.computer_diagnoses[0].diagnosis : "-"}</p>
                 <div className="table-row-subtitle table-row-icon">
                     <span className="material-symbols-outlined">monitor</span>
                     <p>DeepKer</p>

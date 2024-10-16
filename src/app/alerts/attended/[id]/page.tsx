@@ -56,12 +56,21 @@ const AttendedAlertDetail = ({params}: { params: { id: string } }) => {
                     <DetailRow label={"Género:"} name={(alertData.patient.sex === "F" ? "Mujer" : "Hombre")}/>
                 </CardWrapper>
                 <CardWrapper>
-                    {/*TODO: Check how to manage diagnositcs*/}
                     <IconTitle className={"mb-4"} icon={"monitor"} title={"Diagnóstico final:"}/>
-                    <p className={"font-semibold"}>Paro Cardíaco</p>
-                    <p>Confirmado por médico.</p>
-                    {alertData.computer_diagnoses.length > 0 &&
-                        <p>Confirmado por Deepker con un {alertData.computer_diagnoses[0].percentage}% de precisión.</p>
+                    <p className={"font-semibold"}>{
+                        alertData.final_diagnosis !== "" ? alertData.final_diagnosis : (alertData.computer_diagnoses.length > 0 ? alertData.computer_diagnoses[0].diagnosis : "En proceso")
+                    }</p>
+                    {alertData.final_diagnosis !== "" ?
+                        (<p>Confirmado por médico.</p>)
+                        :
+                        (
+                            alertData.computer_diagnoses.length > 0 ? (
+                                <p>Predicción de DeepKer con un {alertData.computer_diagnoses[0].percentage}% de
+                                    precisión.</p>
+                            ) : (
+                                <p>La predicción está siendo procesada.</p>
+                            )
+                        )
                     }
                 </CardWrapper>
                 <CardWrapper>
