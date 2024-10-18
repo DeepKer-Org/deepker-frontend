@@ -80,7 +80,7 @@ export default function Patients() {
         <ModalWrapper isOpen={isModalOpen} width="66rem">
           <PatientFilterModal onClose={handleCloseModal} onFilter={handleFilter} />
         </ModalWrapper>
-        <PatientsTable />
+        <PatientsTable refresh={isRefreshing} />
       </div>
     </div>
   );

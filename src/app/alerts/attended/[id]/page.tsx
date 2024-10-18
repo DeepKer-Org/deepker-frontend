@@ -76,13 +76,9 @@ const AttendedAlertDetail = ({params}: { params: { id: string } }) => {
                 <CardWrapper>
                     <IconTitle className={"mb-4"} icon={"health_and_safety"} title={"Atendido por:"}/>
                     <ul className={"ul__container"}>
-                        {
-                            alertData.patient.doctors &&
-                            alertData.patient.doctors.map((doctor, index) => (
-                                <li key={index}>{doctor}</li>
-                            ))
-                        }
+                        <li>{alertData.attended_by.name}</li>
                     </ul>
+                    <p className={"font-semibold"}>{alertData.attended_by.specialization}</p>
                 </CardWrapper>
                 <CardWrapper>
                     <IconTitle className={"mb-4"} icon={"warning"} title={"Riesgos preexistentes:"}/>
