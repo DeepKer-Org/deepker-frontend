@@ -32,11 +32,7 @@ const SensorsElement: React.FC<SensorsElementProps> = ({ sensor }) => {
       </div>
       <div className="flex flex-row h-full">
         <div className="flex w-1/2 justify-center h-full items-center cell-border">
-          <Button
-            text={"Desvincular"}
-            color={ButtonColor.DANGER}
-            onClick={handleUnlink}
-          />
+            <div className="table-unlink cursor-pointer w-full" onClick={handleUnlink}>DESVINCULAR</div>
         </div>
         <div
           className="flex w-1/2 items-center justify-center cursor-pointer text-gray-600 gap-x-4 px-4 h-full"

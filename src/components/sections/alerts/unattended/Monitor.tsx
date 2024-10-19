@@ -22,7 +22,7 @@ const Monitor : React.FC<MonitorProps> = ({biometric_data}) => {
             </div>
             <div className={"flex flex-row text-green-100 col-span-1 gap-x-6 justify-end"}>
                 <div className={"flex flex-col mt-4"}>
-                    <p className={"monitor__text--h4"}>BPM</p>
+                    <p className={"monitor__text--h4"}>HR</p>
                     <p className={"text-right monitor__text--h5"}>120</p>
                     <p className={"text-right monitor__text--h5"}>60</p>
                 </div>

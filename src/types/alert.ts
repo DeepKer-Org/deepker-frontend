@@ -25,7 +25,6 @@ export interface Patient {
     location: string;
     age: number;
     sex: string;
-    doctors: string[];
     comorbidities: string[];
     medications: Medications[];
 }

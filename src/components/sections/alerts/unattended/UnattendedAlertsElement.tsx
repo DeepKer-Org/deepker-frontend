@@ -70,7 +70,7 @@ const UnattendedAlertsElement: React.FC<UnattendedAlertsElementsProps> = ({
             <span className="material-symbols-outlined text-blue-500">
               monitor_heart
             </span>
-                        <p>{alert.biometric_data.heart_rate} bpm</p>
+                        <p>{alert.biometric_data.heart_rate} </p>
                     </div>
                 </div>
             </div>

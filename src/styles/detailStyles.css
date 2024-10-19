@@ -269,6 +269,7 @@
             height: 10px;
             border-radius: 50%;
             background-color: var(--gray-600);
+            z-index: 5;
         }
     }
 

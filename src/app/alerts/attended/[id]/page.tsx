@@ -21,7 +21,7 @@ const AttendedAlertDetail = ({params}: { params: { id: string } }) => {
                 const data: AlertResponse = await fetchAlert(params.id);
                 setAlertData(data.alert);
             } catch (err) {
-                setError('Failed to fetch alert details: ' + err.message);
+                setError('No se pudo recuperar el detalle de la alerta: ' + err.message);
             } finally {
                 setIsLoading(false);
             }
@@ -34,7 +34,7 @@ const AttendedAlertDetail = ({params}: { params: { id: string } }) => {
     }
 
     if (error) {
-        return <div>{error}</div>;
+        return <p className={"table-error"}>{error}</p>
     }
 
     if (!alertData) {
@@ -76,13 +76,9 @@ const AttendedAlertDetail = ({params}: { params: { id: string } }) => {
                 <CardWrapper>
                     <IconTitle className={"mb-4"} icon={"health_and_safety"} title={"Atendido por:"}/>
                     <ul className={"ul__container"}>
-                        {
-                            alertData.patient.doctors &&
-                            alertData.patient.doctors.map((doctor, index) => (
-                                <li key={index}>{doctor}</li>
-                            ))
-                        }
+                        <li>{alertData.attended_by.name}</li>
                     </ul>
+                    <p className={"font-semibold"}>{alertData.attended_by.specialization}</p>
                 </CardWrapper>
                 <CardWrapper>
                     <IconTitle className={"mb-4"} icon={"warning"} title={"Riesgos preexistentes:"}/>

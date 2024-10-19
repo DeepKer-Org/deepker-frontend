@@ -1,6 +1,7 @@
-import { Patient } from "@/src/types/patient";
+import {Patient} from "@/src/types/patient";
 import { useRouter } from "next/navigation";
 import React from "react";
+import {formatDate} from "@/src/utils/formatTime";
 
 interface PatientsElementProps {
   patient: Patient;
@@ -9,7 +10,7 @@ interface PatientsElementProps {
 const PatientsElement: React.FC<PatientsElementProps> = ({ patient }) => {
   const router = useRouter();
   const handleDetails = () => {
-    router.push(`/patients/${patient.patientId}`);
+    router.push(`/patients/${patient.patient_id}`);
   };
 
   return (
@@ -24,16 +25,16 @@ const PatientsElement: React.FC<PatientsElementProps> = ({ patient }) => {
         <p>{patient.age}</p>
       </div>
       <div className="cell-border table-row-group px-4">
-        <p>{patient.medicalStaff[0]}</p>
+        <p>{patient.medical_staff.length > 0 && patient.medical_staff[0].name}</p>
         <div className="table-row-subtitle">
-          <p>{patient.medicalStaff[0]}</p>
+          <p>{patient.medical_staff.length > 0 && patient.medical_staff[0].specialization}</p>
         </div>
       </div>
       <div className="hidden xl:flex row-border items-center px-4 text-center">
         <p>{patient.location}</p>
       </div>
       <div className="hidden tableBp:flex row-border items-center px-4 text-center">
-        <p>Entry Date</p>
+        <p>{patient.entry_date == "" ? "No está en centro" : formatDate(patient.entry_date)}</p>
       </div>
       <div
         className="flex items-center justify-center cursor-pointer text-gray-600 gap-x-4 px-4 h-full"

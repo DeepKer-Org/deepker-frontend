@@ -66,6 +66,11 @@
     border-radius: 0 0 8px 8px;
   }
 
+  .table-error {
+    padding: 1rem;
+    text-align: center;
+  }
+
   .table-container {
     border-color: var(--border-primary);
     border-width: 1px;
@@ -148,6 +153,20 @@
           &:hover {
             background-color: var(--green-550);
           }
+        }
+        .table-unlink {
+          background-color: var(--red-500);
+          color: var(--white);
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding-inline: 1rem;
+
+          &:hover {
+            background-color: var(--red-550);
+          }
+
         }
       }
     }
