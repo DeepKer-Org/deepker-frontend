@@ -21,7 +21,7 @@ const AttendedAlertDetail = ({params}: { params: { id: string } }) => {
                 const data: AlertResponse = await fetchAlert(params.id);
                 setAlertData(data.alert);
             } catch (err) {
-                setError('Failed to fetch alert details: ' + err.message);
+                setError('No se pudo recuperar el detalle de la alerta: ' + err.message);
             } finally {
                 setIsLoading(false);
             }
@@ -34,7 +34,7 @@ const AttendedAlertDetail = ({params}: { params: { id: string } }) => {
     }
 
     if (error) {
-        return <div>{error}</div>;
+        return <p className={"table-error"}>{error}</p>
     }
 
     if (!alertData) {

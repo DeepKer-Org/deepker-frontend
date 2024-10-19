@@ -18,6 +18,7 @@
     /* Blue shades */
     --blue-850: #002d3d;
     --blue-800: #003649; /* Dark blue */
+    --blue-300: #63a7dc;
     --blue-500: #0a7ad6; /* Primary blue */
     --blue-550: #096bbf;
     --blue-100: #E3EDFF; /* Light blue */
@@ -61,6 +62,7 @@
         /* Blue shades */
         --blue-850: #002d3d;
         --blue-800: #003649; /* Dark blue */
+        --blue-300: #63a7dc;
         --blue-500: #0a7ad6; /* Primary blue */
         --blue-550: #096bbf;
         --blue-100: #E3EDFF; /* Light blue */
@@ -194,5 +196,25 @@ td {
             font-weight: 400;
             font-family: var(--font-merriweather), serif;
         }
+    }
+
+    .modal__dropdown--doctor {
+        width: 100%;
+        border: 1px solid var(--border-secondary); /* Equivalent to border-gray-300 */
+        border-radius: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        font-size: 14px;
+        background-color: var(--white);
+        position: relative; /* To position the custom arrow */
+        appearance: none; /* Remove default arrow in modern browsers */
+        -webkit-appearance: none; /* For Safari (WebKit-based browsers) */
+        -moz-appearance: none;
+        cursor: pointer;
+    }
+
+    .modal__dropdown--doctor:focus {
+        outline: none;
+        border-color: var(--blue-500);
+        box-shadow: 0 0 0 3px var(--blue-300);
     }
 }

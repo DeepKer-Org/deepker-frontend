@@ -27,7 +27,7 @@ const PatientDetail = ({params}: { params: { id: string } }) => {
                 const data: PatientResponse = await fetchPatient(params.id);
                 setPatientData(data.patient);
             } catch (err) {
-                setError('Failed to fetch patient details: ' + err.message);
+                setError('No se pudo recuperar el detalle de la alerta: ' + err.message);
             } finally {
                 setIsLoading(false);
             }
@@ -112,7 +112,8 @@ const PatientDetail = ({params}: { params: { id: string } }) => {
     }
 
     if (error) {
-        return <div>{error}</div>;
+        return  <p className={"table-error"}>{error}</p>
+
     }
 
     if (!patientData) {

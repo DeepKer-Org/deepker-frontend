@@ -37,6 +37,18 @@ export interface Patient {
     medical_visits: MedicalVisit[];
 }
 
+export interface PatientsQueryParams {
+    name?: string;
+    dni?: string;
+    age?: number;
+    doctor_id?: string;
+    location?: string;
+    device_id?: string;
+    comorbidity?: string;
+    entry_date?: string;
+    discharge_date?: string;
+}
+
 export interface PatientsResponse {
     patients: Patient[];
     totalCount: number;

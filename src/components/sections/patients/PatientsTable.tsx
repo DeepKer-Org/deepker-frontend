@@ -1,55 +1,37 @@
 "use client";
-import React, {useEffect, useState} from "react";
+import React from "react";
 import Pagination from "../../ui/Pagination";
-import {patients} from "@/src/data/patients";
 import PatientsElement from "./PatientsElement";
-import {fetchAlerts} from "@/src/api/alerts";
-import {fetchPatients} from "@/src/api/patients";
-import AttendedAlertsElement from "@/src/components/sections/alerts/attended/AttendedAlertsElement";
+import {Patient} from "@/src/types/patient";
+
 
 interface PatientsTableProps {
-    refresh: boolean;
+    patients: Patient[]; // Your patients data type
+    totalCount: number;
+    currentPage: number;
+    rowsPerPage: number;
+    onPageChange: (page: number) => void;
+    onRowsPerPageChange: (rows: number) => void;
+    error: string | null;
+    isLoading: boolean;
 }
 
-const PatientsTable: React.FC<PatientsTableProps> = ({refresh}) => {
-    const [data, setData] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [totalItems, setTotalItems] = useState(0);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState<null | string>(null);
-    const loadData = async (page: number, rows: number) => {
-        setIsLoading(true);
-        setError(null);
-        try {
-            const response = await fetchPatients(page, rows);
-            setData(response.patients);
-            setTotalItems(response.totalCount); // Set total items from the server response
-        } catch (err) {
-            setError('Error loading patients: ' + err.message);
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        loadData(currentPage, rowsPerPage);
-    }, [currentPage, rowsPerPage, refresh]);
-
-    const handlePageChange = (page: number) => {
-        setCurrentPage(page);
-    };
-
-    const handleRowsPerPageChange = (rows: number) => {
-        setRowsPerPage(rows);
-        setCurrentPage(1);
-        console.log(rows)
-    };
-
-    return (
+const PatientsTable: React.FC<PatientsTableProps> = ({
+                                                         patients,
+                                                         totalCount,
+                                                         currentPage,
+                                                         rowsPerPage,
+                                                         onPageChange,
+                                                         onRowsPerPageChange,
+                                                         error,
+                                                         isLoading,
+                                                     }) => {
+    const handlePrint = () => {
+        console.log("Patients: ", patients)
+    }
+       return (
         <div className="table-container">
-            <div
-                className="table-header-row patient-grid-cols xl:grid-cols-[22%_12%_12%_22%_16%_16%] tableBp:grid-cols-[20%_9%_7%_21%_13%_14%_16%]">
+            <div className="table-header-row patient-grid-cols xl:grid-cols-[22%_12%_12%_22%_16%_16%] tableBp:grid-cols-[20%_9%_7%_21%_13%_14%_16%]">
                 <p>NOMBRE DE PACIENTE</p>
                 <p>DNI</p>
                 <p>EDAD</p>
@@ -62,19 +44,21 @@ const PatientsTable: React.FC<PatientsTableProps> = ({refresh}) => {
                 {isLoading ? (
                     <p>Loading...</p>
                 ) : error ? (
-                    <p>{error}</p>
+                    <p className={"table-error"}>{error}</p>
+                ) : patients.length === 0 ? (
+                    <p className={"table-error"} onClick={handlePrint}>No patients found.</p>
                 ) : (
-                    data.map((patient) => (
-                        <PatientsElement key={patient.patient_id} patient={patient}/>
+                    patients.map((patient) => (
+                        <PatientsElement key={patient.patient_id} patient={patient} />
                     ))
                 )}
             </div>
             <Pagination
-                totalItems={totalItems}
+                totalItems={totalCount}
                 rowsPerPage={rowsPerPage}
-                onPageChange={handlePageChange}
+                onPageChange={onPageChange}
                 currentPage={currentPage}
-                onRowsPerPageChange={handleRowsPerPageChange}
+                onRowsPerPageChange={onRowsPerPageChange}
             />
         </div>
     );
