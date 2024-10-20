@@ -8,3 +8,7 @@ export interface Doctor {
 export interface DoctorsResponse {
     doctors: Doctor[];
 }
+
+export interface DoctorResponse {
+    doctor: Doctor;
+}
