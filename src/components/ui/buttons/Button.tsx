@@ -21,7 +21,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       type={type}
-      className={`w-[150px] h-[32px] text-sm rounded-lg font-medium shadow-md transition duration-300 ${color} ${className} ${
+      className={`min-w-[150px] h-[32px] px-4 text-sm rounded-lg font-medium shadow-md transition duration-300 ${color} ${className} ${
         disabled ? "opacity-50 cursor-not-allowed" : ""
       }`}
       onClick={onClick}

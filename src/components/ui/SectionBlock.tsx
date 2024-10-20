@@ -1,5 +1,5 @@
 import { IconName } from "@/src/enums/IconName";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface SectionBlockProps {
   icon: IconName;

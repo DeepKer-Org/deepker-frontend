@@ -26,9 +26,6 @@ const PatientsTable: React.FC<PatientsTableProps> = ({
                                                          error,
                                                          isLoading,
                                                      }) => {
-    const handlePrint = () => {
-        console.log("Patients: ", patients)
-    }
        return (
         <div className="table-container">
             <div className="table-header-row patient-grid-cols xl:grid-cols-[22%_12%_12%_22%_16%_16%] tableBp:grid-cols-[20%_9%_7%_21%_13%_14%_16%]">
@@ -42,11 +39,11 @@ const PatientsTable: React.FC<PatientsTableProps> = ({
             </div>
             <div className="table-body">
                 {isLoading ? (
-                    <p>Loading...</p>
+                    <p className={"table-error"}>Cargando...</p>
                 ) : error ? (
                     <p className={"table-error"}>{error}</p>
                 ) : patients.length === 0 ? (
-                    <p className={"table-error"} onClick={handlePrint}>No patients found.</p>
+                    <p className={"table-error"}>No se ha encontrado pacientes.</p>
                 ) : (
                     patients.map((patient) => (
                         <PatientsElement key={patient.patient_id} patient={patient} />

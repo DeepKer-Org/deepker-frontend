@@ -198,7 +198,7 @@ td {
         }
     }
 
-    .modal__dropdown--doctor {
+    .modal__dropdown {
         width: 100%;
         border: 1px solid var(--border-secondary); /* Equivalent to border-gray-300 */
         border-radius: 0.5rem;
@@ -212,7 +212,7 @@ td {
         cursor: pointer;
     }
 
-    .modal__dropdown--doctor:focus {
+    .modal__dropdown:focus {
         outline: none;
         border-color: var(--blue-500);
         box-shadow: 0 0 0 3px var(--blue-300);

@@ -1,5 +1,5 @@
 "use client";
-import PatientFilterModal from "@/src/components/sections/modals/PatientFilterModal";
+import PatientFilterModal from "@/src/components/ui/modals/PatientFilterModal";
 import PatientsTable from "@/src/components/sections/patients/PatientsTable";
 import ModalWrapper from "@/src/components/ui/wrappers/ModalWrapper";
 import Button from "@/src/components/ui/buttons/Button";
@@ -7,7 +7,7 @@ import SearchInput from "@/src/components/ui/inputs/SearchInput";
 import {ButtonColor} from "@/src/enums/ButtonColor";
 import {useEffect, useState} from "react";
 import {Patient, PatientsQueryParams} from "@/src/types/patient";
-import {fetchPatients} from "@/src/api/patients";
+import {fetchPatientsPaginated} from "@/src/api/patients";
 
 export default function Patients() {
     const [updateTime, setUpdateTime] = useState<string | null>(null);
@@ -42,11 +42,11 @@ export default function Patients() {
 
     // Fetch patients whenever pagination or filters change
     useEffect(() => {
-        const fetchPatientsData = async () => {
+        const fetchPatientsPaginatedData = async () => {
             setIsLoading(true); // Start loading
             setError(null); // Clear any existing error before fetching
             try {
-                const response = await fetchPatients(currentPage, rowsPerPage, filterParams);
+                const response = await fetchPatientsPaginated(currentPage, rowsPerPage, filterParams);
                 setPatients(response.patients);
                 setTotalCount(response.totalCount);
             } catch (err) {
@@ -57,7 +57,7 @@ export default function Patients() {
             }
         };
 
-        fetchPatientsData();
+        fetchPatientsPaginatedData();
     }, [filterParams, currentPage, rowsPerPage, isRefreshing]);
 
     const handleRefresh = () => {
@@ -109,8 +109,8 @@ export default function Patients() {
                             onClick={handleOpenModal}
                             className="hidden xl:block"
                         />
-                        <p className="ml-2">
-                            ÚLTIMA ACTUALIZACIÓN: <span className="time">{updateTime}</span>
+                        <p className="ml-2 update__text">
+                            ÚLTIMA ACTUALIZACIÓN: <span className="update__text--time">{updateTime}</span>
                         </p>
                         <span
                             className={`material-symbols-outlined cursor-pointer ${
