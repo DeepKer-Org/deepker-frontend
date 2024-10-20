@@ -5,7 +5,8 @@ interface DeviceActionButtonProps {
     onUnlink: () => void;
     onLink: () => void;
 }
-const DeviceActionButton : React.FC<DeviceActionButtonProps> = ({ status, onUnlink, onLink }) => {
+
+const DeviceActionButton: React.FC<DeviceActionButtonProps> = ({status, onUnlink, onLink}) => {
     if (status === "In Use") {
         return (
             <div className="table-unlink" onClick={onUnlink}>
@@ -17,7 +18,7 @@ const DeviceActionButton : React.FC<DeviceActionButtonProps> = ({ status, onUnli
     if (status === "Free") {
         return (
             <div className="table-link" onClick={onLink}>
-               VINCULAR
+                VINCULAR
             </div>
         );
     }

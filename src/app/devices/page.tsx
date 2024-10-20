@@ -3,7 +3,6 @@
 import SensorLinkModal from "@/src/components/ui/modals/SensorLinkModal";
 import DevicesTable from "@/src/components/sections/devices/DevicesTable";
 import Button from "@/src/components/ui/buttons/Button";
-import ModalWrapper from "@/src/components/ui/wrappers/ModalWrapper";
 import SearchInput from "@/src/components/ui/inputs/SearchInput";
 import {ButtonColor} from "@/src/enums/ButtonColor";
 import {useCallback, useEffect, useState} from "react";
@@ -106,9 +105,7 @@ export default function Devices() {
             </span>
                     </div>
                 </div>
-                <ModalWrapper isOpen={isModalOpen}>
-                    <SensorLinkModal onClose={handleCloseModal} onLinkSuccess={handleLinkSuccess}/>
-                </ModalWrapper>
+                <SensorLinkModal onClose={handleCloseModal} onLinkSuccess={handleLinkSuccess} isOpen={isModalOpen}/>
                 <DevicesTable
                     devices={devices}
                     totalCount={totalCount}

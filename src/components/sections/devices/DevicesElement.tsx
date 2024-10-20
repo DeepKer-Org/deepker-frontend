@@ -4,6 +4,7 @@ import {useRouter} from "next/navigation";
 import React, {useState} from "react";
 import DeviceActionButton from "@/src/components/ui/buttons/DeviceActionButton";
 import UnlinkConfirmationModal from "@/src/components/ui/modals/UnlinkConfirmationModal";
+import SensorLinkModal from "@/src/components/ui/modals/SensorLinkModal";
 
 interface DevicesElementProps {
     device: MonitoringDevice;
@@ -13,6 +14,9 @@ interface DevicesElementProps {
 const DevicesElement: React.FC<DevicesElementProps> = ({device, onRefresh}) => {
     const router = useRouter();
     const [isUnlinkModalOpen, setIsUnlinkModalOpen] = useState(false);
+    const [isLinkModalOpen, setIsLinkModalOpen] = useState(false); // For link modal
+    const [selectedSensorId, setSelectedSensorId] = useState<string | null>(null); // Store the sensor ID for linking
+
     const handleDetails = () => {
         router.push(`/patients/${device.patient.patient_id}`);
     };
@@ -30,8 +34,19 @@ const DevicesElement: React.FC<DevicesElementProps> = ({device, onRefresh}) => {
             return "Desconocido";
         }
     }
+
+    const handleLink = (sensorId: string) => {
+        setSelectedSensorId(sensorId);
+        setIsLinkModalOpen(true); // Open link modal
+    };
+
     const handleUnlinkSuccess = () => {
         onRefresh();
+    };
+
+    const handleLinkSuccess = () => {
+        setIsLinkModalOpen(false); // Close link modal
+        onRefresh(); // Refresh table after linking
     };
 
     return (
@@ -57,7 +72,7 @@ const DevicesElement: React.FC<DevicesElementProps> = ({device, onRefresh}) => {
             <div className="flex flex-row h-full">
                 <div className="flex w-1/2 justify-center h-full items-center cell-border">
                     <DeviceActionButton status={device.status} onUnlink={() => setIsUnlinkModalOpen(true)}
-                                        onLink={() => console.log('Link sensor')}/>
+                                        onLink={(() => handleLink(device.device_id))}/>
                 </div>
                 <div
                     className={`flex w-1/2 items-center justify-center gap-x-4 px-4 h-full ${
@@ -73,12 +88,23 @@ const DevicesElement: React.FC<DevicesElementProps> = ({device, onRefresh}) => {
                     )}
                 </div>
             </div>
-            <UnlinkConfirmationModal
-                deviceId={device.device_id}
-                isOpen={isUnlinkModalOpen}
-                onClose={() => setIsUnlinkModalOpen(false)} // Close modal
-                onSuccess={handleUnlinkSuccess} // Handle unlink success
-            />
+            {isUnlinkModalOpen && (
+                <UnlinkConfirmationModal
+                    deviceId={device.device_id}
+                    isOpen={isUnlinkModalOpen}
+                    onClose={() => setIsUnlinkModalOpen(false)}
+                    onSuccess={handleUnlinkSuccess}
+                />
+            )}
+
+            {isLinkModalOpen && (
+                <SensorLinkModal
+                    onClose={() => setIsLinkModalOpen(false)}
+                    onLinkSuccess={handleLinkSuccess}
+                    initialSensorId={selectedSensorId} // Pass the selected sensor ID to the modal
+                    isOpen={isLinkModalOpen}
+                />
+            )}
         </div>
 
     );
