@@ -30,7 +30,7 @@ const AttendedAlertDetail = ({params}: { params: { id: string } }) => {
     }, [params.id]);
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <div className={"table-error"}>Cargando...</div>;
     }
 
     if (error) {

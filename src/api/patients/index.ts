@@ -2,7 +2,7 @@ import {PatientResponse, PatientsQueryParams, PatientsResponse} from "@/src/type
 
 const API_BASE_URL = process.env.API_BASE_URL || "http://localhost:8080";
 
-export const fetchPatients = async (
+export const fetchPatientsPaginated = async (
     page: number,
     rowsPerPage: number,
     filters: PatientsQueryParams = {}
@@ -16,7 +16,7 @@ export const fetchPatients = async (
     }).toString();
 
     // Fetch data from API
-    const res = await fetch(`${API_BASE_URL}/patients?${queryParams}`, { method: 'GET' });
+    const res = await fetch(`${API_BASE_URL}/patients?${queryParams}`, {method: 'GET'});
 
     if (!res.ok) {
         throw new Error('Failed to fetch patients');
@@ -30,8 +30,23 @@ export const fetchPatients = async (
     };
 };
 
+export const fetchPatients = async (): Promise<PatientsResponse> => {
+    const res = await fetch(`${API_BASE_URL}/patients`, {method: 'GET'});
+
+    if (!res.ok) {
+        throw new Error('Failed to fetch patients');
+    }
+
+    const data = await res.json();
+
+    return {
+        patients: data.patients,
+        totalCount: data.totalCount,
+    };
+}
+
 export const fetchPatient = async (patientId: string): Promise<PatientResponse> => {
-    const res = await fetch(`${API_BASE_URL}/patients/${patientId}`, { method: 'GET' });
+    const res = await fetch(`${API_BASE_URL}/patients/${patientId}`, {method: 'GET'});
 
     if (!res.ok) {
         throw new Error('Failed to fetch patient');

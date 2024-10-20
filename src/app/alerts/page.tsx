@@ -46,8 +46,8 @@ export default function UnattendedAlerts() {
                         </div>
                     </div>
                     <div className="flex flex-row items-center gap-x-1">
-                        <p>
-                            ÚLTIMA ACTUALIZACIÓN: <span className="time">{updateTime}</span>
+                        <p className={"update__text"}>
+                            ÚLTIMA ACTUALIZACIÓN: <span className="update__text--time">{updateTime}</span>
                         </p>
                         <span
                             className={`material-symbols-outlined cursor-pointer ${

@@ -12,7 +12,7 @@ const SideBar = () => {
   const icons = [
     { icon: IconName.CrisisAlert, route: "/alerts", label: "Alertas" },
     { icon: IconName.Group, route: "/patients", label: "Pacientes" },
-    { icon: IconName.DeviceHub, route: "/sensors", label: "Dispositivos" },
+    { icon: IconName.DeviceHub, route: "/devices", label: "Dispositivos" },
     { icon: IconName.Info, route: "/guide", label: "Guía Instructiva" },
     { icon: IconName.AccountBox, route: "/account", label: "Cuenta" },
   ];

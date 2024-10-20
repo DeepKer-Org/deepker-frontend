@@ -108,7 +108,7 @@ const PatientDetail = ({params}: { params: { id: string } }) => {
 
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <div className={"table-error"}>Cargando...</div>;
     }
 
     if (error) {

@@ -41,7 +41,6 @@ export const AttendedAlertsTable: React.FC<AttendedAlertsTableProps> = ({refresh
     const handleRowsPerPageChange = (rows: number) => {
         setRowsPerPage(rows);
         setCurrentPage(1);
-        console.log(rows)
     };
 
     return (
@@ -57,9 +56,9 @@ export const AttendedAlertsTable: React.FC<AttendedAlertsTableProps> = ({refresh
             </div>
             <div className="table-body">
                 {isLoading ? (
-                    <p>Loading...</p>
+                    <p className={"table-error"}>Cargando...</p>
                 ) : error ? (
-                    <p>{error}</p>
+                    <p className={"table-error"}>{error}</p>
                 ) : (
                     data.map((alert) => (
                         <AttendedAlertsElement key={alert.alert_id} alert={alert}/>

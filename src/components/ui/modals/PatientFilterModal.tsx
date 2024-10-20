@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Button from "../../ui/buttons/Button";
+import Button from "../buttons/Button";
 import { ButtonColor } from "@/src/enums/ButtonColor";
-import ModalInput from "../../ui/inputs/ModalInput";
+import ModalInput from "../inputs/ModalInput";
 import useForm from "@/src/hooks/useForm";
 import { PatientsQueryParams } from "@/src/types/patient";
 import { fetchDoctors } from "@/src/api/doctors"; // Assuming this function is already implemented
@@ -95,7 +95,7 @@ const PatientFilterModal: React.FC<PatientFilterModalProps> = ({
                         name="doctor_id"
                         value={formValues.doctor_id || ""}
                         onChange={handleDoctorChange}
-                        className="modal__dropdown--doctor"
+                        className="modal__dropdown"
                         disabled={isLoadingDoctors} // Disable dropdown while loading
                     >
                         <option value="">Selecciona un doctor</option>
