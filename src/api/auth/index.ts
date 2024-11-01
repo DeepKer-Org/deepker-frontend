@@ -22,18 +22,10 @@ export const loginUser = async (username: string, password: string): Promise<Log
 };
 
 export const changePassword = async (dni: string, issuance_date: string, new_password: string): Promise<void> => {
-    // Retrieve token directly from localStorage.
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-        throw new Error("No authentication token found. Please log in.");
-    }
-
     const response = await fetch(`${API_BASE_URL}/authorization/change-password`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
             dni,

@@ -46,11 +46,13 @@ export default function RootLayout({
                 rel="stylesheet"
             />
         </head>
-        <AuthProvider>
-            <ClientWrapper>
-                {children}
-            </ClientWrapper>
-        </AuthProvider>
+        <body>
+            <AuthProvider>
+                <ClientWrapper>
+                    {children}
+                </ClientWrapper>
+            </AuthProvider>
+        </body>
         </html>
     );
 }

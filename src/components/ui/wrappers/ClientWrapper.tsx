@@ -29,11 +29,11 @@ const ClientWrapper = ({ children }: { children: React.ReactNode }) => {
                 horizontal: "center",
             }}
         >
-            <body className="h-full flex">
+            <div className="h-full flex">
             {/* Show SideBar only on non-auth routes */}
             {!isAuthRoute && <SideBar />}
             <main className="flex-grow h-full px-8 py-6">{children}</main>
-            </body>
+            </div>
         </SnackbarProvider>
     );
 };
