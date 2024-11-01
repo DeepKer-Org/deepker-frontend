@@ -4,7 +4,7 @@ import {useRouter} from "next/navigation";
 import React, {useState} from "react";
 import DeviceActionButton from "@/src/components/ui/buttons/DeviceActionButton";
 import UnlinkConfirmationModal from "@/src/components/ui/modals/UnlinkConfirmationModal";
-import SensorLinkModal from "@/src/components/ui/modals/SensorLinkModal";
+import DeviceLinkModal from "@/src/components/ui/modals/DeviceLinkModal";
 
 interface DevicesElementProps {
     device: MonitoringDevice;
@@ -15,7 +15,7 @@ const DevicesElement: React.FC<DevicesElementProps> = ({device, onRefresh}) => {
     const router = useRouter();
     const [isUnlinkModalOpen, setIsUnlinkModalOpen] = useState(false);
     const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
-    const [selectedSensorId, setSelectedSensorId] = useState<string | null>(null);
+    const [selectedDeviceId, setSelectedDeviceId] = useState<string | null>(null);
     const [deviceStatus, setDeviceStatus] = useState(device.status); // Track status locally
 
     const handleDetails = () => {
@@ -37,8 +37,8 @@ const DevicesElement: React.FC<DevicesElementProps> = ({device, onRefresh}) => {
         }
     };
 
-    const handleLink = (sensorId: string) => {
-        setSelectedSensorId(sensorId);
+    const handleLink = (deviceId: string) => {
+        setSelectedDeviceId(deviceId);
         setIsLinkModalOpen(true);
     };
 
@@ -48,13 +48,7 @@ const DevicesElement: React.FC<DevicesElementProps> = ({device, onRefresh}) => {
 
     const handleLinkSuccess = () => {
         setIsLinkModalOpen(false);
-
-        setDeviceStatus("Connecting"); // Set to "Connecting" temporarily
-        // Wait for a few seconds to simulate connecting state
-        setTimeout(() => {
-            setDeviceStatus("In Use"); // Change back to "In Use"
-            onRefresh(); // Refresh table after linking
-        }, 2000); // 2-second delay
+        onRefresh();
     };
 
     return (
@@ -106,10 +100,10 @@ const DevicesElement: React.FC<DevicesElementProps> = ({device, onRefresh}) => {
             )}
 
             {isLinkModalOpen && (
-                <SensorLinkModal
+                <DeviceLinkModal
                     onClose={() => setIsLinkModalOpen(false)}
                     onLinkSuccess={handleLinkSuccess}
-                    initialSensorId={selectedSensorId}
+                    initialDeviceId={selectedDeviceId!}
                     isOpen={isLinkModalOpen}
                 />
             )}

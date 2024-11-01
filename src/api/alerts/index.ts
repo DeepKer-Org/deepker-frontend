@@ -1,4 +1,5 @@
 import {AlertMarkAttendanceRequest, AlertResponse, AlertsResponse} from "@/src/types/alert";
+import {authenticatedFetch} from "@/src/api/authenticatedFetch";
 
 const API_BASE_URL = process.env.API_BASE_URL || "http://localhost:8080";
 
@@ -8,16 +9,9 @@ export const fetchAlerts = async (
     rowsPerPage: number
 ): Promise<AlertsResponse> => {
     const attendance = isAttended ? "attended" : "unattended";
-    const res = await fetch(
-        `${API_BASE_URL}/alerts?status=${attendance}&page=${page}&limit=${rowsPerPage}`,
-        { method: 'GET' }
-    );
-
-    if (!res.ok) {
-        throw new Error('Failed to fetch alerts');
-    }
-
-    const data = await res.json();
+    const url = `${API_BASE_URL}/alerts?status=${attendance}&page=${page}&limit=${rowsPerPage}`;
+    const response = await authenticatedFetch(url, { method: 'GET' });
+    const data = await response.json();
 
     return {
         alerts: data.alerts,
@@ -26,25 +20,18 @@ export const fetchAlerts = async (
 };
 
 export const fetchAlert = async (alertId: string): Promise<AlertResponse> => {
-    const res = await fetch(`${API_BASE_URL}/alerts/${alertId}`, { method: 'GET' });
-
-    if (!res.ok) {
-        throw new Error('Failed to fetch alert');
-    }
-
-    return res.json();
+    const url = `${API_BASE_URL}/alerts/${alertId}`;
+    const response = await authenticatedFetch(url, { method: 'GET' });
+    return response.json();
 };
 
 export const updateAlert = async (alertId: string, data: AlertMarkAttendanceRequest): Promise<void> => {
-    const res = await fetch(`${API_BASE_URL}/alerts/${alertId}`, {
+    const url = `${API_BASE_URL}/alerts/${alertId}`;
+    await authenticatedFetch(url, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
     });
-
-    if (!res.ok) {
-        throw new Error('Failed to update alert');
-    }
-}
+};

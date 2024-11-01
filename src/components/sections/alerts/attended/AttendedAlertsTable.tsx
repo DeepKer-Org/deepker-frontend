@@ -3,13 +3,14 @@ import AttendedAlertsElement from "./AttendedAlertsElement";
 import React, {useEffect, useState} from "react";
 import Pagination from "../../../ui/Pagination";
 import {fetchAlerts} from "@/src/api/alerts";
+import {Alert} from "@/src/types/alert";
 
 interface AttendedAlertsTableProps {
     refresh: boolean;
 }
 
 export const AttendedAlertsTable: React.FC<AttendedAlertsTableProps> = ({refresh}) => {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState<Alert[]>([])
     const [currentPage, setCurrentPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
@@ -23,8 +24,8 @@ export const AttendedAlertsTable: React.FC<AttendedAlertsTableProps> = ({refresh
             const response = await fetchAlerts(true, page, rows);
             setData(response.alerts);
             setTotalItems(response.totalCount); // Set total items from the server response
-        } catch (err) {
-            setError('Error loading alerts: ' + err.message);
+        } catch {
+            setError('Error loading alerts: ');
         } finally {
             setIsLoading(false);
         }

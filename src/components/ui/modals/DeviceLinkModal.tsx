@@ -9,64 +9,73 @@ import {fetchPatients} from "@/src/api/patients";
 import {Patient} from "@/src/types/patient";
 import ModalWrapper from "@/src/components/ui/wrappers/ModalWrapper";
 
-interface SensorLinkModalProps {
+interface DeviceLinkModalProps {
     isOpen: boolean; // Added to control modal visibility
     onClose: () => void;
     onLinkSuccess: () => void;
-    initialSensorId?: string;
+    initialDeviceId?: string;
 }
 
-const initialSensorLinkData = {
-    sensor_id: "",
+const initialDeviceLinkData = {
+    device_id: "",
     patient_id: "",
 };
 
-const SensorLinkModal: React.FC<SensorLinkModalProps> = ({
+const DeviceLinkModal: React.FC<DeviceLinkModalProps> = ({
                                                              isOpen,
                                                              onClose,
                                                              onLinkSuccess,
-                                                             initialSensorId = ""
+                                                             initialDeviceId = ""
                                                          }) => {
     const {formValues, handleSubmit, setFormValues} = useForm(
-        {...initialSensorLinkData, sensor_id: initialSensorId}, // Pre-fill `sensor_id` if provided
+        {...initialDeviceLinkData, device_id: initialDeviceId}, // Pre-fill `device_id` if provided
         handleLink
     );
 
-    const [freeSensors, setFreeSensors] = useState<MonitoringDevice[]>([]); // Sensors with "Free" status
+    const [freeDevices, setFreeDevices] = useState<MonitoringDevice[]>([]); // Devices with "Free" status
     const [patients, setPatients] = useState<Patient[]>([]); // Patients list
-    const [isLoading, setIsLoading] = useState(true); // To show loading state while fetching sensors
+    const [isLoading, setIsLoading] = useState(true); // To show loading state while fetching devices
     const [isLoadingPatients, setIsLoadingPatients] = useState(true); // Loading state for patients
     const [error, setError] = useState<string | null>(null); // Error handling
 
     useEffect(() => {
-        const fetchFreeSensors = async () => {
-            try {
-                const response = await fetchDevicesByStatus("Free"); // Only fetch free devices
-                setFreeSensors(response.devices);
-            } catch {
-                setError("Error fetching free sensors");
-            } finally {
-                setIsLoading(false);
-            }
-        };
+        if (isOpen) {  // Check if modal is open before fetching data
+            setFormValues({
+                device_id: initialDeviceId || "",
+                patient_id: ""
+            });
 
-        const fetchAllPatients = async () => {
-            try {
-                const response = await fetchPatients(); // Fetch patients
-                setPatients(response.patients);
-            } catch {
-                setError("Error fetching patients");
-            } finally {
-                setIsLoadingPatients(false);
-            }
-        };
+            const fetchFreeDevices = async () => {
+                try {
+                    const response = await fetchDevicesByStatus("Free"); // Only fetch free devices
+                    setFreeDevices(response.devices);
+                } catch {
+                    setError("Error fetching free devices");
+                } finally {
+                    setIsLoading(false);
+                }
+            };
 
-        fetchFreeSensors();
-        fetchAllPatients();
-    }, []);
+            const fetchAllPatients = async () => {
+                try {
+                    const response = await fetchPatients(); // Fetch patients
+                    setPatients(response.patients);
+                } catch {
+                    setError("Error fetching patients");
+                } finally {
+                    setIsLoadingPatients(false);
+                }
+            };
+
+            setIsLoading(true); // Reset loading states before fetching
+            setIsLoadingPatients(true);
+            fetchFreeDevices();
+            fetchAllPatients();
+        }
+    }, [isOpen, initialDeviceId, setFormValues]);
 
 
-    async function handleLink(linkData: typeof initialSensorLinkData) {
+    async function handleLink(linkData: typeof initialDeviceLinkData) {
         try {
             const updateData: MonitoringDeviceUpdateRequest = {
                 status: "In Use",
@@ -74,21 +83,21 @@ const SensorLinkModal: React.FC<SensorLinkModalProps> = ({
                 linked_by_id: "66778899-aaaa-bbbb-cccc-ddddeeeeffff", // Provide the actual ID of the logged-in user
             };
 
-            // Call the updateDevice API to update the sensor
-            await updateDevice(linkData.sensor_id, updateData);
+            // Call the updateDevice API to update the device
+            await updateDevice(linkData.device_id, updateData);
 
             // Call the success handler to notify the parent of the success
             onLinkSuccess();
         } catch {
-            setError("Failed to link sensor");
+            setError("Falla al vincular el dispositivo");
         }
     }
 
-    const handleSensorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        // Directly update form values for sensor_id
+    const handleDeviceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        // Directly update form values for device_id
         setFormValues((prevValues) => ({
             ...prevValues,
-            sensor_id: e.target.value,
+            device_id: e.target.value,
         }));
     };
 
@@ -99,32 +108,34 @@ const SensorLinkModal: React.FC<SensorLinkModalProps> = ({
         }));
     };
 
+    const isLinkingDisabled = !formValues.device_id || !formValues.patient_id;
+
     return (
-        <ModalWrapper isOpen={isOpen} onClose={onClose} width="28rem">
+        <ModalWrapper isOpen={isOpen} width="28rem">
             <form onSubmit={handleSubmit}>
                 <h1 className="mb-6">Vincular Dispositivos</h1>
                 {isLoading || isLoadingPatients ? (
-                    <p>Loading sensors...</p>
+                    <p>Loading devices...</p>
                 ) : error ? (
                     <p>{error}</p>
                 ) : (
                     <div className="flex flex-col gap-y-6 bg-white border border-border-primary rounded-lg p-6">
                         <div className="col-span-2" style={{position: 'relative', width: '100%'}}>
-                            <label htmlFor="sensor_id" className="block mb-2 text-sm">
-                                Seleccione un sensor
+                            <label htmlFor="device_id" className="block mb-2 text-sm">
+                                Seleccione un device
                             </label>
                             <select
-                                id="sensor_id"
-                                name="sensor_id"
-                                value={formValues.sensor_id || ""}
-                                onChange={handleSensorChange}
+                                id="device_id"
+                                name="device_id"
+                                value={formValues.device_id || ""}
+                                onChange={handleDeviceChange}
                                 className="modal__dropdown"
-                                disabled={!!initialSensorId} // Disable the dropdown if `sensor_id` was passed
+                                disabled={!!initialDeviceId} // Disable the dropdown if `device_id` was passed
                             >
-                                <option value="">Selecciona un sensor</option>
-                                {freeSensors.map((sensor) => (
-                                    <option key={sensor.device_id} value={sensor.device_id}>
-                                        {sensor.device_id}
+                                <option value="">Selecciona un device</option>
+                                {freeDevices.map((device) => (
+                                    <option key={device.device_id} value={device.device_id}>
+                                        {device.device_id}
                                     </option>
                                 ))}
                             </select>
@@ -183,11 +194,11 @@ const SensorLinkModal: React.FC<SensorLinkModalProps> = ({
                 <div className="flex flex-row justify-center gap-x-4 mt-6">
                     <Button text={"Cancelar"} className="w-40" color={ButtonColor.SECONDARY} onClick={onClose}
                             type="button"/>
-                    <Button text={"Vincular"} className="w-40" color={ButtonColor.SUCCESS} type="submit"/>
+                    <Button text={"Vincular"} className="w-40" color={ButtonColor.SUCCESS} type="submit" disabled={isLinkingDisabled}/>
                 </div>
             </form>
         </ModalWrapper>
     );
 };
 
-export default SensorLinkModal;
+export default DeviceLinkModal;
