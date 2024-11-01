@@ -1,6 +1,6 @@
 "use client";
 
-import SensorLinkModal from "@/src/components/ui/modals/SensorLinkModal";
+import DeviceLinkModal from "@/src/components/ui/modals/DeviceLinkModal";
 import DevicesTable from "@/src/components/sections/devices/DevicesTable";
 import Button from "@/src/components/ui/buttons/Button";
 import SearchInput from "@/src/components/ui/inputs/SearchInput";
@@ -34,8 +34,8 @@ export default function Devices() {
             const response = await fetchDevices(currentPage, rowsPerPage, filters);
             setDevices(response.devices);
             setTotalCount(response.totalCount);
-        } catch (err) {
-            setError('Error fetching devices: ' + err.message);
+        } catch {
+            setError('Error fetching devices');
         } finally {
             setIsLoading(false);
         }
@@ -45,7 +45,6 @@ export default function Devices() {
         updateTimeNow();
         handleFetchDevices(); // Fetch devices whenever filters, pagination, or refresh changes
     }, [currentPage, rowsPerPage, filters, isRefreshing, handleFetchDevices]);
-
 
     const handleSearchSubmit = (value: string) => {
         setFilters({dni: value}); // Update the filters with the search term (DNI)
@@ -105,7 +104,7 @@ export default function Devices() {
             </span>
                     </div>
                 </div>
-                <SensorLinkModal onClose={handleCloseModal} onLinkSuccess={handleLinkSuccess} isOpen={isModalOpen}/>
+                <DeviceLinkModal onClose={handleCloseModal} onLinkSuccess={handleLinkSuccess} isOpen={isModalOpen}/>
                 <DevicesTable
                     devices={devices}
                     totalCount={totalCount}

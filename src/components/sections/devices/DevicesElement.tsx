@@ -4,7 +4,7 @@ import {useRouter} from "next/navigation";
 import React, {useState} from "react";
 import DeviceActionButton from "@/src/components/ui/buttons/DeviceActionButton";
 import UnlinkConfirmationModal from "@/src/components/ui/modals/UnlinkConfirmationModal";
-import SensorLinkModal from "@/src/components/ui/modals/SensorLinkModal";
+import DeviceLinkModal from "@/src/components/ui/modals/DeviceLinkModal";
 
 interface DevicesElementProps {
     device: MonitoringDevice;
@@ -14,30 +14,32 @@ interface DevicesElementProps {
 const DevicesElement: React.FC<DevicesElementProps> = ({device, onRefresh}) => {
     const router = useRouter();
     const [isUnlinkModalOpen, setIsUnlinkModalOpen] = useState(false);
-    const [isLinkModalOpen, setIsLinkModalOpen] = useState(false); // For link modal
-    const [selectedSensorId, setSelectedSensorId] = useState<string | null>(null); // Store the sensor ID for linking
+    const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
+    const [selectedDeviceId, setSelectedDeviceId] = useState<string | null>(null);
+    const [deviceStatus, setDeviceStatus] = useState(device.status); // Track status locally
 
     const handleDetails = () => {
         router.push(`/patients/${device.patient.patient_id}`);
     };
 
     const mapStatusNames = (status: string) => {
-        if (status === "In Use") {
-            return "En Uso";
-        } else if (status === "Free") {
-            return "Disponible";
-        } else if (status === "Connecting") {
-            return "Conectando";
-        } else if (status === "Unavailable") {
-            return "No Disponible";
-        } else {
-            return "Desconocido";
+        switch (status) {
+            case "In Use":
+                return "En Uso";
+            case "Free":
+                return "Disponible";
+            case "Connecting":
+                return "Conectando";
+            case "Unavailable":
+                return "No Disponible";
+            default:
+                return "Desconocido";
         }
-    }
+    };
 
-    const handleLink = (sensorId: string) => {
-        setSelectedSensorId(sensorId);
-        setIsLinkModalOpen(true); // Open link modal
+    const handleLink = (deviceId: string) => {
+        setSelectedDeviceId(deviceId);
+        setIsLinkModalOpen(true);
     };
 
     const handleUnlinkSuccess = () => {
@@ -45,8 +47,8 @@ const DevicesElement: React.FC<DevicesElementProps> = ({device, onRefresh}) => {
     };
 
     const handleLinkSuccess = () => {
-        setIsLinkModalOpen(false); // Close link modal
-        onRefresh(); // Refresh table after linking
+        setIsLinkModalOpen(false);
+        onRefresh();
     };
 
     return (
@@ -67,18 +69,18 @@ const DevicesElement: React.FC<DevicesElementProps> = ({device, onRefresh}) => {
                 )}
             </div>
             <div className="cell-border table-row-group px-4">
-                <p>{mapStatusNames(device.status)}</p>
+                <p>{mapStatusNames(deviceStatus)}</p>
             </div>
             <div className="flex flex-row h-full">
                 <div className="flex w-1/2 justify-center h-full items-center cell-border">
-                    <DeviceActionButton status={device.status} onUnlink={() => setIsUnlinkModalOpen(true)}
-                                        onLink={(() => handleLink(device.device_id))}/>
+                    <DeviceActionButton status={deviceStatus} onUnlink={() => setIsUnlinkModalOpen(true)}
+                                        onLink={() => handleLink(device.device_id)}/>
                 </div>
                 <div
                     className={`flex w-1/2 items-center justify-center gap-x-4 px-4 h-full ${
                         device.patient?.name ? "cursor-pointer text-gray-600" : "text-gray-400"
                     }`}
-                    onClick={device.patient?.name ? handleDetails : undefined} // Make sure it's not clickable if no patient
+                    onClick={device.patient?.name ? handleDetails : undefined}
                 >
                     {device.patient?.name && (
                         <>
@@ -98,15 +100,14 @@ const DevicesElement: React.FC<DevicesElementProps> = ({device, onRefresh}) => {
             )}
 
             {isLinkModalOpen && (
-                <SensorLinkModal
+                <DeviceLinkModal
                     onClose={() => setIsLinkModalOpen(false)}
                     onLinkSuccess={handleLinkSuccess}
-                    initialSensorId={selectedSensorId} // Pass the selected sensor ID to the modal
+                    initialDeviceId={selectedDeviceId!}
                     isOpen={isLinkModalOpen}
                 />
             )}
         </div>
-
     );
 };
 

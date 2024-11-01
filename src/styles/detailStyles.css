@@ -119,13 +119,12 @@
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             padding-right: 1.5rem;
+            column-gap: 4rem;
 
             .metrics__grid--left {
                 display: flex;
-                text-align: left;
                 height: 100%;
                 justify-content: flex-end;
-                padding-right: 3rem
             }
 
             .metrics__grid--right {

@@ -146,72 +146,7 @@ const PatientDetail = ({params}: { params: { id: string } }) => {
                         }
                     </ul>
                 </CardWrapper>
-                <CardWrapper className={"row-span-8"}>
-                    <IconTitle className={"mb-4"} icon={"monitor"} title={"Métricas biométricas en monitoreo:"}/>
-                    <div className={"metrics__container"}>
-                        <div className={"metrics__grid metrics__item--black"}>
-                            <p className={"metrics__grid--left metrics__text--h1"}>HR</p>
-                            <div className={"metrics__grid--right"}>
-                                <div className={"metrics__text--h3"}>
-                                    <p>120</p>
-                                    <p>50</p>
-                                </div>
-                                <p className={"metrics__text--h1"}>60</p>
-                            </div>
-                        </div>
-                        <div className={"metrics__divider"}/>
-                        <div className={"metrics__grid metrics__item--blue"}>
-                            <p className={"metrics__grid--left metrics__text--h1"}>SPO2</p>
-                            <div className={"metrics__grid--right"}>
-                                <div className={"metrics__text--h3"}>
-                                    <p>100</p>
-                                    <p>90</p>
-                                </div>
-                                <p className={"metrics__text--h1"}>84</p>
-                            </div>
-                        </div>
-                        <div className={"metrics__divider"}/>
-                        <div className={"metrics__grid metrics__item--black"}>
-                            <p className={"metrics__grid--left metrics__text--h1"}>Temp</p>
-                            <div className={"metrics__grid--right"}>
-                                <div className={"metrics__text--h3 metrics__text--tight"}>
-                                    <p>40.1</p>
-                                    <p>36.9</p>
-                                </div>
-                                <p className={"metrics__text--h1 metrics__text--tighter"}>37.3</p>
-                            </div>
-                        </div>
-                        <div className={"metrics__divider"}/>
-                        <div className={"metrics__grid metrics__item--blue"}>
-                            <div className={"metrics__grid--left"}>
-                                <div className={"flex flex-col justify-center"}>
-                                    <p className={"metrics__text--h2"}>NBP</p>
-                                    <p className={"metrics__text--h2"}>Sys.</p>
-                                </div>
-                            </div>
-                            <div className={"metrics__grid--right"}>
-                                <div className={"metrics__text--h3"}>
-                                    <p>100</p>
-                                    <p>90</p>
-                                </div>
-                                <p className={"metrics__text--h1 metrics__text--tighter"}>121/82</p>
-                            </div>
-                        </div>
-                        <div className={"metrics__divider"}/>
-                        <div className={"metrics__grid metrics__item--black"}>
-                            <div className={"metrics__grid--left"}>
-                                <div className={"flex flex-col justify-center"}>
-                                    <p className={"metrics__text--h2"}>NBP</p>
-                                    <p className={"metrics__text--h2"}>mmHg</p>
-                                </div>
-                            </div>
-                            <div className={"metrics__grid--right"}>
-                                <p className={"metrics__text--h1 metrics__text--tighter"}>(89)</p>
-                            </div>
-                        </div>
-                    </div>
-                </CardWrapper>
-                <CardWrapper className={"row-span-7 timeline__container relative"}>
+                <CardWrapper className={"row-span-11 timeline__container relative"}>
                     <h4>Linea de tiempo</h4>
                     <div className={"timeline__header"}>
                         <div className={"timeline__date"}><p>Desde:</p> <MonthYearPicker
@@ -248,6 +183,32 @@ const PatientDetail = ({params}: { params: { id: string } }) => {
                             ))
                         }
                     </ul>
+                </CardWrapper>
+                <CardWrapper className={"row-span-4"}>
+                    <IconTitle className={"mb-4"} icon={"monitor"} title={"Métricas biométricas en monitoreo:"}/>
+                    <div className={"metrics__container"}>
+                        <div className={"metrics__grid metrics__item--black"}>
+                            <p className={"metrics__grid--left metrics__text--h1"}>HR</p>
+                            <div className={"metrics__grid--right"}>
+                                <div className={"metrics__text--h3"}>
+                                    <p>120</p>
+                                    <p>50</p>
+                                </div>
+                                <p className={"metrics__text--h1"}>60</p>
+                            </div>
+                        </div>
+                        <div className={"metrics__divider"}/>
+                        <div className={"metrics__grid metrics__item--blue"}>
+                            <p className={"metrics__grid--left metrics__text--h1"}>SPO2</p>
+                            <div className={"metrics__grid--right"}>
+                                <div className={"metrics__text--h3"}>
+                                    <p>100</p>
+                                    <p>90</p>
+                                </div>
+                                <p className={"metrics__text--h1"}>84</p>
+                            </div>
+                        </div>
+                    </div>
                 </CardWrapper>
                 <CardWrapper className={"row-span-3 col-span-2"}>
                     <IconTitle icon={"medication"} title={"Medicación actual:"}/>

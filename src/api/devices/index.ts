@@ -1,4 +1,5 @@
 import {DevicesQueryParams, DevicesResponse, MonitoringDeviceUpdateRequest} from "@/src/types/devices";
+import {authenticatedFetch} from "@/src/api/authenticatedFetch";
 
 const API_BASE_URL = process.env.API_BASE_URL || "http://localhost:8080";
 
@@ -15,15 +16,8 @@ export const fetchDevices = async (
         )
     }).toString();
 
-    const res = await fetch(
-        `${API_BASE_URL}/monitoring-devices?${queryParams}`,
-        { method: 'GET' }
-    );
-
-    if (!res.ok) {
-        throw new Error('Failed to fetch devices');
-    }
-
+    // Fetch data using authenticatedFetch
+    const res = await authenticatedFetch(`${API_BASE_URL}/monitoring-devices?${queryParams}`, { method: 'GET' });
     const data = await res.json();
 
     return {
@@ -32,18 +26,8 @@ export const fetchDevices = async (
     };
 };
 
-export const fetchDevicesByStatus = async (
-    status: string
-): Promise<DevicesResponse> => {
-    const res = await fetch(
-        `${API_BASE_URL}/monitoring-devices?status=${status}`,
-        { method: 'GET' }
-    );
-
-    if (!res.ok) {
-        throw new Error('Failed to fetch devices by status');
-    }
-
+export const fetchDevicesByStatus = async (status: string): Promise<DevicesResponse> => {
+    const res = await authenticatedFetch(`${API_BASE_URL}/monitoring-devices?status=${status}`, { method: 'GET' });
     const data = await res.json();
 
     return {
@@ -53,15 +37,11 @@ export const fetchDevicesByStatus = async (
 };
 
 export const updateDevice = async (deviceId: string, data: MonitoringDeviceUpdateRequest): Promise<void> => {
-    const res = await fetch(`${API_BASE_URL}/monitoring-devices/${deviceId}`, {
+    await authenticatedFetch(`${API_BASE_URL}/monitoring-devices/${deviceId}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
     });
-
-    if (!res.ok) {
-        throw new Error('Failed to update device');
-    }
-}
+};

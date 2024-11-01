@@ -20,8 +20,8 @@ const AttendedAlertDetail = ({params}: { params: { id: string } }) => {
             try {
                 const data: AlertResponse = await fetchAlert(params.id);
                 setAlertData(data.alert);
-            } catch (err) {
-                setError('No se pudo recuperar el detalle de la alerta: ' + err.message);
+            } catch {
+                setError('No se pudo recuperar el detalle de la alerta');
             } finally {
                 setIsLoading(false);
             }

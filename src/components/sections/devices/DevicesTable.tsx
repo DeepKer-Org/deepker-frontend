@@ -30,7 +30,7 @@ const DevicesTable: React.FC<DevicesTableProps> = ({
     return (
         <div className="table-container">
             <div className="table-header-row device-grid-cols tableBp:grid-cols-[12%_25%_25%_10%_28%]">
-                <p>ID DE SENSOR</p>
+                <p>ID DE DISPOSITIVO</p>
                 <p>PACIENTE VINCULADO</p>
                 <p className="hidden tableBp:block">VINCULADO POR</p>
                 <p>ESTADO</p>
