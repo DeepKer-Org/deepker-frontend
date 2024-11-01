@@ -3,6 +3,7 @@ import "@/src/styles/globals.css";
 import {Metadata} from "next";
 import ClientWrapper from "@/src/components/ui/wrappers/ClientWrapper";
 import React from "react";
+import {AuthProvider} from "@/src/context/AuthContext";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -45,9 +46,11 @@ export default function RootLayout({
                 rel="stylesheet"
             />
         </head>
-        <ClientWrapper>
-            {children}
-        </ClientWrapper>
+        <AuthProvider>
+            <ClientWrapper>
+                {children}
+            </ClientWrapper>
+        </AuthProvider>
         </html>
     );
 }

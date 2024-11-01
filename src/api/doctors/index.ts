@@ -29,3 +29,18 @@ export const fetchDoctor = async (doctorId: string): Promise<DoctorResponse> => 
 
     return res.json();
 }
+
+export const fetchDoctorByUserId = async (userId: string, token: string): Promise<DoctorResponse> => {
+    const res = await fetch(`${API_BASE_URL}/doctors/userID/${userId}`, {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    if (!res.ok) {
+        throw new Error('Failed to fetch doctor');
+    }
+
+    return res.json();
+};

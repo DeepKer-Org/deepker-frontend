@@ -3,9 +3,11 @@ import React, { useState } from "react";
 interface PasswordInputProps {
     icon: string;
     placeholder: string;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const PasswordInput: React.FC<PasswordInputProps> = ({ icon, placeholder }) => {
+const PasswordInput: React.FC<PasswordInputProps> = ({ icon, placeholder, value, onChange }) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
     const togglePasswordVisibility = () => {
@@ -19,13 +21,16 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ icon, placeholder }) => {
                 type={isPasswordVisible ? "text" : "password"}
                 placeholder={placeholder}
                 className="auth__input--text"
+                value={value}
+                onChange={onChange}
             />
             <span
                 className="material-symbols-outlined auth__input--icon--password"
                 onClick={togglePasswordVisibility}
+                style={{ cursor: "pointer" }} // Optional for better UX
             >
-        {isPasswordVisible ? "visibility_off" : "visibility"}
-      </span>
+                {isPasswordVisible ? "visibility_off" : "visibility"}
+            </span>
         </div>
     );
 };

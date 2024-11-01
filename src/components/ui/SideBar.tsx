@@ -2,12 +2,15 @@ import { IconName } from "@/src/enums/IconName";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import SectionBlock from "./SectionBlock";
+import {useAuth} from "@/src/context/AuthContext";
+import Image from "next/image";
 
 const SideBar = () => {
   const [selected, setSelected] = useState<IconName | null>(null);
   const [open, setOpen] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
+  const { signOut } = useAuth();
 
   const icons = [
     { icon: IconName.CrisisAlert, route: "/alerts", label: "Alertas" },
@@ -29,6 +32,12 @@ const SideBar = () => {
     router.push(path);
   };
 
+  const handleSignOut = () => {
+    signOut();           // Clear authentication data
+    router.push("/auth/login"); // Redirect to login page
+  };
+
+
   const toggleSidebar = () => {
     setOpen((prev) => !prev);
   };
@@ -49,7 +58,7 @@ const SideBar = () => {
               showHover={false}
             />
             <div className="title">
-              <img src="/icons/deepker-original.webp" alt="logo" />
+              <Image src={"/icons/deepker-original.webp"} alt={"logo"} width={50} height={50}/>
               <p>DeepKer</p>
             </div>
           </div>
@@ -74,6 +83,7 @@ const SideBar = () => {
         selected={selected === IconName.Logout}
         label={open ? "Cerrar Sesión" : undefined}
         sidebarOpen={open}
+        onClick={() => handleSignOut()}
       />
     </div>
   );
