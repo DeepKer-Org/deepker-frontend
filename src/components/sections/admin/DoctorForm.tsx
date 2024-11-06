@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useSnackbar } from 'notistack';
 import ModalInput from "@/src/components/ui/inputs/border/ModalInput";
 import DateInput from "@/src/components/ui/inputs/border/DateInput";
@@ -11,29 +11,39 @@ import { DoctorFormValues } from "@/src/types/form";
 import {passwordRegex} from "@/src/utils/regex";
 
 interface DoctorFormProps {
+    initialValues?: DoctorFormValues;  // Optional initialValues prop
     onCancel: () => void;
     onSubmit: (values: DoctorFormValues) => void;
 }
 
-const DoctorForm: React.FC<DoctorFormProps> = ({ onCancel, onSubmit }) => {
+const DoctorForm: React.FC<DoctorFormProps> = ({ onCancel, onSubmit, initialValues }) => {
+    // Pass initialValues into useForm as the starting state
     const { formValues, handleInputChange, handleSubmit, setFormValues } = useForm<DoctorFormValues>(
         {
             name: '',
             specialization: '',
             username: '',
-            issueDate: '',
+            issuanceDate: '',
             password: '',
             confirmPassword: '',
-            isAdmin: false
+            isAdmin: false,
+            ...initialValues // Merge initialValues with default values
         },
         (values) => {
             if (validateForm()) {
-                onSubmit(values); // Submit only if the form is valid
+                onSubmit(values);
             }
         }
     );
 
     const { enqueueSnackbar } = useSnackbar();
+
+    // Load initial values when they change (e.g., after fetch completes in EditUser)
+    useEffect(() => {
+        if (initialValues) {
+            setFormValues({ ...initialValues });
+        }
+    }, [initialValues, setFormValues]);
 
     // Function to validate the form on submit
     const validateForm = (): boolean => {
@@ -49,7 +59,7 @@ const DoctorForm: React.FC<DoctorFormProps> = ({ onCancel, onSubmit }) => {
             enqueueSnackbar("El DNI es obligatorio.", { variant: "error" });
             return false;
         }
-        if (formValues.issueDate.trim() === '') {
+        if (formValues.issuanceDate.trim() === '') {
             enqueueSnackbar("La fecha de emisión es obligatoria.", { variant: "error" });
             return false;
         }
@@ -90,8 +100,8 @@ const DoctorForm: React.FC<DoctorFormProps> = ({ onCancel, onSubmit }) => {
             />
             <DateInput
                 label="Fecha de emisión"
-                value={formValues.issueDate}
-                onChange={(date) => setFormValues(prev => ({ ...prev, issueDate: date }))}
+                value={formValues.issuanceDate}
+                onChange={(date) => setFormValues(prev => ({ ...prev, issuanceDate: date }))}
             />
             <PasswordInput
                 label="Contraseña"

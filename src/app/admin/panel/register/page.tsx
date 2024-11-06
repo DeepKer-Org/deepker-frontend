@@ -6,8 +6,8 @@ import DoctorForm from "@/src/components/sections/admin/DoctorForm";
 import AdminForm from "@/src/components/sections/admin/AdminForm";
 import {useRouter} from "next/navigation";
 import {AdminFormValues, DoctorFormValues} from "@/src/types/form";
-import {RegisterUserRequest} from "@/src/types/auth";
-import {DoctorRegisterRequest} from "@/src/types/doctor";
+import {UserRequest} from "@/src/types/auth";
+import {DoctorRequest} from "@/src/types/doctor";
 import {registerAdminUser} from "@/src/api/auth";
 import {registerDoctorUser} from "@/src/api/doctors";
 import {useSnackbar} from "notistack";
@@ -25,7 +25,7 @@ const RegisterUser = () => {
 
     // Handler for submitting AdminForm values after mapping
     const handleAdminSubmit = async (values: AdminFormValues) => {
-        const request: RegisterUserRequest = {
+        const request: UserRequest = {
             username: values.username,
             password: values.password
         };
@@ -40,10 +40,10 @@ const RegisterUser = () => {
 
     // Handler for submitting DoctorForm values after mapping
     const handleDoctorSubmit = async (values: DoctorFormValues) => {
-        const request: DoctorRegisterRequest = {
+        const request: DoctorRequest = {
             dni: values.username,
             password: values.password,
-            issuance_date: values.issueDate,
+            issuance_date: values.issuanceDate,
             name: values.name,
             specialization: values.specialization,
             roles: values.isAdmin ? ["doctor", "admin"] : ["doctor"]

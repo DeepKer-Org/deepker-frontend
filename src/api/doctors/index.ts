@@ -1,4 +1,4 @@
-import {DoctorRegisterRequest, DoctorResponse, DoctorsResponse} from "@/src/types/doctor";
+import {DoctorRequest, DoctorResponse, DoctorsResponse} from "@/src/types/doctor";
 import {authenticatedFetch} from "@/src/api/authenticatedFetch";
 
 const API_BASE_URL = process.env.API_BASE_URL || "http://localhost:8080";
@@ -33,7 +33,21 @@ export const fetchDoctorByUserId = async (userId: string, token: string): Promis
     return res.json();
 };
 
-export const registerDoctorUser = async (request: DoctorRegisterRequest): Promise<void> => {
+export const updateDoctorByUserId = async (userId: string, request: DoctorRequest): Promise<void> => {
+    const response = await authenticatedFetch(`${API_BASE_URL}/doctors/userID/${userId}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...request }),
+    });
+
+    if (!response.ok) {
+        throw new Error("Doctor update failed");
+    }
+}
+
+export const registerDoctorUser = async (request: DoctorRequest): Promise<void> => {
     const response = await authenticatedFetch(`${API_BASE_URL}/doctors`, {
         method: "POST",
         headers: {

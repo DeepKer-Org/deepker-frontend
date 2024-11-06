@@ -2,7 +2,7 @@ export type DoctorFormValues = {
     name: string;
     specialization: string;
     username: string;
-    issueDate: string;
+    issuanceDate: string;
     password: string;
     confirmPassword: string;
     isAdmin: boolean;

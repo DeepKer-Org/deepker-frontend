@@ -3,6 +3,7 @@ export interface Doctor {
     dni: string;
     name: string;
     specialization: string;
+    issuance_date: string;
 }
 
 export interface DoctorsResponse {
@@ -13,7 +14,7 @@ export interface DoctorResponse {
     doctor: Doctor;
 }
 
-export interface DoctorRegisterRequest {
+export interface DoctorRequest {
     dni: string;
     password: string;
     issuance_date: string;

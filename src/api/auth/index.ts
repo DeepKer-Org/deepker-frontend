@@ -1,5 +1,5 @@
 import {authenticatedFetch} from "@/src/api/authenticatedFetch";
-import {LoginResponse, RegisterUserRequest, UpdateUserRequest, UsersResponse} from "@/src/types/auth";
+import {LoginResponse, User, UserRequest, UsersResponse} from "@/src/types/auth";
 
 const API_BASE_URL = process.env.API_BASE_URL || "http://localhost:8080";
 
@@ -37,7 +37,7 @@ export const changePassword = async (dni: string, issuance_date: string, new_pas
     }
 };
 
-export const registerAdminUser = async (request: RegisterUserRequest): Promise<void> => {
+export const registerAdminUser = async (request: UserRequest): Promise<void> => {
     const roles = ["admin"];
     const response = await authenticatedFetch(`${API_BASE_URL}/authorization`, {
         method: "POST",
@@ -63,8 +63,20 @@ export const fetchUsers = async (page: number, rowsPerPage: number): Promise<Use
     }
 }
 
+export const fetchUserById = async (userId: string): Promise<User> => {
+    const response = await authenticatedFetch(`${API_BASE_URL}/authorization/${userId}`, {
+        method: "GET",
+    });
+
+    if (!response.ok) {
+        throw new Error("User fetch failed");
+    }
+
+    return response.json();
+}
+
 // updateUser
-export const updateUser = async (userId: string, request: UpdateUserRequest): Promise<void> => {
+export const updateUser = async (userId: string, request: UserRequest): Promise<void> => {
     const response = await authenticatedFetch(`${API_BASE_URL}/authorization/${userId}`, {
         method: "PATCH",
         headers: {

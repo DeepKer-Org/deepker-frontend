@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useSnackbar } from 'notistack';
 import ModalInput from "@/src/components/ui/inputs/border/ModalInput";
 import PasswordInput from "@/src/components/ui/inputs/border/PasswordInput";
@@ -9,25 +9,33 @@ import { AdminFormValues } from "@/src/types/form";
 import {emailRegex, passwordRegex} from "@/src/utils/regex";
 
 interface AdminFormProps {
+    initialValues?: AdminFormValues; // Optional initialValues prop
     onCancel: () => void;
     onSubmit: (values: AdminFormValues) => void;
 }
 
-const AdminForm: React.FC<AdminFormProps> = ({ onCancel, onSubmit }) => {
-    const { formValues, handleInputChange, handleSubmit } = useForm<AdminFormValues>(
+const AdminForm: React.FC<AdminFormProps> = ({ initialValues, onCancel, onSubmit }) => {
+    const { formValues, handleInputChange, handleSubmit, setFormValues } = useForm<AdminFormValues>(
         {
             username: '',
             password: '',
-            confirmPassword: ''
+            confirmPassword: '',
+            ...initialValues // Merge with default values
         },
         (values) => {
             if (validateForm()) {
-                onSubmit(values); // Submit only if the form is valid
+                onSubmit(values);
             }
         }
     );
 
     const { enqueueSnackbar } = useSnackbar();
+
+    useEffect(() => {
+        if (initialValues) {
+            setFormValues({ ...initialValues });
+        }
+    }, [initialValues, setFormValues]);
 
     // Function to validate the form on submit
     const validateForm = (): boolean => {

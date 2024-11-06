@@ -5,9 +5,10 @@ interface SelectInputProps {
     value: string;
     onChange: (value: string) => void;
     label?: string;
+    disabled?: boolean;
 }
 
-const SelectInput: React.FC<SelectInputProps> = ({ options, value, onChange, label }) => {
+const SelectInput: React.FC<SelectInputProps> = ({ options, value, onChange, label, disabled }) => {
     return (
         <div className="form-input">
             {label && <label className="form-input__label">{label}</label>}
@@ -16,6 +17,7 @@ const SelectInput: React.FC<SelectInputProps> = ({ options, value, onChange, lab
                     className="form-input__field"
                     value={value}
                     onChange={(e) => onChange(e.target.value)}
+                    disabled={disabled}
                 >
                     {options.map((option) => (
                         <option key={option.value} value={option.value}>

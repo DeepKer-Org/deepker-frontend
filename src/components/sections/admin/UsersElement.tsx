@@ -55,9 +55,12 @@ const UsersElement: React.FC<UsersElementProps> = ({user, onRefresh}) => {
             <div className={"table-row-circle-buttons"}>
                 <button
                     className="bg-green-500 rounded-full cursor-pointer w-10 h-10 hover:bg-green-550 transition-all"
-                    onClick={() => router.push(`/admin/panel/edit/${user.user_id}`)}
+                    onClick={() => {
+                        const query = `roles=${encodeURIComponent(JSON.stringify(user.roles))}`;
+                        router.push(`/admin/panel/edit/${user.user_id}?${query}`);
+                    }}
                 >
-                    <span className={"material-symbols-outlined text-white mt-1"}>edit</span>
+                    <span className="material-symbols-outlined text-white mt-1">edit</span>
                 </button>
                 <button
                     className="bg-red-500 rounded-full cursor-pointer w-10 h-10 hover:bg-red-550 transition-all"
