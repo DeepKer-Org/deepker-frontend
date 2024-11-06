@@ -32,3 +32,18 @@ export const fetchDoctorByUserId = async (userId: string, token: string): Promis
 
     return res.json();
 };
+
+export const registerDoctorUser = async (dni: string, password: string, issuance_date: string, name: string, specialization: string): Promise<void> => {
+    const roles = ["doctor"];
+    const response = await authenticatedFetch(`${API_BASE_URL}/doctors`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ dni, password, issuance_date, name, specialization, roles }),
+    });
+
+    if (!response.ok) {
+        throw new Error("Doctor registration failed");
+    }
+}

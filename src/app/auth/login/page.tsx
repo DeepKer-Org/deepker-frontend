@@ -12,7 +12,7 @@ import {useSnackbar} from "notistack";
 export default function Login() {
     const router = useRouter();
     const { signIn, isLoading } = useAuth();
-    const { enqueueSnackbar } = useSnackbar(); // Access notistack's enqueueSnackbar function
+    const { enqueueSnackbar } = useSnackbar();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
@@ -23,14 +23,11 @@ export default function Login() {
     const validateInputs = (): boolean => {
         let valid = true;
 
-        // Username (DNI) validation: must be exactly 8 numeric characters
-        const dniRegex = /^[0-9]{8}$/;
-        if (!dniRegex.test(username)) {
+        if (username.length === 0) {
             valid = false;
-            enqueueSnackbar("El DNI debe tener exactamente 8 caracteres numéricos.", { variant: "error" });
+            enqueueSnackbar("Ingrese un nombre de usuario.", { variant: "error" });
         }
 
-        // Password validation: at least 8 characters, one number, and one special character
         const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*_])[A-Za-z\d!@#$%^&*_]{8,}$/;
         if (!passwordRegex.test(password)) {
             valid = false;
@@ -50,7 +47,12 @@ export default function Login() {
         if (!result.success) {
             enqueueSnackbar(result.message, { variant: "error" });
         } else {
-            router.push("/alerts"); // Redirect to alerts if login succeeds
+            const { roles } = result; // Get roles from signIn response
+            if (roles && roles.includes("admin")) {
+                router.push("/admin/panel"); // Redirect to admin panel if user has admin role
+            } else {
+                router.push("/alerts"); // Redirect to alerts if user does not have admin role
+            }
         }
     };
 
