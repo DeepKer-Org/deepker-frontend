@@ -26,8 +26,8 @@ const PatientDetail = ({params}: { params: { id: string } }) => {
             try {
                 const data: PatientResponse = await fetchPatient(params.id);
                 setPatientData(data.patient);
-            } catch (err) {
-                setError('No se pudo recuperar el detalle de la alerta: ' + err.message);
+            } catch {
+                setError('No se pudo recuperar el detalle de la alerta: ');
             } finally {
                 setIsLoading(false);
             }
@@ -66,21 +66,21 @@ const PatientDetail = ({params}: { params: { id: string } }) => {
                 // If there's no dischargeDate, filter only by entryDate
                 if (!dischargeDate) {
                     return (
-                        (initYear === null || (entryYear > initYear || (entryYear === initYear && entryMonth >= initMonth))) &&
-                        (selectedYear === null || (entryYear < selectedYear || (entryYear === selectedYear && entryMonth <= selectedMonth)))
+                        (initYear === null || (entryYear > initYear || (entryYear === initYear && entryMonth >= initMonth!))) &&
+                        (selectedYear === null || (entryYear < selectedYear || (entryYear === selectedYear && entryMonth <= selectedMonth!)))
                     );
                 }
 
                 // Check if the entry date is after or in the "Desde" (initSelectedDate) month
                 const isAfterInitDate =
                     initYear === null || // If no initSelectedDate, it's valid
-                    (entryYear > initYear || (entryYear === initYear && entryMonth >= initMonth));
+                    (entryYear > initYear || (entryYear === initYear && entryMonth >= initMonth!));
 
                 // Check if the discharge date is before or in the "Hasta" (selectedDate) month
                 const isBeforeSelectedDate =
                     selectedYear === null || // If no selectedDate, it's valid
-                    dischargeYear < selectedYear ||
-                    (dischargeYear === selectedYear && dischargeMonth <= selectedMonth);
+                    dischargeYear! < selectedYear ||
+                    (dischargeYear === selectedYear && dischargeMonth! <= selectedMonth!);
 
                 return isAfterInitDate && isBeforeSelectedDate;
             };

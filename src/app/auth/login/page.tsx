@@ -3,11 +3,12 @@ import Image from "next/image";
 import Button from "@/src/components/ui/buttons/Button";
 import {ButtonColor} from "@/src/enums/ButtonColor";
 import {useRouter} from "next/navigation";
-import IconInput from "@/src/components/ui/inputs/IconInput";
-import PasswordInput from "@/src/components/ui/inputs/PasswordInput";
+import IconInput from "@/src/components/ui/inputs/icon/IconInput";
+import PasswordInput from "@/src/components/ui/inputs/icon/PasswordInput";
 import {useAuth} from "@/src/context/AuthContext";
 import {useState} from "react";
 import {useSnackbar} from "notistack";
+import {passwordRegex} from "@/src/utils/regex";
 
 export default function Login() {
     const router = useRouter();
@@ -28,10 +29,9 @@ export default function Login() {
             enqueueSnackbar("Ingrese un nombre de usuario.", { variant: "error" });
         }
 
-        const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*_])[A-Za-z\d!@#$%^&*_]{8,}$/;
         if (!passwordRegex.test(password)) {
             valid = false;
-            enqueueSnackbar("La contraseña debe tener al menos 8 caracteres, un número y un carácter especial.", { variant: "error" });
+            enqueueSnackbar("La contraseña debe tener al menos 12 caracteres, un número y un carácter especial.", { variant: "error" });
         }
 
         return valid;

@@ -63,14 +63,6 @@
         }
     }
 
-    .button__container {
-        display: flex;
-        justify-content: flex-start;
-        margin-bottom: 1.2rem;
-        column-gap: 45px;
-        align-items: center;
-    }
-
     .details__container {
         flex-grow: 1;
         display: grid;
@@ -302,4 +294,12 @@
         }
 
     }
+}
+
+.button__container {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 20px;
+    column-gap: 45px;
+    align-items: center;
 }

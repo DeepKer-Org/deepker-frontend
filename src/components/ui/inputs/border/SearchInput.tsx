@@ -30,7 +30,7 @@ const SearchInput: React.FC<SearchInputProps> = ({placeholder, onSubmit, type = 
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
                 placeholder={placeholder}
-                className="border border-border-secondary rounded-lg w-full pl-10 pr-2 py-1"
+                className="border border-border-secondary rounded-lg w-full pl-10 pr-2 py-1 text-sm"
             />
         </div>
     );

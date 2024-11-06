@@ -5,6 +5,7 @@
 @import "./tableStyles.css";
 @import "./detailStyles.css";
 @import "./authStyles.css";
+@import "./formStyles.css";
 
 :root {
     /* White and Black */

@@ -1,7 +1,8 @@
 "use client";
 import {useRouter} from "next/navigation";
-import React from "react";
+import React, {useState} from "react";
 import {User} from "@/src/types/auth";
+import DeleteUserConfirmationModal from "@/src/components/ui/modals/DeleteUserConfirmationModal";
 
 interface UsersElementProps {
     user: User;
@@ -23,6 +24,22 @@ const mapRoles = (roles: string[]) => {
 
 const UsersElement: React.FC<UsersElementProps> = ({user, onRefresh}) => {
     const router = useRouter();
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+    // Open the delete confirmation modal
+    const handleOpenDeleteModal = () => {
+        setIsDeleteModalOpen(true);
+    };
+
+    // Close the delete confirmation modal
+    const handleCloseDeleteModal = () => {
+        setIsDeleteModalOpen(false);
+    };
+
+    // Handle successful deletion and refresh the user list
+    const handleDeleteSuccess = () => {
+        onRefresh(); // Refreshes the user list after deletion
+    };
 
     return (
         <div className="table-row grid-cols-[25%_30%_25%_20%]">
@@ -44,11 +61,21 @@ const UsersElement: React.FC<UsersElementProps> = ({user, onRefresh}) => {
                 </button>
                 <button
                     className="bg-red-500 rounded-full cursor-pointer w-10 h-10 hover:bg-red-550 transition-all"
-                    onClick={() => console.log("Delete user")}
+                    onClick={handleOpenDeleteModal}
                 >
                     <span className={"material-symbols-outlined text-white mt-1"}>delete</span>
                 </button>
             </div>
+            {
+                isDeleteModalOpen && (
+                    <DeleteUserConfirmationModal
+                        userId={user.user_id}
+                        isOpen={isDeleteModalOpen}
+                        onClose={handleCloseDeleteModal}
+                        onSuccess={handleDeleteSuccess}
+                    />
+                )
+            }
         </div>
     );
 };

@@ -3,7 +3,7 @@ import useForm from "@/src/hooks/useForm";
 import React, {useEffect, useState} from "react";
 import Button from "../buttons/Button";
 import {ButtonColor} from "@/src/enums/ButtonColor";
-import {MonitoringDevice, MonitoringDeviceUpdateRequest} from "@/src/types/devices";
+import {MonitoringDevice, MonitoringDeviceUpdateRequest} from "@/src/types/device";
 import {fetchDevicesByStatus, updateDevice} from "@/src/api/devices";
 import {fetchPatients} from "@/src/api/patients";
 import {Patient} from "@/src/types/patient";

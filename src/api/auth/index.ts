@@ -1,5 +1,5 @@
 import {authenticatedFetch} from "@/src/api/authenticatedFetch";
-import {LoginResponse, UsersResponse} from "@/src/types/auth";
+import {LoginResponse, RegisterUserRequest, UpdateUserRequest, UsersResponse} from "@/src/types/auth";
 
 const API_BASE_URL = process.env.API_BASE_URL || "http://localhost:8080";
 
@@ -37,14 +37,14 @@ export const changePassword = async (dni: string, issuance_date: string, new_pas
     }
 };
 
-export const registerAdminUser = async (username: string, password: string): Promise<void> => {
-    const roles = ["admin", "doctor"];
-    const response = await authenticatedFetch(`${API_BASE_URL}/authorization/register`, {
+export const registerAdminUser = async (request: RegisterUserRequest): Promise<void> => {
+    const roles = ["admin"];
+    const response = await authenticatedFetch(`${API_BASE_URL}/authorization`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password, roles }),
+        body: JSON.stringify({ ...request, roles }),
     });
 
     if (!response.ok) {
@@ -64,5 +64,27 @@ export const fetchUsers = async (page: number, rowsPerPage: number): Promise<Use
 }
 
 // updateUser
+export const updateUser = async (userId: string, request: UpdateUserRequest): Promise<void> => {
+    const response = await authenticatedFetch(`${API_BASE_URL}/authorization/${userId}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(request),
+    });
+
+    if (!response.ok) {
+        throw new Error("User update failed");
+    }
+}
 
 // delete User
+export const deleteUser = async (userId: string): Promise<void> => {
+    const response = await authenticatedFetch(`${API_BASE_URL}/authorization/${userId}`, {
+        method: "DELETE",
+    });
+
+    if (!response.ok) {
+        throw new Error("User deletion failed");
+    }
+}

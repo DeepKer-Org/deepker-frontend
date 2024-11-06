@@ -2,13 +2,14 @@
 import React, {useState} from 'react'
 import {useRouter} from "next/navigation";
 import Image from "next/image";
-import IconInput from "@/src/components/ui/inputs/IconInput";
-import PasswordInput from "@/src/components/ui/inputs/PasswordInput";
+import IconInput from "@/src/components/ui/inputs/icon/IconInput";
+import PasswordInput from "@/src/components/ui/inputs/icon/PasswordInput";
 import Button from "@/src/components/ui/buttons/Button";
 import {ButtonColor} from "@/src/enums/ButtonColor";
-import DateInput from "@/src/components/ui/inputs/DateInput";
+import DateInput from "@/src/components/ui/inputs/icon/DateInput";
 import {enqueueSnackbar} from "notistack";
 import {changePassword} from "@/src/api/auth";
+import {dniRegex, passwordRegex} from "@/src/utils/regex";
 
 const Recover = () => {
     const router = useRouter();
@@ -38,9 +39,6 @@ const Recover = () => {
     };
 
     const validateInputs = (): boolean => {
-        const dniRegex = /^[0-9]{8}$/;
-        const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*_])[A-Za-z\d!@#$%^&*_]{8,}$/;
-
         if (!dniRegex.test(dni)) {
             enqueueSnackbar("El DNI debe tener exactamente 8 caracteres numéricos.", { variant: "error" });
             return false;
@@ -50,7 +48,7 @@ const Recover = () => {
             return false;
         }
         if (!passwordRegex.test(newPassword)) {
-            enqueueSnackbar("La contraseña debe tener al menos 8 caracteres, un número y un carácter especial.", { variant: "error" });
+            enqueueSnackbar("La contraseña debe tener al menos 12 caracteres, un número y un carácter especial.", { variant: "error" });
             return false;
         }
         if (newPassword !== confirmPassword) {

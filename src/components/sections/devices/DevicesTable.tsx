@@ -2,7 +2,7 @@
 import React from 'react'
 import Pagination from '../../ui/Pagination';
 import DevicesElement from './DevicesElement';
-import {MonitoringDevice} from "@/src/types/devices";
+import {MonitoringDevice} from "@/src/types/device";
 
 interface DevicesTableProps {
     devices: MonitoringDevice[];

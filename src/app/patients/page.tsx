@@ -3,7 +3,7 @@ import PatientFilterModal from "@/src/components/ui/modals/PatientFilterModal";
 import PatientsTable from "@/src/components/sections/patients/PatientsTable";
 import ModalWrapper from "@/src/components/ui/wrappers/ModalWrapper";
 import Button from "@/src/components/ui/buttons/Button";
-import SearchInput from "@/src/components/ui/inputs/SearchInput";
+import SearchInput from "@/src/components/ui/inputs/border/SearchInput";
 import {ButtonColor} from "@/src/enums/ButtonColor";
 import {useEffect, useState} from "react";
 import {Patient, PatientsQueryParams} from "@/src/types/patient";
@@ -49,8 +49,8 @@ export default function Patients() {
                 const response = await fetchPatientsPaginated(currentPage, rowsPerPage, filterParams);
                 setPatients(response.patients);
                 setTotalCount(response.totalCount);
-            } catch (err) {
-                setError("Failed to fetch patients: " + err.message);
+            } catch {
+                setError("Failed to fetch patients");
             } finally {
                 setIsLoading(false); // Stop loading after fetch completes
                 updateTimeNow(); // Update the time

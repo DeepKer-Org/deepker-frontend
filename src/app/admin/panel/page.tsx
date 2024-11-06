@@ -45,7 +45,7 @@ const AdminPanel = () => {
             <div className="flex-1 overflow-x-auto">
                 <h1>Panel de Administración de Usuarios</h1>
                 <div className="table-toolbar flex flex-row justify-start">
-                    <div className="flex flex-row items-center gap-x-1 mt-1">
+                    <div className="flex flex-row items-center gap-x-1">
                         <Button
                             text="Agregar Usuario"
                             color={ButtonColor.SUCCESS}

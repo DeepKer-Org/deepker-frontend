@@ -1,4 +1,4 @@
-import {DevicesQueryParams, DevicesResponse, MonitoringDeviceUpdateRequest} from "@/src/types/devices";
+import {DevicesQueryParams, DevicesResponse, MonitoringDeviceUpdateRequest} from "@/src/types/device";
 import {authenticatedFetch} from "@/src/api/authenticatedFetch";
 
 const API_BASE_URL = process.env.API_BASE_URL || "http://localhost:8080";

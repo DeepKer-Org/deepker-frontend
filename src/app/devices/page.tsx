@@ -3,10 +3,10 @@
 import DeviceLinkModal from "@/src/components/ui/modals/DeviceLinkModal";
 import DevicesTable from "@/src/components/sections/devices/DevicesTable";
 import Button from "@/src/components/ui/buttons/Button";
-import SearchInput from "@/src/components/ui/inputs/SearchInput";
+import SearchInput from "@/src/components/ui/inputs/border/SearchInput";
 import {ButtonColor} from "@/src/enums/ButtonColor";
 import {useCallback, useEffect, useState} from "react";
-import {DevicesQueryParams, MonitoringDevice} from "@/src/types/devices";
+import {DevicesQueryParams, MonitoringDevice} from "@/src/types/device";
 import {fetchDevices} from "@/src/api/devices";
 
 export default function Devices() {

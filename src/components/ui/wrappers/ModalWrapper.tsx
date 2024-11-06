@@ -1,9 +1,10 @@
 import React from "react";
 
 interface ModalWrapperProps {
-    isOpen: boolean;
-    children: React.ReactNode;
-    width?: string;
+    isOpen: boolean,
+    children: React.ReactNode,
+    width?: string,
+    onClose?: () => void
 }
 
 const ModalWrapper: React.FC<ModalWrapperProps> = ({
@@ -13,7 +14,7 @@ const ModalWrapper: React.FC<ModalWrapperProps> = ({
                                                    }) => {
     if (!isOpen) return null;
 
-      return (
+    return (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
             <div className="absolute inset-0 bg-black opacity-50"/>
             <div

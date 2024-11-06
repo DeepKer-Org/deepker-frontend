@@ -1,3 +1,14 @@
+export interface RegisterUserRequest {
+    username: string;
+    password: string;
+}
+
+export interface UpdateUserRequest {
+    username?: string;
+    password?: string;
+    roles?: string[];
+}
+
 export interface LoginResponse {
     message: string;
     token: string;
