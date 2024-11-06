@@ -19,4 +19,5 @@ export enum IconName {
     Visibility = "visibility",
     Warning = "warning",
     AccountBox = "account_box",
+    PersonAdd = "person_add",
 }

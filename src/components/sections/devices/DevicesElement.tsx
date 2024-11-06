@@ -1,5 +1,5 @@
 "use client";
-import {MonitoringDevice} from "@/src/types/devices";
+import {MonitoringDevice} from "@/src/types/device";
 import {useRouter} from "next/navigation";
 import React, {useState} from "react";
 import DeviceActionButton from "@/src/components/ui/buttons/DeviceActionButton";

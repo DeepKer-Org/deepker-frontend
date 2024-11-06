@@ -1,11 +1,11 @@
 "use client";
 import React from 'react'
 import Pagination from '../../ui/Pagination';
-import DevicesElement from './DevicesElement';
-import {MonitoringDevice} from "@/src/types/device";
+import UsersElement from './UsersElement';
+import {User} from "@/src/types/auth";
 
-interface DevicesTableProps {
-    devices: MonitoringDevice[];
+interface UsersTableProps {
+    users: User[];
     totalCount: number;
     currentPage: number;
     rowsPerPage: number;
@@ -16,8 +16,8 @@ interface DevicesTableProps {
     onRefresh: () => void;
 }
 
-const DevicesTable: React.FC<DevicesTableProps> = ({
-                                                       devices,
+const UsersTable: React.FC<UsersTableProps> = ({
+                                                       users,
                                                        totalCount,
                                                        currentPage,
                                                        rowsPerPage,
@@ -29,11 +29,10 @@ const DevicesTable: React.FC<DevicesTableProps> = ({
                                                    }) => {
     return (
         <div className="table-container">
-            <div className="table-header-row device-grid-cols tableBp:grid-cols-[12%_25%_25%_10%_28%]">
-                <p>ID DE DISPOSITIVO</p>
-                <p>PACIENTE VINCULADO</p>
-                <p className="hidden tableBp:block">VINCULADO POR</p>
-                <p>ESTADO</p>
+            <div className="table-header-row grid-cols-[25%_30%_25%_20%]">
+                <p className={"text-center"}>ID DE USUARIO</p>
+                <p>DNI / CORREO ELECTRÓNICO</p>
+                <p>ROL</p>
                 <p>OPCIONES</p>
             </div>
             <div className="table-body">
@@ -41,11 +40,11 @@ const DevicesTable: React.FC<DevicesTableProps> = ({
                     <p className={"table-error"}>Cargando...</p>
                 ) : error ? (
                     <p className={"table-error"}>{error}</p>
-                ) : devices.length === 0 ? (
-                    <p className={"table-error"}>No se encontro dispositivos.</p>
+                ) : users.length === 0 ? (
+                    <p className={"table-error"}>No se encontro usuarios.</p>
                 ) : (
-                    devices.map((device) => (
-                        <DevicesElement key={device.device_id} device={device} onRefresh={onRefresh}/>
+                    users.map((user) => (
+                        <UsersElement key={user.user_id} user={user} onRefresh={onRefresh}/>
                     ))
                 )}
             </div>
@@ -60,4 +59,4 @@ const DevicesTable: React.FC<DevicesTableProps> = ({
     );
 }
 
-export default DevicesTable
+export default UsersTable

@@ -1,5 +1,5 @@
 import React from 'react'
-import {MonitoringDeviceUpdateRequest} from "@/src/types/devices";
+import {MonitoringDeviceUpdateRequest} from "@/src/types/device";
 import {updateDevice} from "@/src/api/devices";
 import ModalWrapper from "@/src/components/ui/wrappers/ModalWrapper";
 import Button from "@/src/components/ui/buttons/Button";

@@ -21,7 +21,7 @@
         font-family: var(--font-poppins), sans-serif;
         font-size: 14px;
         font-weight: 500;
-        margin-top: 0.5rem;
+        margin-top: 0.75rem;
         margin-bottom: 0.75rem;
 
         .option {
@@ -133,6 +133,13 @@
                 .table-row-group {
                     display: flex;
                     flex-direction: column;
+                }
+
+                .table-row-circle-buttons {
+                    display: flex;
+                    flex-direction: row;
+                    column-gap: 1.5rem;
+                    justify-content: center;
                 }
 
                 .table-row-subtitle {

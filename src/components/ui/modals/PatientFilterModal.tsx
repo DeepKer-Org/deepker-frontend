@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "../buttons/Button";
 import { ButtonColor } from "@/src/enums/ButtonColor";
-import ModalInput from "../inputs/ModalInput";
+import ModalInput from "@/src/components/ui/inputs/border/ModalInput";
 import useForm from "@/src/hooks/useForm";
 import { PatientsQueryParams } from "@/src/types/patient";
 import { fetchDoctors } from "@/src/api/doctors"; // Assuming this function is already implemented
