@@ -4,6 +4,7 @@ import {useRouter} from "next/navigation";
 import React from "react";
 import {updateAlert} from "@/src/api/alerts";
 import {enqueueSnackbar} from "notistack";
+import {useAuth} from "@/src/context/AuthContext";
 
 interface UnattendedAlertsElementsProps {
     alert: Alert;
@@ -15,13 +16,14 @@ const UnattendedAlertsElement: React.FC<UnattendedAlertsElementsProps> = ({
                                                                               onAlertUpdate,
                                                                           }) => {
     const router = useRouter();
+    const { doctorId } = useAuth();
     const handleDetails = () => {
         router.push(`/alerts/unattended/${alert.alert_id}`);
     }
 
     const handleMarkAttendance = async () => {
         const alertMarkAttendanceRequest: AlertMarkAttendanceRequest = {
-            attended_by_id: "44556677-8888-9999-aaaa-bbbbccccdddd", // TODO: Change to the logged in user ID
+            attended_by_id: doctorId!,
             attended_timestamp: new Date().toISOString(),
         };
         try {
@@ -49,7 +51,7 @@ const UnattendedAlertsElement: React.FC<UnattendedAlertsElementsProps> = ({
             </div>
             <div className="cell-border table-row-group text-center">{alert.patient.location}</div>
             <div className="cell-border table-row-group px-4">
-                <p>{alert.computer_diagnoses.length > 0 ? alert.computer_diagnoses[0].diagnosis : "-"}</p>
+                <p>{alert.computer_diagnostic ? alert.computer_diagnostic.diagnosis : "-"}</p>
                 <div className="table-row-subtitle table-row-icon">
                     <span className="material-symbols-outlined">monitor</span>
                     <p>DeepKer</p>

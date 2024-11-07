@@ -299,7 +299,7 @@
 .button__container {
     display: flex;
     justify-content: flex-start;
-    margin-top: 20px;
+    margin-bottom: 16px;
     column-gap: 45px;
     align-items: center;
 }

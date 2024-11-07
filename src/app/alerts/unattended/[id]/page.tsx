@@ -12,11 +12,13 @@ import {fetchAlert, updateAlert} from "@/src/api/alerts";
 import {formatTime} from "@/src/utils/formatTime";
 import {enqueueSnackbar} from "notistack";
 import {useRouter} from "next/navigation";
+import {useAuth} from "@/src/context/AuthContext";
 
 const UnattendedAlertDetail = ({params}: { params: { id: string } }) => {
     const [alertData, setAlertData] = useState<Alert | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const { doctorId } = useAuth();
 
     const router = useRouter();
 
@@ -38,7 +40,7 @@ const UnattendedAlertDetail = ({params}: { params: { id: string } }) => {
 
     const handleMarkAttendance = async () => {
         const alertMarkAttendanceRequest: AlertMarkAttendanceRequest = {
-            attended_by_id: "44556677-8888-9999-aaaa-bbbbccccdddd", // TODO: Change to the logged in user ID
+            attended_by_id: doctorId!,
             attended_timestamp: new Date().toISOString(),
         };
         try {
@@ -98,16 +100,12 @@ const UnattendedAlertDetail = ({params}: { params: { id: string } }) => {
                     </ul>
                 </DetailColumnWrapper>
                 <DetailColumnWrapper hasLeftBorder={true}>
-                    <IconTitle className={"mb-4"} icon={"monitor"} title={"Diagnósticos de Deepker:"}/>
+                    <IconTitle className={"mb-4"} icon={"monitor"} title={"Diagnóstico de Deepker:"}/>
                     <ul className={"ul__container--col xl:mr-6"}>
-                        {alertData.computer_diagnoses.map((diag, index) => (
-                            <li key={index}>
-                                <div>
-                                    <p>{diag.diagnosis}</p>
-                                    <p className="font-semibold">{diag.percentage}%</p>
-                                </div>
-                            </li>
-                        ))}
+                        <div>
+                            <p>{alertData.computer_diagnostic.diagnosis}</p>
+                            <p className="font-semibold">{alertData.computer_diagnostic.percentage}%</p>
+                        </div>
                     </ul>
 
                 </DetailColumnWrapper>
