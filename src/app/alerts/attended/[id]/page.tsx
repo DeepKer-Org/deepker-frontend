@@ -58,14 +58,14 @@ const AttendedAlertDetail = ({params}: { params: { id: string } }) => {
                 <CardWrapper>
                     <IconTitle className={"mb-4"} icon={"monitor"} title={"Diagnóstico final:"}/>
                     <p className={"font-semibold"}>{
-                        alertData.final_diagnosis !== "" ? alertData.final_diagnosis : (alertData.computer_diagnoses.length > 0 ? alertData.computer_diagnoses[0].diagnosis : "En proceso")
+                        alertData.final_diagnosis !== "" ? alertData.final_diagnosis : (alertData.computer_diagnostic ? alertData.computer_diagnostic.diagnosis : "En proceso")
                     }</p>
                     {alertData.final_diagnosis !== "" ?
                         (<p>Confirmado por médico.</p>)
                         :
                         (
-                            alertData.computer_diagnoses.length > 0 ? (
-                                <p>Predicción de DeepKer con un {alertData.computer_diagnoses[0].percentage}% de
+                            alertData.computer_diagnostic ? (
+                                <p>Predicción de DeepKer con un {alertData.computer_diagnostic.percentage}% de
                                     precisión.</p>
                             ) : (
                                 <p>La predicción está siendo procesada.</p>
