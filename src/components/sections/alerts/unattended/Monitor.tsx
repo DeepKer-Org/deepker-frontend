@@ -8,7 +8,7 @@ interface MonitorProps {
 }
 
 const Monitor: React.FC<MonitorProps> = ({ sensor_id, biometric_data }) => {
-    const [biometricData, setBiometricData] = useState<BiometricData>({ heart_rate: -1, o2_saturation: -1 });
+    const [biometricData, setBiometricData] = useState<BiometricData>({ heart_rate: 0, o2_saturation: 0 });
 
     useEffect(() => {
         const mqttUrl = `ws://${process.env.NEXT_PUBLIC_MQTT_HOST}:${process.env.NEXT_PUBLIC_MQTT_PORT}`;
