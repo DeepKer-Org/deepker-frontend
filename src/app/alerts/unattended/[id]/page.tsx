@@ -121,7 +121,7 @@ const UnattendedAlertDetail = ({params}: { params: { id: string } }) => {
 
                 </DetailColumnWrapper>
             </div>
-            <Monitor biometric_data={alertData.biometric_data}/>
+            <Monitor sensor_id="test1" biometric_data={alertData.biometric_data}/>
         </div>
     );
 };
