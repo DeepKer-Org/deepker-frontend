@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "date-fns": "^4.1.0",
+    "mqtt": "^5.10.1",
     "next": "14.2.13",
     "notistack": "^3.0.1",
     "react": "^18",
