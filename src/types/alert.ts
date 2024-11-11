@@ -22,6 +22,7 @@ export interface Patient {
     location: string;
     age: number;
     sex: string;
+    monitoring_device_id: string;
     comorbidities: string[];
     medications: Medications[];
 }
