@@ -228,7 +228,7 @@ const PatientDetail = ({params}: { params: { id: string } }) => {
                                         <p>120</p>
                                         <p>50</p>
                                     </div>
-                                    <p className={"metrics__text--h1"}>{biometricData.heart_rate}</p>
+                                    <p className={"metrics__text--h1"}>{biometricData.heart_rate.toFixed(0)}</p>
                                 </div>
                             </div>
                             <div className={"metrics__divider"} />
@@ -239,7 +239,7 @@ const PatientDetail = ({params}: { params: { id: string } }) => {
                                         <p>100</p>
                                         <p>84</p>
                                     </div>
-                                    <p className={"metrics__text--h1"}>{biometricData.o2_saturation}</p>
+                                    <p className={"metrics__text--h1"}>{biometricData.o2_saturation.toFixed(0)}</p>
                                 </div>
                             </div>
                         </div>
