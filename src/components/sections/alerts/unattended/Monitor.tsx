@@ -4,10 +4,9 @@ import React, { useEffect, useState } from 'react'
 
 interface MonitorProps {
     sensor_id: string,
-    biometric_data: BiometricData
 }
 
-const Monitor: React.FC<MonitorProps> = ({ sensor_id, biometric_data }) => {
+const Monitor: React.FC<MonitorProps> = ({ sensor_id }) => {
     const [biometricData, setBiometricData] = useState<BiometricData>({ heart_rate: 0, o2_saturation: 0 });
 
     useEffect(() => {

@@ -16,7 +16,6 @@ const DevicesElement: React.FC<DevicesElementProps> = ({device, onRefresh}) => {
     const [isUnlinkModalOpen, setIsUnlinkModalOpen] = useState(false);
     const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
     const [selectedDeviceId, setSelectedDeviceId] = useState<string | null>(null);
-    const [deviceStatus, setDeviceStatus] = useState(device.status); // Track status locally
 
     const handleDetails = () => {
         router.push(`/patients/${device.patient.patient_id}`);
@@ -69,11 +68,11 @@ const DevicesElement: React.FC<DevicesElementProps> = ({device, onRefresh}) => {
                 )}
             </div>
             <div className="cell-border table-row-group px-4">
-                <p>{mapStatusNames(deviceStatus)}</p>
+                <p>{mapStatusNames(device.status)}</p>
             </div>
             <div className="flex flex-row h-full">
                 <div className="flex w-1/2 justify-center h-full items-center cell-border">
-                    <DeviceActionButton status={deviceStatus} onUnlink={() => setIsUnlinkModalOpen(true)}
+                    <DeviceActionButton status={device.status} onUnlink={() => setIsUnlinkModalOpen(true)}
                                         onLink={() => handleLink(device.device_id)}/>
                 </div>
                 <div
