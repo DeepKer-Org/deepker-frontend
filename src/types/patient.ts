@@ -31,6 +31,7 @@ export interface Patient {
     sex: "M" | "F";
     location: string;
     entry_date: string;
+    monitoring_device_id: string;
     comorbidities: string[];
     medical_staff: Doctor[];
     medications: Medication[];

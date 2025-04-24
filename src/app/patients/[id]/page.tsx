@@ -9,6 +9,8 @@ import {Patient, PatientResponse} from "@/src/types/patient";
 import {formatDate} from "@/src/utils/formatTime";
 import {fetchPatient} from "@/src/api/patients";
 import TimelineElement from "@/src/components/sections/patients/TimelineElement";
+import { BiometricData } from '@/src/types/alert';
+import mqtt from 'mqtt';
 
 const PatientDetail = ({params}: { params: { id: string } }) => {
     const [patientData, setPatientData] = useState<Patient | null>(null);
@@ -18,6 +20,7 @@ const PatientDetail = ({params}: { params: { id: string } }) => {
     const [initSelectedDate, setInitSelectedDate] = useState<Date | null>(null);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [filteredVisits, setFilteredVisits] = useState(patientData?.medical_visits || []);
+    const [biometricData, setBiometricData] = useState<BiometricData>({ heart_rate: 0, o2_saturation: 0 });
 
     useEffect(() => {
         const loadPatient = async () => {
@@ -34,6 +37,36 @@ const PatientDetail = ({params}: { params: { id: string } }) => {
         };
         loadPatient();
     }, [params.id]);
+
+    useEffect(() => {
+        const mqttUrl = `ws://${process.env.NEXT_PUBLIC_MQTT_HOST}:${process.env.NEXT_PUBLIC_MQTT_PORT}`;
+        const client = mqtt.connect(mqttUrl);
+        let lastUpdate = Date.now();
+
+        client.on('connect', () => {
+            client.subscribe(`device/${patientData?.monitoring_device_id}`, (err) => {
+                if (err) console.error('Error en la suscripción:', err);
+            });
+        });
+
+        client.on('message', (topic, message) => {
+            const currentTime = Date.now();
+            if (currentTime - lastUpdate < 1000) return;
+
+            lastUpdate = currentTime;
+            const data = JSON.parse(message.toString());
+            if (!isNaN(data.beats_per_minute) && !isNaN(data.spo2)) {
+                setBiometricData({
+                    heart_rate: data.average_bpm,
+                    o2_saturation: data.spo2,
+                });
+            }
+        });
+
+        return () => {
+            client.end();
+        };
+    }, [patientData?.monitoring_device_id]);
 
 
     const handleInitDateChange = (date: Date | null) => {
@@ -186,52 +219,56 @@ const PatientDetail = ({params}: { params: { id: string } }) => {
                 </CardWrapper>
                 <CardWrapper className={"row-span-4"}>
                     <IconTitle className={"mb-4"} icon={"monitor"} title={"Métricas biométricas en monitoreo:"}/>
-                    <div className={"metrics__container"}>
-                        <div className={"metrics__grid metrics__item--black"}>
-                            <p className={"metrics__grid--left metrics__text--h1"}>HR</p>
-                            <div className={"metrics__grid--right"}>
-                                <div className={"metrics__text--h3"}>
-                                    <p>120</p>
-                                    <p>50</p>
+                    {patientData?.monitoring_device_id ? (
+                        <div className={"metrics__container"}>
+                            <div className={"metrics__grid metrics__item--black"}>
+                                <p className={"metrics__grid--left metrics__text--h1"}>HR</p>
+                                <div className={"metrics__grid--right"}>
+                                    <div className={"metrics__text--h3"}>
+                                        <p>120</p>
+                                        <p>50</p>
+                                    </div>
+                                    <p className={"metrics__text--h1"}>{biometricData.heart_rate.toFixed(0)}</p>
                                 </div>
-                                <p className={"metrics__text--h1"}>60</p>
+                            </div>
+                            <div className={"metrics__divider"} />
+                            <div className={"metrics__grid metrics__item--blue"}>
+                                <p className={"metrics__grid--left metrics__text--h1"}>SPO2</p>
+                                <div className={"metrics__grid--right"}>
+                                    <div className={"metrics__text--h3"}>
+                                        <p>100</p>
+                                        <p>84</p>
+                                    </div>
+                                    <p className={"metrics__text--h1"}>{biometricData.o2_saturation.toFixed(0)}</p>
+                                </div>
                             </div>
                         </div>
-                        <div className={"metrics__divider"}/>
-                        <div className={"metrics__grid metrics__item--blue"}>
-                            <p className={"metrics__grid--left metrics__text--h1"}>SPO2</p>
-                            <div className={"metrics__grid--right"}>
-                                <div className={"metrics__text--h3"}>
-                                    <p>100</p>
-                                    <p>90</p>
-                                </div>
-                                <p className={"metrics__text--h1"}>84</p>
-                            </div>
-                        </div>
-                    </div>
+                    ) : (
+                        <p>Este paciente no tiene un dispositivo vinculado</p>
+                    )}
                 </CardWrapper>
                 <CardWrapper className={"row-span-3 col-span-2"}>
-                    <IconTitle icon={"medication"} title={"Medicación actual:"}/>
+                    <IconTitle icon={"medication"} title={"Medicación actual:"} />
                     <table>
                         <thead>
-                        <tr>
-                            <th>Medicamento</th>
-                            <th>Dosis</th>
-                            <th>Fecha de inicio</th>
-                            <th>Fecha de término</th>
-                        </tr>
+                            <tr>
+                                <th>Medicamento</th>
+                                <th>Dosis</th>
+                                <th>Fecha de inicio</th>
+                                <th>Fecha de término</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        {
-                            patientData.medications.map((medication) => (
-                                <tr key={medication.name}>
-                                    <td>{medication.name}</td>
-                                    <td>{medication.dosage + " - " + medication.periodicity}</td>
-                                    <td>{formatDate(medication.start_date)}</td>
-                                    <td>{formatDate(medication.end_date)}</td>
-                                </tr>
-                            ))
-                        }
+                            {
+                                patientData.medications.map((medication) => (
+                                    <tr key={medication.name}>
+                                        <td>{medication.name}</td>
+                                        <td>{medication.dosage + " - " + medication.periodicity}</td>
+                                        <td>{formatDate(medication.start_date)}</td>
+                                        <td>{formatDate(medication.end_date)}</td>
+                                    </tr>
+                                ))
+                            }
                         </tbody>
                     </table>
                 </CardWrapper>

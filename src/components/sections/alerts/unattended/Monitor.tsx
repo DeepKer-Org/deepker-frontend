@@ -58,7 +58,7 @@ const Monitor: React.FC<MonitorProps> = ({ sensor_id, biometric_data }) => {
                 <div className={"flex flex-col mt-4"}>
                     <p className={"monitor__text--h4"}>HR</p>
                     <p className={"text-right monitor__text--h5"}>120</p>
-                    <p className={"text-right monitor__text--h5"}>60</p>
+                    <p className={"text-right monitor__text--h5"}>50</p>
                 </div>
                 <p className={"text-green-100 monitor__text--h1"}>{biometricData.heart_rate}</p>
             </div>
@@ -76,8 +76,8 @@ const Monitor: React.FC<MonitorProps> = ({ sensor_id, biometric_data }) => {
             <div className={"flex flex-row text-cyan-100 col-span-1 gap-x-6 justify-end"}>
                 <div className={"flex flex-col mt-4"}>
                     <p className={"monitor__text--h4"}>SPO2</p>
-                    <p className={"monitor__text__h5 text-right"}>84</p>
-                    <p className={"monitor__text__h5 text-right"}>100</p>
+                    <p className={"monitor__text--h5 text-right"}>100</p>
+                    <p className={"monitor__text--h5 text-right"}>84</p>
                 </div>
                 <p className={"monitor__text--h1 text-cyan-100"}>{biometricData.o2_saturation}</p>
             </div>
