@@ -19,13 +19,14 @@ const Recover = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleRecover = async () => {
+  const handleRecover = async (e: React.FormEvent) => {
+    e.preventDefault();
     if (!validateInputs()) return;
 
     try {
       setIsLoading(true);
-      await changePassword(dni, issuanceDate, newPassword); // Call changePassword API
-      router.push("/auth/login"); // Redirect to login on success
+      await changePassword(dni, issuanceDate, newPassword); 
+      router.push("/auth/login");
       enqueueSnackbar("Contraseña restablecida exitosamente", {
         variant: "success",
       });
@@ -84,7 +85,7 @@ const Recover = () => {
           <p className="font-merriweather text-3xl">DeepKer</p>
         </div>
         <h1>Recuperar Contraseña</h1>
-        <div className="auth__form">
+        <form className="auth__form" onSubmit={handleRecover}>
           <div className="auth__form--inputs">
             <IconInput
               icon="person"
@@ -120,10 +121,10 @@ const Recover = () => {
           <Button
             text="RESTABLECER"
             color={ButtonColor.SUCCESS}
-            onClick={handleRecover}
+            type="submit"
             disabled={isLoading}
           />
-        </div>
+        </form>
       </div>
     </div>
   );

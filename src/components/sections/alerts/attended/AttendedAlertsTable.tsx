@@ -23,7 +23,7 @@ export const AttendedAlertsTable: React.FC<AttendedAlertsTableProps> = ({refresh
         try {
             const response = await fetchAlerts(true, page, rows);
             setData(response.alerts);
-            setTotalItems(response.totalCount); // Set total items from the server response
+            setTotalItems(response.totalCount); 
         } catch {
             setError('Error loading alerts: ');
         } finally {
@@ -60,6 +60,8 @@ export const AttendedAlertsTable: React.FC<AttendedAlertsTableProps> = ({refresh
                     <p className={"table-error"}>Cargando...</p>
                 ) : error ? (
                     <p className={"table-error"}>{error}</p>
+                ) : data.length === 0 ? (
+                    <p className={"table-error"}>No se han encontrado alertas</p>
                 ) : (
                     data.map((alert) => (
                         <AttendedAlertsElement key={alert.alert_id} alert={alert}/>

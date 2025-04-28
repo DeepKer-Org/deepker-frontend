@@ -63,6 +63,8 @@ const UnattendedAlertsTable: React.FC<UnattendedAlertsTableProps> = ({refresh}) 
                     <p className={"table-error"}>Cargando...</p>
                 ) : error ? (
                     <p className={"table-error"}>{error}</p>
+                ) : data.length === 0 ? (
+                    <p className={"table-error"}>No se han encontrado alertas</p>
                 ) : (
                     data.map((alert) => (
                         <UnattendedAlertsElement key={alert.alert_id} alert={alert} onAlertUpdate={handleAlertUpdate}/>

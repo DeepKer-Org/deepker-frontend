@@ -38,7 +38,9 @@ export default function Login() {
     return true;
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+
     if (!validateInputs()) {
       return;
     }
@@ -48,11 +50,11 @@ export default function Login() {
     if (!result.success) {
       enqueueSnackbar(result.message, { variant: "error" });
     } else {
-      const { roles } = result; // Get roles from signIn response
+      const { roles } = result;
       if (roles && roles.includes("admin")) {
-        router.push("/admin/panel"); // Redirect to admin panel if user has admin role
+        router.push("/admin/panel");
       } else {
-        router.push("/alerts"); // Redirect to alerts if user does not have admin role
+        router.push("/alerts");
       }
     }
   };
@@ -71,7 +73,7 @@ export default function Login() {
           <p className="font-merriweather text-3xl">DeepKer</p>
         </div>
         <h1>Inicio de Sesión</h1>
-        <div className={"auth__form"}>
+        <form className="auth__form" onSubmit={handleLogin}>
           <div className={"auth__form--inputs"}>
             <IconInput
               icon="person"
@@ -95,10 +97,10 @@ export default function Login() {
           <Button
             text={"INGRESAR"}
             color={ButtonColor.SUCCESS}
-            onClick={handleLogin}
+            type="submit"
             disabled={isLoading}
           />
-        </div>
+        </form>
       </div>
     </div>
   );
