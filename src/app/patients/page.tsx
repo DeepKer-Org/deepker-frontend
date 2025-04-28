@@ -183,7 +183,7 @@ export default function Patients() {
             </div>
           </div>
         </div>
-        <ModalWrapper isOpen={isModalOpen} width="66rem">
+        <ModalWrapper onClose={() => setIsModalOpen(false)} isOpen={isModalOpen} width="66rem">
           <PatientFilterModal
             onClose={handleCloseModal}
             onFilter={handleFilter}

@@ -16,6 +16,7 @@ const PatientDetail = ({ params }: { params: { id: string } }) => {
   const [error, setError] = useState<string | null>(null);
 
   const [initSelectedDate, setInitSelectedDate] = useState<Date | null>(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [filteredVisits, setFilteredVisits] = useState(
     patientData?.medical_visits || []
@@ -72,7 +73,6 @@ const PatientDetail = ({ params }: { params: { id: string } }) => {
         const selectedYear = selectedDate ? selectedDate.getFullYear() : null;
         const selectedMonth = selectedDate ? selectedDate.getMonth() : null;
 
-        // If there's no dischargeDate, filter only by entryDate
         if (!dischargeDate) {
           return (
             (initYear === null ||
@@ -84,39 +84,33 @@ const PatientDetail = ({ params }: { params: { id: string } }) => {
           );
         }
 
-        // Check if the entry date is after or in the "Desde" (initSelectedDate) month
         const isAfterInitDate =
-          initYear === null || // If no initSelectedDate, it's valid
+          initYear === null ||
           entryYear > initYear ||
           (entryYear === initYear && entryMonth >= initMonth!);
-
-        // Check if the discharge date is before or in the "Hasta" (selectedDate) month
         const isBeforeSelectedDate =
-          selectedYear === null || // If no selectedDate, it's valid
+          selectedYear === null ||
           dischargeYear! < selectedYear ||
           (dischargeYear === selectedYear && dischargeMonth! <= selectedMonth!);
 
         return isAfterInitDate && isBeforeSelectedDate;
       };
 
-      // Update the filtered visits based on the date range
       const filtered = patientData.medical_visits
         .filter((visit) => {
           const entryDateStr = visit.entry_date;
-          const dischargeDateStr = visit.discharge_date || ""; // Discharge date can be empty
+          const dischargeDateStr = visit.discharge_date || "";
           return isWithinDateRange(entryDateStr, dischargeDateStr);
         })
         .sort((a, b) => {
-          // Sort by entry_date in descending order (most recent first)
           const dateA = new Date(a.entry_date);
           const dateB = new Date(b.entry_date);
-          return dateB.getTime() - dateA.getTime(); // Descending order
+          return dateB.getTime() - dateA.getTime();
         });
 
       setFilteredVisits(filtered);
     };
 
-    // Call filter and sort whenever initSelectedDate or selectedDate changes
     filterAndSortVisits();
   }, [initSelectedDate, selectedDate, patientData]);
 
@@ -131,6 +125,15 @@ const PatientDetail = ({ params }: { params: { id: string } }) => {
   if (!patientData) {
     return <div>No data found</div>;
   }
+
+  const handleReset = () => {
+    setIsRefreshing(true);
+    setInitSelectedDate(null);
+    setSelectedDate(null);
+    setTimeout(() => {
+      setIsRefreshing(false);
+    }, 500); // short spin duration
+  };
 
   return (
     <div className={"page__container"}>
@@ -192,10 +195,15 @@ const PatientDetail = ({ params }: { params: { id: string } }) => {
           <div className={"timeline__header"}>
             <div className={"timeline__date"}>
               <p>Desde:</p>{" "}
-              <MonthYearPicker onDateChange={handleInitDateChange} />
+              <MonthYearPicker value={initSelectedDate} onDateChange={handleInitDateChange} />
             </div>
             <div className={"timeline__date"}>
-              <p>Hasta:</p> <MonthYearPicker onDateChange={handleDateChange} />
+              <p>Hasta:</p> <MonthYearPicker value={selectedDate} onDateChange={handleDateChange} />
+            </div>
+            <div onClick={handleReset} className={"cursor-pointer flex items-center justify-center"}>
+               <span className={`material-symbols-outlined text-blue-500 ${isRefreshing ? "spin-animation" : ""}`}>
+                refresh
+               </span>
             </div>
           </div>
           <div className={"timeline__body no-scrollbar"}>

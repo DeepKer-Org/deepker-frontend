@@ -12,21 +12,17 @@ interface TimelineElementProps {
 const TimelineElement: React.FC<TimelineElementProps> = ({ entry_date, discharge_date, title, description }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
-    // Convert dates to JavaScript Date objects for comparison
     const entryDateObject = new Date(entry_date);
     const dischargeDateObject = discharge_date ? new Date(discharge_date) : null;
 
-    // Handle toggle for expanding and collapsing description
     const handleToggleDescription = () => {
         setIsExpanded(!isExpanded);
     };
 
-    // Check if entry_date is valid compared to discharge_date (if discharge_date exists)
     const isValidDateRange = !dischargeDateObject || entryDateObject <= dischargeDateObject;
 
-    // If the date range is not valid, return null or render an alternative message
     if (!isValidDateRange) {
-        return null;  // Optionally: render an error or warning message here
+        return null;
     }
 
     return (

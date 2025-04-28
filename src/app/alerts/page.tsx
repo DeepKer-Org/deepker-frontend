@@ -4,7 +4,7 @@ import UnattendedAlertsTable from "@/src/components/sections/alerts/unattended/U
 import {AttendedAlertsTable} from "@/src/components/sections/alerts/attended/AttendedAlertsTable";
 import {useEffect, useState} from "react";
 
-export default function UnattendedAlerts() {
+export default function Alerts() {
     const [showUnattendedAlerts, setShowUnattendedAlerts] = useState(true);
     const [updateTime, setUpdateTime] = useState<string | null>(null);
     const [isRefreshing, setIsRefreshing] = useState(false);

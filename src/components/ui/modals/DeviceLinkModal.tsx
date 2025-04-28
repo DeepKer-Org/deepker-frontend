@@ -111,7 +111,7 @@ const DeviceLinkModal: React.FC<DeviceLinkModalProps> = ({
     const isLinkingDisabled = !formValues.device_id || !formValues.patient_id;
 
     return (
-        <ModalWrapper isOpen={isOpen} width="28rem">
+        <ModalWrapper onClose={onClose} isOpen={isOpen} width="28rem">
             <form onSubmit={handleSubmit}>
                 <h1 className="mb-6">Vincular Dispositivos</h1>
                 {isLoading || isLoadingPatients ? (
