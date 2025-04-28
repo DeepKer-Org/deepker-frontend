@@ -27,7 +27,7 @@ const merriweather = Merriweather({
 export const metadata: Metadata = {
     title: "DeepKer - Sistema de monitoreo de pacientes",
     description: "DeepKer - Sistema de monitoreo de pacientes",
-    icons: ["/icons/deepker-original.webp"],
+    icons: ["/icons/deepker-original.ico"],
 };
 export default function RootLayout({
                                        children,
@@ -42,7 +42,7 @@ export default function RootLayout({
         >
         <head>
             <link
-                href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,FILL,GRAD@20..48,0..1,-50..200&icon_names=123,account_box,arrow_back_ios,arrow_drop_down,arrow_forward_ios,check_circle,chevron_left,chevron_right,close_small,crisis_alert,date_range,delete,device_hub,edit,error,favorite,group,health_and_safety,info,key,logout,medication,menu,monitor,monitor_heart,person,person_add,refresh,schedule,search,settings,visibility,visibility_off,warning&display=block"
+                href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,FILL,GRAD@20..48,0..1,-50..200&icon_names=123,account_box,arrow_back_ios,arrow_drop_down,arrow_forward_ios,calendar_clock,check_circle,chevron_left,chevron_right,close_small,crisis_alert,date_range,delete,device_hub,edit,error,favorite,group,health_and_safety,health_metrics,info,key,logout,medication,menu,monitor,monitor_heart,person,person_add,refresh,schedule,search,settings,visibility,visibility_off,warning&display=block"
                 rel="stylesheet"
             />
         </head>

@@ -77,11 +77,12 @@
             border-width: 1px;
             border-radius: 8px;
             border-color: var(--gray-100);
-            padding: 28px;
+            padding: 20px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
             height: 100%;
+            gap: 6px;
         }
 
     }
@@ -274,7 +275,7 @@
             padding-left: 0.6rem;
             list-style-position: inside;
             & span {
-                font-weight: 600;
+                font-weight: 500;
                 margin-right: 0.5rem;
             }
         }
