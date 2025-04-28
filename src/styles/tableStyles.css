@@ -214,7 +214,7 @@
     }
 
     .unattended-grid-cols {
-        @apply grid-cols-[13%_25%_10%_23%_14%_15%];
+        @apply grid-cols-[16%_25%_15%_25%_19%];
     }
 
     .attended-grid-cols {

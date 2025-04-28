@@ -37,7 +37,7 @@ const AttendedAlertsElement: React.FC<AttendedAlertsElementsProps> = ({
                     ) : (
                         <div className="table-row-subtitle table-row-icon">
                             <span className="material-symbols-outlined">person</span>
-                            <p>Especialista Médico</p>
+                            <p>Médico y DeepKer</p>
                         </div>
                     )
                 }

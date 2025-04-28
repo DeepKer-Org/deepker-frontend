@@ -36,13 +36,13 @@ export default function UnattendedAlerts() {
                             className={`option ${showUnattendedAlerts ? "option-unattended" : ""}`}
                             onClick={() => setShowUnattendedAlerts(true)}
                         >
-                            <p>No Atendidas</p>
+                            <p>Últimas 24 horas</p>
                         </div>
                         <div
                             className={`option ${!showUnattendedAlerts ? "option-unattended" : ""}`}
                             onClick={() => setShowUnattendedAlerts(false)}
                         >
-                            <p>Atendidas</p>
+                            <p>Pasadas</p>
                         </div>
                     </div>
                     <div className="flex flex-row items-center gap-x-1">
