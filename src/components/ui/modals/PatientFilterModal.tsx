@@ -4,8 +4,8 @@ import { ButtonColor } from "@/src/enums/ButtonColor";
 import ModalInput from "@/src/components/ui/inputs/border/ModalInput";
 import useForm from "@/src/hooks/useForm";
 import { PatientsQueryParams } from "@/src/types/patient";
-import { fetchDoctors } from "@/src/api/doctors"; // Assuming this function is already implemented
-import { Doctor } from "@/src/types/doctor"; // Assuming the Doctor interface is already defined
+import { fetchDoctors } from "@/src/api/doctors";
+import { Doctor } from "@/src/types/doctor";
 
 interface PatientFilterModalProps {
     onClose: () => void;
@@ -33,10 +33,9 @@ const PatientFilterModal: React.FC<PatientFilterModalProps> = ({
         onFilter
     );
 
-    const [doctors, setDoctors] = useState<Doctor[]>([]); // Store the list of doctors
+    const [doctors, setDoctors] = useState<Doctor[]>([]);
     const [isLoadingDoctors, setIsLoadingDoctors] = useState(true);
 
-    // Fetch the list of doctors when the component loads
     useEffect(() => {
         const loadDoctors = async () => {
             try {
@@ -53,7 +52,6 @@ const PatientFilterModal: React.FC<PatientFilterModalProps> = ({
     }, []);
 
     const handleDoctorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        // Directly update form values for doctor_id
         setFormValues((prevValues) => ({
             ...prevValues,
             doctor_id: e.target.value,
@@ -96,7 +94,7 @@ const PatientFilterModal: React.FC<PatientFilterModalProps> = ({
                         value={formValues.doctor_id || ""}
                         onChange={handleDoctorChange}
                         className="modal__dropdown"
-                        disabled={isLoadingDoctors} // Disable dropdown while loading
+                        disabled={isLoadingDoctors}
                     >
                         <option value="">Selecciona un doctor</option>
                         {!isLoadingDoctors &&
@@ -115,7 +113,6 @@ const PatientFilterModal: React.FC<PatientFilterModalProps> = ({
                             pointerEvents: 'none',
                         }}
                     >
-                        {/* Custom arrow as SVG */}
                         <svg width="10" height="10" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5 6L0 0H10L5 6Z" fill="black" />
                         </svg>

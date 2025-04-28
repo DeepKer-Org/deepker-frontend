@@ -28,18 +28,18 @@ const DeviceLinkModal: React.FC<DeviceLinkModalProps> = ({
                                                              initialDeviceId = ""
                                                          }) => {
     const {formValues, handleSubmit, setFormValues} = useForm(
-        {...initialDeviceLinkData, device_id: initialDeviceId}, // Pre-fill `device_id` if provided
+        {...initialDeviceLinkData, device_id: initialDeviceId}, 
         handleLink
     );
 
-    const [freeDevices, setFreeDevices] = useState<MonitoringDevice[]>([]); // Devices with "Free" status
-    const [patients, setPatients] = useState<Patient[]>([]); // Patients list
-    const [isLoading, setIsLoading] = useState(true); // To show loading state while fetching devices
-    const [isLoadingPatients, setIsLoadingPatients] = useState(true); // Loading state for patients
-    const [error, setError] = useState<string | null>(null); // Error handling
+    const [freeDevices, setFreeDevices] = useState<MonitoringDevice[]>([]); 
+    const [patients, setPatients] = useState<Patient[]>([]); 
+    const [isLoading, setIsLoading] = useState(true); 
+    const [isLoadingPatients, setIsLoadingPatients] = useState(true); 
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        if (isOpen) {  // Check if modal is open before fetching data
+        if (isOpen) {  
             setFormValues({
                 device_id: initialDeviceId || "",
                 patient_id: ""
@@ -47,7 +47,7 @@ const DeviceLinkModal: React.FC<DeviceLinkModalProps> = ({
 
             const fetchFreeDevices = async () => {
                 try {
-                    const response = await fetchDevicesByStatus("Free"); // Only fetch free devices
+                    const response = await fetchDevicesByStatus("Free"); 
                     setFreeDevices(response.devices);
                 } catch {
                     setError("Error fetching free devices");
@@ -58,7 +58,7 @@ const DeviceLinkModal: React.FC<DeviceLinkModalProps> = ({
 
             const fetchAllPatients = async () => {
                 try {
-                    const response = await fetchPatients(); // Fetch patients
+                    const response = await fetchPatients(); 
                     setPatients(response.patients);
                 } catch {
                     setError("Error fetching patients");
@@ -67,7 +67,7 @@ const DeviceLinkModal: React.FC<DeviceLinkModalProps> = ({
                 }
             };
 
-            setIsLoading(true); // Reset loading states before fetching
+            setIsLoading(true); 
             setIsLoadingPatients(true);
             fetchFreeDevices();
             fetchAllPatients();
@@ -79,14 +79,12 @@ const DeviceLinkModal: React.FC<DeviceLinkModalProps> = ({
         try {
             const updateData: MonitoringDeviceUpdateRequest = {
                 status: "In Use",
-                patient_id: linkData.patient_id, // We are now correctly sending `patient_id`
-                linked_by_id: "66778899-aaaa-bbbb-cccc-ddddeeeeffff", // Provide the actual ID of the logged-in user
+                patient_id: linkData.patient_id, 
+                linked_by_id: "66778899-aaaa-bbbb-cccc-ddddeeeeffff", 
             };
 
-            // Call the updateDevice API to update the device
             await updateDevice(linkData.device_id, updateData);
 
-            // Call the success handler to notify the parent of the success
             onLinkSuccess();
         } catch {
             setError("Falla al vincular el dispositivo");
@@ -94,7 +92,6 @@ const DeviceLinkModal: React.FC<DeviceLinkModalProps> = ({
     }
 
     const handleDeviceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        // Directly update form values for device_id
         setFormValues((prevValues) => ({
             ...prevValues,
             device_id: e.target.value,
@@ -104,14 +101,14 @@ const DeviceLinkModal: React.FC<DeviceLinkModalProps> = ({
     const handlePatientChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setFormValues((prevValues) => ({
             ...prevValues,
-            patient_id: e.target.value, // We are now setting `patient_id` correctly
+            patient_id: e.target.value,
         }));
     };
 
     const isLinkingDisabled = !formValues.device_id || !formValues.patient_id;
 
     return (
-        <ModalWrapper isOpen={isOpen} width="28rem">
+        <ModalWrapper onClose={onClose} isOpen={isOpen} width="28rem">
             <form onSubmit={handleSubmit}>
                 <h1 className="mb-6">Vincular Dispositivos</h1>
                 {isLoading || isLoadingPatients ? (
@@ -130,7 +127,7 @@ const DeviceLinkModal: React.FC<DeviceLinkModalProps> = ({
                                 value={formValues.device_id || ""}
                                 onChange={handleDeviceChange}
                                 className="modal__dropdown"
-                                disabled={!!initialDeviceId} // Disable the dropdown if `device_id` was passed
+                                disabled={!!initialDeviceId}
                             >
                                 <option value="">Selecciona un device</option>
                                 {freeDevices.map((device) => (
@@ -148,7 +145,6 @@ const DeviceLinkModal: React.FC<DeviceLinkModalProps> = ({
                                     pointerEvents: 'none',
                                 }}
                             >
-                                {/* Custom arrow as SVG */}
                                 <svg width="10" height="10" viewBox="0 0 10 6" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <path d="M5 6L0 0H10L5 6Z" fill="black"/>
@@ -163,7 +159,7 @@ const DeviceLinkModal: React.FC<DeviceLinkModalProps> = ({
                                 id="patient_id"
                                 name="patient_id"
                                 value={formValues.patient_id || ""}
-                                onChange={handlePatientChange} // Handle patient selection
+                                onChange={handlePatientChange}
                                 className="modal__dropdown"
                             >
                                 <option value="">Seleccione un Paciente</option>
@@ -182,7 +178,6 @@ const DeviceLinkModal: React.FC<DeviceLinkModalProps> = ({
                                     pointerEvents: 'none',
                                 }}
                             >
-                                {/* Custom arrow as SVG */}
                                 <svg width="10" height="10" viewBox="0 0 10 6" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <path d="M5 6L0 0H10L5 6Z" fill="black"/>

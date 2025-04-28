@@ -7,7 +7,7 @@ interface CardWrapperProps {
 
 const CardWrapper: React.FC<CardWrapperProps> = ({children, className}) => {
     return (
-        <div className={`details__card  no-scrollbar ${className}`}>
+        <div className={`details__card no-scrollbar ${className}`}>
             {children}
         </div>
     )

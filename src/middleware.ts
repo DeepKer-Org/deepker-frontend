@@ -11,8 +11,8 @@ export function middleware(request: NextRequest) {
     const doctorRoutes = [
         "/account",
         "/alerts",
-        "/alerts/unattended/:id",
-        "/alerts/attended/:id",
+        "/alerts/recent/:id",
+        "/alerts/past/:id",
         "/devices",
         "/guide",
         "/patients",

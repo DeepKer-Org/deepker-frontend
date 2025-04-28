@@ -15,15 +15,15 @@
         justify-content: center;
 
         h1 {
-            font-size: 32px;
+            font-size: 24px;
             margin-bottom: 40px;
         }
 
         .auth__logo {
             width: 100%;
-            max-width: 85px;
+            max-width: 64px;
             height: auto;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .auth__form {
