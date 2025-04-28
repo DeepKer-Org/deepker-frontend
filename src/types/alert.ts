@@ -46,9 +46,10 @@ export interface Alert {
     patient: Patient;
 }
 
-export interface AlertMarkAttendanceRequest {
-    attended_by_id: string | null;
-    attended_timestamp: string | null;
+export interface AlertUpdateRequest {
+    attended_by_id?: string | null;
+    attended_timestamp?: string | null;
+    final_diagnosis?: string | null;
 }
 
 export interface AlertsResponse {

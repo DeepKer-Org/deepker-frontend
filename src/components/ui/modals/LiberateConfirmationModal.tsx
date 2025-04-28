@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "../buttons/Button";
 import { ButtonColor } from "@/src/enums/ButtonColor";
-import { Alert, AlertMarkAttendanceRequest } from "@/src/types/alert";
+import { Alert, AlertUpdateRequest } from "@/src/types/alert";
 import { updateAlert } from "@/src/api/alerts";
 import { enqueueSnackbar } from "notistack";
 
@@ -17,7 +17,7 @@ const LiberateConfirmationModal = ({
 
 
   const handleLiberate = async () => {
-    const alertMarkAttendanceRequest: AlertMarkAttendanceRequest = {
+    const alertMarkAttendanceRequest: AlertUpdateRequest = {
       attended_by_id: null,
       attended_timestamp: null,
     };
@@ -39,7 +39,7 @@ const LiberateConfirmationModal = ({
   }
   return (
     <div className="flex flex-col items-center justify-center">
-      <h2 className="mb-6 text-center text-xl">Confirmación de Liberación</h2>
+      <h1 className="mb-6 text-center text-xl">Confirmación de Liberación</h1>
       <p className="mb-8 mx-12 text-center">
         ¿Está seguro de que quiere liberar la alerta de este paciente?
       </p>

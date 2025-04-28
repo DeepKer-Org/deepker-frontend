@@ -28,7 +28,7 @@ const UnlinkConfirmationModal: React.FC<UnlinkConfirmationModalProps> = ({device
 
     return (
         <ModalWrapper isOpen={isOpen} onClose={onClose}>
-            <h2 className="mb-6 text-center text-xl">Confirmación de Desvinculación</h2>
+            <h1 className="mb-6 text-center text-xl">Confirmación de Desvinculación</h1>
             <p className="mb-8 mx-12 text-center">¿Está seguro de que quiere desvincular este dispositivo?</p>
             <div className="flex flex-row justify-center gap-x-4 mt-6">
                 <Button text="Cancelar" onClick={onClose} color={ButtonColor.SECONDARY}/>

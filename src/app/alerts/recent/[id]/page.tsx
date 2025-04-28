@@ -4,11 +4,7 @@ import ReturnButton from "@/src/components/ui/buttons/ReturnButton";
 import { ButtonColor } from "@/src/enums/ButtonColor";
 import React, { useEffect, useState } from "react";
 import DetailRow from "@/src/components/ui/DetailRow";
-import {
-  Alert,
-  AlertMarkAttendanceRequest,
-  AlertResponse,
-} from "@/src/types/alert";
+import { Alert, AlertUpdateRequest, AlertResponse } from "@/src/types/alert";
 import { fetchAlert, updateAlert } from "@/src/api/alerts";
 import { formatDate, formatTime } from "@/src/utils/formatTime";
 import { enqueueSnackbar } from "notistack";
@@ -17,12 +13,14 @@ import ModalWrapper from "@/src/components/ui/wrappers/ModalWrapper";
 import LiberateConfirmationModal from "@/src/components/ui/modals/LiberateConfirmationModal";
 import { Monitor } from "@/src/components/sections/alerts/recent/Monitor";
 import DiagnosticCard from "@/src/components/sections/alerts/recent/DiagnosticCard";
+import DiagnosticModal from "@/src/components/ui/modals/DiagnosticModal";
 
 const PastAlertDetail = ({ params }: { params: { id: string } }) => {
   const [alert, setAlert] = useState<Alert | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [liberateModal, setLiberateModal] = React.useState(false);
+  const [diagnosticModal, setDiagnosticModal] = React.useState(false);
   const { doctorId } = useAuth();
 
   const loadAlert = async () => {
@@ -43,7 +41,7 @@ const PastAlertDetail = ({ params }: { params: { id: string } }) => {
   }, [params.id]);
 
   const handleMarkAttendance = async () => {
-    const alertMarkAttendanceRequest: AlertMarkAttendanceRequest = {
+    const alertMarkAttendanceRequest: AlertUpdateRequest = {
       attended_by_id: doctorId!,
       attended_timestamp: new Date().toISOString(),
     };
@@ -97,12 +95,20 @@ const PastAlertDetail = ({ params }: { params: { id: string } }) => {
             className="w-40"
           />
         ) : (
-          <Button
-            text={"Liberar"}
-            color={ButtonColor.DANGER}
-            onClick={() => setLiberateModal(true)}
-            className="w-40"
-          />
+          <div className="flex flex-row gap-4">
+            <Button
+              text={"Liberar"}
+              color={ButtonColor.DANGER}
+              onClick={() => setLiberateModal(true)}
+              className="w-40"
+            />
+            <Button
+              text={"Diagnosticar"}
+              color={ButtonColor.PRIMARY}
+              onClick={() => setDiagnosticModal(true)}
+              className="w-40"
+            />
+          </div>
         )}
       </div>
       <div className="px-6 h-full flex flex-col">
@@ -242,7 +248,7 @@ const PastAlertDetail = ({ params }: { params: { id: string } }) => {
                 >
                   monitor
                 </span>
-                <p className={"font-medium"}>Diagnósticos de Deepker:</p>
+                <p className={"font-medium"}>Diagnóstico de Deepker:</p>
               </div>
               <div className={"ml-8"}>
                 {alert.computer_diagnostic?.diagnosis !== "" ? (
@@ -252,6 +258,21 @@ const PastAlertDetail = ({ params }: { params: { id: string } }) => {
                 )}
               </div>
             </div>
+            {alert.final_diagnosis !== "" && (
+              <div className="space-y-1.5">
+                <div className={"flex"}>
+                  <span
+                    className={`material-symbols-outlined mr-2 text-green-500`}
+                  >
+                    health_metrics
+                  </span>
+                  <p className={"font-medium"}>Diagnóstico final:</p>
+                </div>
+                <div className={"ml-8"}>
+                  <DiagnosticCard alert={alert} isFinal />
+                </div>
+              </div>
+            )}
             <div className="space-y-1.5">
               <div className={"flex"}>
                 <span
@@ -287,6 +308,18 @@ const PastAlertDetail = ({ params }: { params: { id: string } }) => {
         <LiberateConfirmationModal
           setLiberateModal={setLiberateModal}
           alert={alert}
+          onAlertUpdate={onAlertUpdate}
+        />
+      </ModalWrapper>
+      <ModalWrapper
+        width="36rem"
+        isOpen={diagnosticModal}
+        onClose={() => setDiagnosticModal(false)}
+      >
+        <DiagnosticModal
+          alert={alert}
+          isOpen={diagnosticModal}
+          onClose={() => setDiagnosticModal(false)}
           onAlertUpdate={onAlertUpdate}
         />
       </ModalWrapper>

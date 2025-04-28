@@ -19,27 +19,39 @@ const RecentAlertsTable: React.FC<RecentAlertsTableProps> = ({refresh}) => {
     const [error, setError] = useState<null | string>(null);
     const { doctorId } = useAuth();
 
-    const loadData = async (page: number, rows: number) => {
-        setIsLoading(true);
+    const loadData = async (page: number, rows: number, showLoading: boolean = true) => {
+        if (showLoading) {
+            setIsLoading(true);
+        }
         setError(null);
         try {
             const response = await fetchAlerts(false, page, rows);
             setData(response.alerts!);
-            setTotalItems(response.totalCount); // Set total items from the server response
+            setTotalItems(response.totalCount);
         } catch {
             setError('Error loading alerts');
         } finally {
-            setIsLoading(false);
+            if (showLoading) {
+                setIsLoading(false);
+            }
         }
     };
 
     useEffect(() => {
-        loadData(currentPage, rowsPerPage);
+        loadData(currentPage, rowsPerPage, true);
     }, [currentPage, rowsPerPage, refresh]);
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            loadData(currentPage, rowsPerPage, false);
+        }, 5000); 
+    
+        return () => clearInterval(interval); 
+    }, [currentPage, rowsPerPage]);
 
     const handleRowsPerPageChange = (rows: number) => {
         setRowsPerPage(rows);

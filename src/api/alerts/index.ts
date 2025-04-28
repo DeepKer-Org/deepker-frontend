@@ -1,4 +1,4 @@
-import {AlertMarkAttendanceRequest, AlertResponse, AlertsResponse} from "@/src/types/alert";
+import {AlertUpdateRequest, AlertResponse, AlertsResponse} from "@/src/types/alert";
 import {authenticatedFetch} from "@/src/api/authenticatedFetch";
 
 const API_BASE_URL = process.env.API_BASE_URL || "http://localhost:8080";
@@ -25,7 +25,7 @@ export const fetchAlert = async (alertId: string): Promise<AlertResponse> => {
     return response.json();
 };
 
-export const updateAlert = async (alertId: string, data: AlertMarkAttendanceRequest): Promise<void> => {
+export const updateAlert = async (alertId: string, data: AlertUpdateRequest): Promise<void> => {
     const url = `${API_BASE_URL}/alerts/${alertId}`;
     await authenticatedFetch(url, {
         method: 'PATCH',

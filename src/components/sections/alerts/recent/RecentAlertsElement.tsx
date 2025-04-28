@@ -1,4 +1,4 @@
-import { Alert, AlertMarkAttendanceRequest } from "@/src/types/alert";
+import { Alert, AlertUpdateRequest } from "@/src/types/alert";
 import { formatDate, formatTime } from "@/src/utils/formatTime";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -25,7 +25,7 @@ const RecentAlertsElement: React.FC<RecentAlertsElementsProps> = ({
   const [liberateModal, setLiberateModal] = React.useState(false);
 
   const handleMarkAttendance = async () => {
-    const alertMarkAttendanceRequest: AlertMarkAttendanceRequest = {
+    const alertMarkAttendanceRequest: AlertUpdateRequest = {
       attended_by_id: doctorId!,
       attended_timestamp: new Date().toISOString(),
     };
