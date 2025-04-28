@@ -1,31 +1,33 @@
 "use client";
-import AttendedAlertsElement from "./AttendedAlertsElement";
+import PastAlertsElement from "./RecentAlertsElement";
 import React, {useEffect, useState} from "react";
-import Pagination from "../../../ui/Pagination";
 import {fetchAlerts} from "@/src/api/alerts";
+import Pagination from "@/src/components/ui/Pagination";
 import {Alert} from "@/src/types/alert";
+import { useAuth } from "@/src/context/AuthContext";
 
-interface AttendedAlertsTableProps {
+interface RecentAlertsTableProps {
     refresh: boolean;
 }
 
-export const AttendedAlertsTable: React.FC<AttendedAlertsTableProps> = ({refresh}) => {
+const RecentAlertsTable: React.FC<RecentAlertsTableProps> = ({refresh}) => {
     const [data, setData] = useState<Alert[]>([])
     const [currentPage, setCurrentPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<null | string>(null);
+    const { doctorId } = useAuth();
 
     const loadData = async (page: number, rows: number) => {
         setIsLoading(true);
         setError(null);
         try {
-            const response = await fetchAlerts(true, page, rows);
-            setData(response.alerts);
-            setTotalItems(response.totalCount); 
+            const response = await fetchAlerts(false, page, rows);
+            setData(response.alerts!);
+            setTotalItems(response.totalCount); // Set total items from the server response
         } catch {
-            setError('Error loading alerts: ');
+            setError('Error loading alerts');
         } finally {
             setIsLoading(false);
         }
@@ -44,15 +46,18 @@ export const AttendedAlertsTable: React.FC<AttendedAlertsTableProps> = ({refresh
         setCurrentPage(1);
     };
 
+    const handleAlertUpdate = () => {
+        loadData(currentPage, rowsPerPage);
+    };
+
     return (
         <div className="table-container">
-            <div
-                className="table-header-row attended-grid-cols xl:grid-cols-[10%_25%_25%_20%_20%] tableBp:grid-cols-[10%_20%_20%_20%_15%_15%]">
+            <div className="table-header-row recent-grid-cols tableBp:grid-cols-[10%_20%_10%_20%_23%_17%]">
                 <p>FECHA</p>
                 <p>PACIENTE</p>
+                <p>LUGAR</p>
                 <p>DIAGNÓSTICO</p>
-                <p className="hidden tableBp:block">ATENDIDO POR</p>
-                <p className="hidden xl:block">HORA DE ATENCIÓN</p>
+                <p className="hidden tableBp:block">VISTA PREVIA DE MÉTRICAS</p>
                 <p>OPCIONES</p>
             </div>
             <div className="table-body">
@@ -64,7 +69,7 @@ export const AttendedAlertsTable: React.FC<AttendedAlertsTableProps> = ({refresh
                     <p className={"table-error"}>No se han encontrado alertas</p>
                 ) : (
                     data.map((alert) => (
-                        <AttendedAlertsElement key={alert.alert_id} alert={alert}/>
+                        <PastAlertsElement key={alert.alert_id} alert={alert} onAlertUpdate={handleAlertUpdate} doctorId={doctorId!}/>
                     ))
                 )}
             </div>
@@ -78,3 +83,5 @@ export const AttendedAlertsTable: React.FC<AttendedAlertsTableProps> = ({refresh
         </div>
     );
 };
+
+export default RecentAlertsTable;

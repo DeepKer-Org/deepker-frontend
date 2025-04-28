@@ -47,8 +47,8 @@ export interface Alert {
 }
 
 export interface AlertMarkAttendanceRequest {
-    attended_by_id: string;
-    attended_timestamp: string;
+    attended_by_id: string | null;
+    attended_timestamp: string | null;
 }
 
 export interface AlertsResponse {

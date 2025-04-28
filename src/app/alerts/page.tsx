@@ -1,11 +1,11 @@
 "use client";
 
-import UnattendedAlertsTable from "@/src/components/sections/alerts/unattended/UnattendedAlertsTable";
-import {AttendedAlertsTable} from "@/src/components/sections/alerts/attended/AttendedAlertsTable";
+import RecentAlertsTable from "@/src/components/sections/alerts/recent/RecentAlertsTable";
+import {PastAlertsTable} from "@/src/components/sections/alerts/past/PastAlertsTable";
 import {useEffect, useState} from "react";
 
 export default function Alerts() {
-    const [showUnattendedAlerts, setShowUnattendedAlerts] = useState(true);
+    const [showRecentAlerts, setShowRecentAlerts] = useState(true);
     const [updateTime, setUpdateTime] = useState<string | null>(null);
     const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -33,14 +33,14 @@ export default function Alerts() {
                 <div className="table-toolbar flex flex-row justify-between">
                     <div className="flex flex-row gap-x-4 mx-2">
                         <div
-                            className={`option ${showUnattendedAlerts ? "option-unattended" : ""}`}
-                            onClick={() => setShowUnattendedAlerts(true)}
+                            className={`option ${showRecentAlerts ? "option-recent" : ""}`}
+                            onClick={() => setShowRecentAlerts(true)}
                         >
                             <p>Últimas 24 horas</p>
                         </div>
                         <div
-                            className={`option ${!showUnattendedAlerts ? "option-unattended" : ""}`}
-                            onClick={() => setShowUnattendedAlerts(false)}
+                            className={`option ${!showRecentAlerts ? "option-recent" : ""}`}
+                            onClick={() => setShowRecentAlerts(false)}
                         >
                             <p>Pasadas</p>
                         </div>
@@ -59,8 +59,8 @@ export default function Alerts() {
             </span>
                     </div>
                 </div>
-                {showUnattendedAlerts ? <UnattendedAlertsTable refresh={isRefreshing}/> :
-                    <AttendedAlertsTable refresh={isRefreshing}/>}
+                {showRecentAlerts ? <RecentAlertsTable refresh={isRefreshing}/> :
+                    <PastAlertsTable refresh={isRefreshing}/>}
             </div>
         </div>
     );

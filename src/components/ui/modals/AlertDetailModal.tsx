@@ -109,7 +109,9 @@ const AlertDetailModal: React.FC<AlertDetailModalProps> = ({ alert }) => {
           </div>
           <div className={"ml-8"}>
             <p className="text">
-              {formatDate(alert.attended_timestamp)} a las {formatTime(alert.attended_timestamp)}
+              {alert.attended_timestamp ? 
+                `${formatDate(alert.attended_timestamp)} a las ${formatTime(alert.attended_timestamp)}`
+                : "No se ha atendido"}
             </p>
           </div>
         </div>

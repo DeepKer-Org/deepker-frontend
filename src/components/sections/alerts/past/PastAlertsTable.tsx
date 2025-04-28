@@ -1,15 +1,15 @@
 "use client";
-import UnattendedAlertsElement from "./UnattendedAlertsElement";
+import PastAlertsElement from "./PastAlertsElement";
 import React, {useEffect, useState} from "react";
+import Pagination from "../../../ui/Pagination";
 import {fetchAlerts} from "@/src/api/alerts";
-import Pagination from "@/src/components/ui/Pagination";
 import {Alert} from "@/src/types/alert";
 
-interface UnattendedAlertsTableProps {
+interface PastAlertsTableProps {
     refresh: boolean;
 }
 
-const UnattendedAlertsTable: React.FC<UnattendedAlertsTableProps> = ({refresh}) => {
+export const PastAlertsTable: React.FC<PastAlertsTableProps> = ({refresh}) => {
     const [data, setData] = useState<Alert[]>([])
     const [currentPage, setCurrentPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -21,11 +21,11 @@ const UnattendedAlertsTable: React.FC<UnattendedAlertsTableProps> = ({refresh}) 
         setIsLoading(true);
         setError(null);
         try {
-            const response = await fetchAlerts(false, page, rows);
-            setData(response.alerts!);
-            setTotalItems(response.totalCount); // Set total items from the server response
+            const response = await fetchAlerts(true, page, rows);
+            setData(response.alerts);
+            setTotalItems(response.totalCount); 
         } catch {
-            setError('Error loading alerts');
+            setError('Error loading alerts: ');
         } finally {
             setIsLoading(false);
         }
@@ -44,18 +44,15 @@ const UnattendedAlertsTable: React.FC<UnattendedAlertsTableProps> = ({refresh}) 
         setCurrentPage(1);
     };
 
-    const handleAlertUpdate = () => {
-        loadData(currentPage, rowsPerPage);
-    };
-
     return (
         <div className="table-container">
-            <div className="table-header-row unattended-grid-cols tableBp:grid-cols-[10%_20%_10%_20%_25%_15%]">
+            <div
+                className="table-header-row past-grid-cols xl:grid-cols-[10%_25%_25%_20%_20%] tableBp:grid-cols-[10%_20%_20%_20%_15%_15%]">
                 <p>FECHA</p>
                 <p>PACIENTE</p>
-                <p>LUGAR</p>
                 <p>DIAGNÓSTICO</p>
-                <p className="hidden tableBp:block">VISTA PREVIA DE MÉTRICAS</p>
+                <p className="hidden tableBp:block">ATENDIDO POR</p>
+                <p className="hidden xl:block">HORA DE ATENCIÓN</p>
                 <p>OPCIONES</p>
             </div>
             <div className="table-body">
@@ -67,7 +64,7 @@ const UnattendedAlertsTable: React.FC<UnattendedAlertsTableProps> = ({refresh}) 
                     <p className={"table-error"}>No se han encontrado alertas</p>
                 ) : (
                     data.map((alert) => (
-                        <UnattendedAlertsElement key={alert.alert_id} alert={alert} onAlertUpdate={handleAlertUpdate}/>
+                        <PastAlertsElement key={alert.alert_id} alert={alert}/>
                     ))
                 )}
             </div>
@@ -81,5 +78,3 @@ const UnattendedAlertsTable: React.FC<UnattendedAlertsTableProps> = ({refresh}) 
         </div>
     );
 };
-
-export default UnattendedAlertsTable;

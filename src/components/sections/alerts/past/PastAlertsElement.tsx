@@ -4,11 +4,11 @@ import { Alert } from "@/src/types/alert";
 import { formatDate, formatTime } from "@/src/utils/formatTime";
 import React from "react";
 
-interface AttendedAlertsElementsProps {
+interface PastAlertsElementsProps {
   alert: Alert;
 }
 
-const AttendedAlertsElement: React.FC<AttendedAlertsElementsProps> = ({
+const PastAlertsElement: React.FC<PastAlertsElementsProps> = ({
   alert,
 }) => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -21,7 +21,7 @@ const AttendedAlertsElement: React.FC<AttendedAlertsElementsProps> = ({
   };
 
   return (
-    <div className="table-row attended-grid-cols xl:grid-cols-[10%_25%_25%_20%_20%] tableBp:grid-cols-[10%_20%_20%_20%_15%_15%]">
+    <div className="table-row past-grid-cols xl:grid-cols-[10%_25%_25%_20%_20%] tableBp:grid-cols-[10%_20%_20%_20%_15%_15%]">
       <div className="cell-border table-row-group text-center">
         <p>{formatDate(alert.alert_timestamp)}</p>
         <p>{formatTime(alert.alert_timestamp)}</p>
@@ -55,7 +55,7 @@ const AttendedAlertsElement: React.FC<AttendedAlertsElementsProps> = ({
         </div>
       </div>
       <div className="hidden xl:flex row-border text-center items-center justify-center h-full">
-        <p>{formatTime(alert.attended_timestamp)}</p>
+        <p>{alert.attended_timestamp ? formatTime(alert.attended_timestamp) : "No se ha atendido"}</p>
       </div>
       <div
         className="flex items-center justify-center cursor-pointer text-gray-600 gap-x-4 px-4 h-full"
@@ -71,4 +71,4 @@ const AttendedAlertsElement: React.FC<AttendedAlertsElementsProps> = ({
   );
 };
 
-export default AttendedAlertsElement;
+export default PastAlertsElement;
