@@ -261,11 +261,12 @@ const PatientDetail = ({ params }: { params: { id: string } }) => {
         </CardWrapper>
         <CardWrapper className={"row-span-3 col-span-2"}>
           <IconTitle icon={"medication"} title={"Medicación actual:"} />
-          <table>
-            <thead>
-              <tr>
-                <th>Medicamento</th>
-                <th>Dosis</th>
+          {patientData.medications.length > 0 ? (
+            <table>
+              <thead>
+                <tr>
+                  <th>Medicamento</th>
+                  <th>Dosis</th>
                 <th>Fecha de inicio</th>
                 <th>Fecha de término</th>
               </tr>
@@ -281,6 +282,9 @@ const PatientDetail = ({ params }: { params: { id: string } }) => {
               ))}
             </tbody>
           </table>
+          ) : (
+            <p className="pl-8">No hay medicación actual</p>
+          )}
         </CardWrapper>
       </div>
     </div>
