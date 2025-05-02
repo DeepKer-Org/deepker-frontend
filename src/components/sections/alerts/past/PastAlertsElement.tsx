@@ -44,7 +44,7 @@ const PastAlertsElement: React.FC<PastAlertsElementsProps> = ({
         ) : (
           <div className="table-row-subtitle table-row-icon">
             <span className="material-symbols-outlined">person</span>
-            <p>Médico y DeepKer</p>
+            <p>Médico</p>
           </div>
         )}
       </div>
