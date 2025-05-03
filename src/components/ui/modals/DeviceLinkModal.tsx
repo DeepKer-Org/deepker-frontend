@@ -119,7 +119,7 @@ const DeviceLinkModal: React.FC<DeviceLinkModalProps> = ({
                     <div className="flex flex-col gap-y-6 bg-white border border-border-primary rounded-lg p-6">
                         <div className="col-span-2" style={{position: 'relative', width: '100%'}}>
                             <label htmlFor="device_id" className="block mb-2 text-sm">
-                                Seleccione un device
+                                Seleccione un dispositivo
                             </label>
                             <select
                                 id="device_id"
