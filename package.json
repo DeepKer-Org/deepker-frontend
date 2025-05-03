@@ -4,9 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "install:clean": "rm -rf node_modules && npm install --omit=dev",
     "build": "next build",
+    "build:prod": "npm install && npm run build && npm run install:clean",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "check": "tsc --noEmit"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
