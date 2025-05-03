@@ -1,15 +1,15 @@
 "use client";
-import AttendedAlertsElement from "./AttendedAlertsElement";
+import PastAlertsElement from "./PastAlertsElement";
 import React, {useEffect, useState} from "react";
 import Pagination from "../../../ui/Pagination";
 import {fetchAlerts} from "@/src/api/alerts";
 import {Alert} from "@/src/types/alert";
 
-interface AttendedAlertsTableProps {
+interface PastAlertsTableProps {
     refresh: boolean;
 }
 
-export const AttendedAlertsTable: React.FC<AttendedAlertsTableProps> = ({refresh}) => {
+export const PastAlertsTable: React.FC<PastAlertsTableProps> = ({refresh}) => {
     const [data, setData] = useState<Alert[]>([])
     const [currentPage, setCurrentPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -23,7 +23,7 @@ export const AttendedAlertsTable: React.FC<AttendedAlertsTableProps> = ({refresh
         try {
             const response = await fetchAlerts(true, page, rows);
             setData(response.alerts);
-            setTotalItems(response.totalCount); // Set total items from the server response
+            setTotalItems(response.totalCount); 
         } catch {
             setError('Error loading alerts: ');
         } finally {
@@ -47,7 +47,7 @@ export const AttendedAlertsTable: React.FC<AttendedAlertsTableProps> = ({refresh
     return (
         <div className="table-container">
             <div
-                className="table-header-row attended-grid-cols xl:grid-cols-[10%_25%_25%_20%_20%] tableBp:grid-cols-[10%_20%_20%_20%_15%_15%]">
+                className="table-header-row past-grid-cols xl:grid-cols-[10%_25%_25%_20%_20%] tableBp:grid-cols-[10%_20%_20%_20%_15%_15%]">
                 <p>FECHA</p>
                 <p>PACIENTE</p>
                 <p>DIAGNÓSTICO</p>
@@ -60,9 +60,11 @@ export const AttendedAlertsTable: React.FC<AttendedAlertsTableProps> = ({refresh
                     <p className={"table-error"}>Cargando...</p>
                 ) : error ? (
                     <p className={"table-error"}>{error}</p>
+                ) : data.length === 0 ? (
+                    <p className={"table-error"}>No se han encontrado alertas</p>
                 ) : (
                     data.map((alert) => (
-                        <AttendedAlertsElement key={alert.alert_id} alert={alert}/>
+                        <PastAlertsElement key={alert.alert_id} alert={alert}/>
                     ))
                 )}
             </div>

@@ -1,6 +1,6 @@
 import { IconName } from "@/src/enums/IconName";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import SectionBlock from "../SectionBlock";
 import {useAuth} from "@/src/context/AuthContext";
 import Image from "next/image";
@@ -12,7 +12,6 @@ const SideBar = () => {
   const pathname = usePathname();
   const { signOut, roles } = useAuth();
 
-  // Define icons for each role
   const adminIcons = [
     { icon: IconName.PersonAdd, route: "/admin/panel", label: "Administración" },
   ];
@@ -25,33 +24,29 @@ const SideBar = () => {
     { icon: IconName.AccountBox, route: "/account", label: "Cuenta" },
   ];
 
-  // Combine icons based on roles
-  const icons = [
+  const icons = useMemo(() => [
     ...(roles.includes("admin") ? adminIcons : []),
     ...(roles.includes("doctor") ? doctorIcons : []),
-  ];
+  ], [roles]);
 
-  // Handle selected icon based on the current path
   useEffect(() => {
+    if (icons.length === 0) return; 
     const matchingIcon = icons.find((icon) => icon.route === pathname);
     if (matchingIcon) {
       setSelected(matchingIcon.icon);
     }
   }, [pathname, icons]);
 
-  // Icon click handler
   const handleIconClick = (icon: IconName, path: string) => {
     setSelected(icon);
     router.push(path);
   };
 
-  // Sign out handler
   const handleSignOut = () => {
     signOut();
     router.push("/auth/login");
   };
 
-  // Sidebar toggle
   const toggleSidebar = () => {
     setOpen((prev) => !prev);
   };

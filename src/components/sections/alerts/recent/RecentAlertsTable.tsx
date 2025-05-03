@@ -1,43 +1,57 @@
 "use client";
-import UnattendedAlertsElement from "./UnattendedAlertsElement";
+import PastAlertsElement from "./RecentAlertsElement";
 import React, {useEffect, useState} from "react";
 import {fetchAlerts} from "@/src/api/alerts";
 import Pagination from "@/src/components/ui/Pagination";
 import {Alert} from "@/src/types/alert";
+import { useAuth } from "@/src/context/AuthContext";
 
-interface UnattendedAlertsTableProps {
+interface RecentAlertsTableProps {
     refresh: boolean;
 }
 
-const UnattendedAlertsTable: React.FC<UnattendedAlertsTableProps> = ({refresh}) => {
+const RecentAlertsTable: React.FC<RecentAlertsTableProps> = ({refresh}) => {
     const [data, setData] = useState<Alert[]>([])
     const [currentPage, setCurrentPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<null | string>(null);
+    const { doctorId } = useAuth();
 
-    const loadData = async (page: number, rows: number) => {
-        setIsLoading(true);
+    const loadData = async (page: number, rows: number, showLoading: boolean = true) => {
+        if (showLoading) {
+            setIsLoading(true);
+        }
         setError(null);
         try {
             const response = await fetchAlerts(false, page, rows);
             setData(response.alerts!);
-            setTotalItems(response.totalCount); // Set total items from the server response
+            setTotalItems(response.totalCount);
         } catch {
             setError('Error loading alerts');
         } finally {
-            setIsLoading(false);
+            if (showLoading) {
+                setIsLoading(false);
+            }
         }
     };
 
     useEffect(() => {
-        loadData(currentPage, rowsPerPage);
+        loadData(currentPage, rowsPerPage, true);
     }, [currentPage, rowsPerPage, refresh]);
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            loadData(currentPage, rowsPerPage, false);
+        }, 5000); 
+    
+        return () => clearInterval(interval); 
+    }, [currentPage, rowsPerPage]);
 
     const handleRowsPerPageChange = (rows: number) => {
         setRowsPerPage(rows);
@@ -50,13 +64,12 @@ const UnattendedAlertsTable: React.FC<UnattendedAlertsTableProps> = ({refresh}) 
 
     return (
         <div className="table-container">
-            <div className="table-header-row unattended-grid-cols tableBp:grid-cols-[8%_20%_10%_20%_30%_12%]">
+            <div className="table-header-row recent-grid-cols tableBp:grid-cols-[10%_20%_10%_20%_23%_17%]">
                 <p>FECHA</p>
                 <p>PACIENTE</p>
                 <p>LUGAR</p>
                 <p>DIAGNÓSTICO</p>
-                <p className="block tableBp:hidden">VISTA PREVIA BPM + SPO2</p>
-                <p className="hidden tableBp:block">VISTA PREVIA ECG + BPM + SPO2</p>
+                <p className="hidden tableBp:block">VISTA PREVIA DE MÉTRICAS</p>
                 <p>OPCIONES</p>
             </div>
             <div className="table-body">
@@ -64,9 +77,11 @@ const UnattendedAlertsTable: React.FC<UnattendedAlertsTableProps> = ({refresh}) 
                     <p className={"table-error"}>Cargando...</p>
                 ) : error ? (
                     <p className={"table-error"}>{error}</p>
+                ) : data.length === 0 ? (
+                    <p className={"table-error"}>No se han encontrado alertas</p>
                 ) : (
                     data.map((alert) => (
-                        <UnattendedAlertsElement key={alert.alert_id} alert={alert} onAlertUpdate={handleAlertUpdate}/>
+                        <PastAlertsElement key={alert.alert_id} alert={alert} onAlertUpdate={handleAlertUpdate} doctorId={doctorId!}/>
                     ))
                 )}
             </div>
@@ -81,4 +96,4 @@ const UnattendedAlertsTable: React.FC<UnattendedAlertsTableProps> = ({refresh}) 
     );
 };
 
-export default UnattendedAlertsTable;
+export default RecentAlertsTable;
