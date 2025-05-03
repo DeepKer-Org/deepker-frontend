@@ -129,7 +129,7 @@ const DeviceLinkModal: React.FC<DeviceLinkModalProps> = ({
                                 className="modal__dropdown"
                                 disabled={!!initialDeviceId}
                             >
-                                <option value="">Selecciona un device</option>
+                                <option value="">Selecciona un dispositivo</option>
                                 {freeDevices.map((device) => (
                                     <option key={device.device_id} value={device.device_id}>
                                         {device.device_id}
