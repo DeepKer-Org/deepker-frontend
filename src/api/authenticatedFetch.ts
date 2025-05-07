@@ -1,5 +1,5 @@
 // Helper function to get a specific cookie by name
-const getCookie = (name: string): string | null => {
+export const getCookie = (name: string): string | null => {
     const match = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`));
     return match ? match[2] : null;
 };
