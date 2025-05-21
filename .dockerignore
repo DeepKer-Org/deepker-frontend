@@ -11,7 +11,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # Environment files (exclude sensitive files, only include what's needed via COPY)
-.env
 .env.local
 .env.development
 .env.test
