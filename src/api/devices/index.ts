@@ -3,7 +3,7 @@ import {
   DevicesResponse,
   MonitoringDeviceUpdateRequest,
 } from "@/src/types/device";
-import { authenticatedFetch } from "@/src/api/authenticatedFetch";
+import { authenticatedFetch, getCookie } from "@/src/api/authenticatedFetch";
 
 const NEXT_PUBLIC_API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
@@ -54,15 +54,42 @@ export const fetchDevicesByStatus = async (
 export const updateDevice = async (
   deviceId: string,
   data: MonitoringDeviceUpdateRequest
-): Promise<void> => {
-  await authenticatedFetch(
+): Promise<any> => {
+  //   try {
+  const token = getCookie("token"); // Retrieve token from cookie
+
+  if (!token) {
+    throw new Error("Authentication token missing.");
+  }
+
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+
+  const res = await fetch(
     `${NEXT_PUBLIC_API_BASE_URL}/monitoring-devices/${deviceId}`,
     {
       method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: headers,
       body: JSON.stringify(data),
     }
   );
+  const response = await res.json();
+  if (!res.ok) {
+    if (response.code === "23505") {
+      return {
+        error: {
+          code: "PatientAlreadyLinked",
+        },
+      };
+    } else {
+      return {
+        error: {
+          code: "ServerError",
+        },
+      };
+    }
+  }
+  return response;
 };

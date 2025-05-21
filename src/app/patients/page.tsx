@@ -101,7 +101,6 @@ export default function Patients() {
 
   const handleSetMyPatients = () => {
     if (!doctorId) return;
-    console.log(doctorId)
 
     setFilterParams((prev) => ({
       ...prev,
