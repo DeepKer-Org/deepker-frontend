@@ -1,0 +1,283 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .spin-animation {
+    animation: spin 0.5s ease-in-out;
+  }
+
+  .table-toolbar {
+    color: var(--gray-600);
+    font-family: var(--font-poppins), sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+
+    .option {
+      cursor: pointer;
+      transition: color 0.3s ease;
+      position: relative;
+      margin-inline: 0.5rem;
+      font-style: normal;
+    }
+
+    .option-recent {
+      color: var(--blue-500);
+      position: relative;
+    }
+
+    .option-recent::after {
+      content: "";
+      display: block;
+      position: absolute;
+      bottom: -2px;
+      left: -15%;
+      width: 130%;
+      height: 1px;
+      background-color: var(--blue-500);
+    }
+
+    .update__text {
+      font-size: 14px;
+    }
+
+    .update__text--time {
+      font-weight: 600;
+      font-size: 14px;
+    }
+  }
+
+  .table-pagination {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 3rem;
+    justify-content: flex-end;
+    align-items: center;
+    padding-inline: 3rem;
+    background-color: var(--white);
+    border-top: 1px solid var(--border-primary);
+    border-radius: 0 0 8px 8px;
+  }
+
+  .table-error {
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .table-container {
+    border-color: var(--border-primary);
+    border-width: 1px;
+    margin-top: 1.5rem;
+    border-radius: 8px;
+    font-size: 16px;
+
+    & p {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+
+    .table-header-row {
+      border-radius: 8px 8px 0 0;
+      display: grid;
+      align-items: center;
+      text-align: center;
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-primary);
+      background-color: var(--blue-800);
+      color: var(--white);
+    }
+
+    .table-body {
+      .table-row {
+        display: grid;
+        align-items: center;
+        color: var(--text-primary);
+        font-weight: 500;
+        height: 4.25rem;
+
+        &:nth-child(even) {
+          background-color: var(--gray-200);
+        }
+
+        &:nth-child(odd) {
+          background-color: var(--white);
+        }
+
+        .cell-border {
+          border-right: 1px solid var(--border-primary);
+          display: flex;
+          justify-content: center;
+          height: 100%;
+        }
+
+        .row-border {
+          border-right: 1px solid var(--border-primary);
+          justify-content: center;
+          height: 100%;
+        }
+
+        .table-row-group {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .table-row-circle-buttons {
+          display: flex;
+          flex-direction: row;
+          column-gap: 1.5rem;
+          justify-content: center;
+        }
+
+        .table-row-subtitle {
+          color: var(--text-muted);
+        }
+
+        .table-row-icon {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 0.25rem;
+        }
+
+        .table-attend {
+          background-color: var(--green-500);
+          color: var(--white);
+          height: 100%;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding-inline: 1rem;
+
+          &:hover {
+            background-color: var(--green-550);
+          }
+        }
+
+        .table-in-attention {
+          background-color: var(--blue-500);
+          color: var(--white);
+          height: 100%;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding-inline: 1rem;
+          cursor: pointer;
+
+          &:hover {
+            background-color: var(--blue-550);
+          }
+        }
+
+        .table-unlink {
+          background-color: var(--red-500);
+          color: var(--white);
+          height: 100%;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding-inline: 1rem;
+          cursor: pointer;
+
+          &:hover {
+            background-color: var(--red-550);
+          }
+        }
+
+        .table-link {
+          background-color: var(--green-500);
+          color: var(--white);
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding-inline: 1rem;
+          cursor: pointer;
+          width: 100%;
+
+          &:hover {
+            background-color: var(--green-550);
+          }
+        }
+
+        .table-no-action {
+          background-color: var(--gray-200);
+          color: var(--text-muted);
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding-inline: 1rem;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .recent-grid-cols {
+    @apply grid-cols-[16%_25%_15%_25%_19%];
+  }
+
+  .past-grid-cols {
+    @apply grid-cols-[25%_25%_25%_25%];
+  }
+
+  .patient-grid-cols {
+    @apply grid-cols-[25%_15%_12%_25%_23%];
+  }
+
+  .device-grid-cols {
+    @apply grid-cols-[20%_25%_20%_35%];
+  }
+}
+
+.alert__modal {
+  .text {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  .highlight {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  .ul__container {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+    list-style-type: disc;
+    list-style-position: inside;
+
+    & li {
+        padding-left: 0.6rem;
+        list-style-position: inside;
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem;
+        & span {
+            font-weight: 500;
+            margin-right: 0.5rem;
+        }
+    }
+}
+}

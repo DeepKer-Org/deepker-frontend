@@ -1,0 +1,109 @@
+.form__page {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.75rem;
+    overflow-y: auto;
+
+    .form__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .form__wrapper {
+            display: flex;
+            flex-direction: column;
+            width: 500px;
+            row-gap: 20px;
+        }
+
+        h1 {
+            margin-bottom: 40px;
+        }
+
+        .button__container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            row-gap: 20px;
+        }
+    }
+}
+
+/* Wrapper for the form input */
+.form-input {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Label styling */
+.form-input__label {
+    font-size: 14px;
+}
+
+.form-input__field {
+    width: 100%;
+    padding: 6px 10px;
+    font-size: 14px;
+    border: 1px solid var(--border-secondary);
+    border-radius: 8px;
+    appearance: none;
+    outline: none;
+    transition: border-color 0.1s ease-in-out;
+    background-color: var(--white);
+    cursor: pointer;
+}
+
+.form-input__wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/*** Select field styling ***/
+
+.select-input__field option {
+    color: var(--gray-100);
+}
+
+.select-input__field:focus {
+    border-color: var(--blue-500); /* Blue outline on focus */
+}
+
+.select-input__field:disabled {
+    background-color: var(--gray-100);
+    color: #888;
+    cursor: not-allowed;
+}
+
+.select-input__icon {
+    position: absolute;
+    right: 0.4rem; /* Position the icon inside the select field */
+    color: var(--gray-600);
+    pointer-events: none;
+}
+
+/*** Password field styling ***/
+
+.password-input__icon {
+    position: absolute;
+    right: 0.8rem; /* Position the icon inside the select field */
+    cursor: pointer;
+    color: var(--gray-600);
+}
+
+/*** Checkbox styling ***/
+
+.checkbox-input {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-input__box {
+    width: 16px;
+    height: 16px;
+    margin-right: 0.5rem;
+    cursor: pointer;
+}
