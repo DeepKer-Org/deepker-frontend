@@ -6,6 +6,8 @@ import useForm from "@/src/hooks/useForm";
 import { PatientsQueryParams } from "@/src/types/patient";
 import { fetchDoctors } from "@/src/api/doctors";
 import { Doctor } from "@/src/types/doctor";
+import { Comorbidity } from "@/src/types/comorbidity";
+import { fetchComorbidities } from "@/src/api/comorbities";
 
 interface PatientFilterModalProps {
     onClose: () => void;
@@ -34,21 +36,27 @@ const PatientFilterModal: React.FC<PatientFilterModalProps> = ({
     );
 
     const [doctors, setDoctors] = useState<Doctor[]>([]);
+    const [comorbidities, setComorbidities] = useState<Comorbidity[]>([]);
     const [isLoadingDoctors, setIsLoadingDoctors] = useState(true);
+    const [isLoadingComorbidities, setIsLoadingComorbidities] = useState(true);
 
     useEffect(() => {
-        const loadDoctors = async () => {
+        const loadData = async () => {
             try {
                 const doctorsList = await fetchDoctors();
                 setDoctors(doctorsList.doctors);
+
+                const comorbiditiesList = await fetchComorbidities();
+                setComorbidities(comorbiditiesList.comorbidities);
             } catch (err) {
-                console.error("Failed to load doctors:", err);
+                console.error("Failed to load data:", err);
             } finally {
                 setIsLoadingDoctors(false);
+                setIsLoadingComorbidities(false);
             }
         };
 
-        loadDoctors();
+        loadData();
     }, []);
 
     const handleDoctorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -58,9 +66,19 @@ const PatientFilterModal: React.FC<PatientFilterModalProps> = ({
         }));
     };
 
+    const handleComorbidityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            comorbidity: e.target.value,
+        }));
+    };
+
     return (
         <form onSubmit={handleSubmit}>
-            <h1 className="mb-6">Búsqueda Avanzada</h1>
+            <div className="flex items-center justify-between mb-6">
+                <h1>Búsqueda Avanzada</h1>
+                <p className="text-sm text-gray-600">Todos los filtros son opcionales</p>
+            </div>
             <div className="grid grid-cols-4 grid-rows-3 gap-6 bg-white border border-border-primary rounded-lg p-6">
                 <ModalInput
                     name={"name"}
@@ -131,13 +149,41 @@ const PatientFilterModal: React.FC<PatientFilterModalProps> = ({
                     onChange={handleInputChange}
                     label="Identificado del dispositivo"
                 />
-                <ModalInput
-                    name={"comorbidity"}
-                    value={formValues.comorbidity || ""}
-                    onChange={handleInputChange}
-                    label="Riesgo preexistente"
-                    className="col-span-2"
-                />
+                {/* Comorbidity Dropdown */}
+                <div className="col-span-2" style={{ position: 'relative', width: '100%' }}>
+                    <label htmlFor="comorbidity" className="block mb-2 text-sm">
+                        Riesgo preexistente
+                    </label>
+                    <select
+                        id="comorbidity"
+                        name="comorbidity"
+                        value={formValues.comorbidity || ""}
+                        onChange={handleComorbidityChange}
+                        className="modal__dropdown"
+                        disabled={isLoadingComorbidities}
+                    >
+                        <option value="">Selecciona un riesgo preexistente</option>
+                        {!isLoadingComorbidities &&
+                            comorbidities.map((comorbidity) => (
+                                <option key={comorbidity.comorbidity_id} value={comorbidity.comorbidity}>
+                                    {comorbidity.comorbidity}
+                                </option>
+                            ))}
+                    </select>
+                    <div
+                        style={{
+                            position: 'absolute',
+                            top: '70%',
+                            right: '0.8rem',
+                            transform: 'translateY(-50%)',
+                            pointerEvents: 'none',
+                        }}
+                    >
+                        <svg width="10" height="10" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 6L0 0H10L5 6Z" fill="black" />
+                        </svg>
+                    </div>
+                </div>
                 <ModalInput
                     name={"entry_date"}
                     value={formValues.entry_date || ""}
