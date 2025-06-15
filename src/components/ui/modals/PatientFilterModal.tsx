@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import Button from "../buttons/Button";
 import { ButtonColor } from "@/src/enums/ButtonColor";
 import ModalInput from "@/src/components/ui/inputs/border/ModalInput";
+import ModalSelect from "@/src/components/ui/inputs/border/ModalSelect";
 import useForm from "@/src/hooks/useForm";
 import { PatientsQueryParams } from "@/src/types/patient";
 import { fetchDoctors } from "@/src/api/doctors";
 import { Doctor } from "@/src/types/doctor";
 import { Comorbidity } from "@/src/types/comorbidity";
 import { fetchComorbidities } from "@/src/api/comorbities";
+import { MonitoringDeviceSimple } from "@/src/types/device";
+import { fetchDevicesSimple } from "@/src/api/devices";
 
 interface PatientFilterModalProps {
     onClose: () => void;
@@ -37,8 +40,10 @@ const PatientFilterModal: React.FC<PatientFilterModalProps> = ({
 
     const [doctors, setDoctors] = useState<Doctor[]>([]);
     const [comorbidities, setComorbidities] = useState<Comorbidity[]>([]);
+    const [devices, setDevices] = useState<MonitoringDeviceSimple[]>([]);
     const [isLoadingDoctors, setIsLoadingDoctors] = useState(true);
     const [isLoadingComorbidities, setIsLoadingComorbidities] = useState(true);
+    const [isLoadingDevices, setIsLoadingDevices] = useState(true);
 
     useEffect(() => {
         const loadData = async () => {
@@ -48,11 +53,15 @@ const PatientFilterModal: React.FC<PatientFilterModalProps> = ({
 
                 const comorbiditiesList = await fetchComorbidities();
                 setComorbidities(comorbiditiesList.comorbidities);
+
+                const devicesList = await fetchDevicesSimple();
+                setDevices(devicesList.devices);
             } catch (err) {
                 console.error("Failed to load data:", err);
             } finally {
                 setIsLoadingDoctors(false);
                 setIsLoadingComorbidities(false);
+                setIsLoadingDevices(false);
             }
         };
 
@@ -70,6 +79,13 @@ const PatientFilterModal: React.FC<PatientFilterModalProps> = ({
         setFormValues((prevValues) => ({
             ...prevValues,
             comorbidity: e.target.value,
+        }));
+    };
+
+    const handleDeviceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            device_id: e.target.value,
         }));
     };
 
@@ -102,40 +118,20 @@ const PatientFilterModal: React.FC<PatientFilterModalProps> = ({
                 />
 
                 {/* Doctor Dropdown */}
-                <div className="col-span-2" style={{ position: 'relative', width: '100%' }}>
-                    <label htmlFor="doctor_id" className="block mb-2 text-sm">
-                        Doctor asignado
-                    </label>
-                    <select
-                        id="doctor_id"
-                        name="doctor_id"
-                        value={formValues.doctor_id || ""}
-                        onChange={handleDoctorChange}
-                        className="modal__dropdown"
-                        disabled={isLoadingDoctors}
-                    >
-                        <option value="">Selecciona un doctor</option>
-                        {!isLoadingDoctors &&
-                            doctors.map((doctor) => (
-                                <option key={doctor.doctor_id} value={doctor.doctor_id}>
-                                    {doctor.name} ({doctor.specialization})
-                                </option>
-                            ))}
-                    </select>
-                    <div
-                        style={{
-                            position: 'absolute',
-                            top: '70%',
-                            right: '0.8rem',
-                            transform: 'translateY(-50%)',
-                            pointerEvents: 'none',
-                        }}
-                    >
-                        <svg width="10" height="10" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5 6L0 0H10L5 6Z" fill="black" />
-                        </svg>
-                    </div>
-                </div>
+                <ModalSelect
+                    name="doctor_id"
+                    value={formValues.doctor_id || ""}
+                    onChange={handleDoctorChange}
+                    label="Doctor asignado"
+                    placeholder="Selecciona un doctor"
+                    disabled={isLoadingDoctors}
+                    colSpan={2}
+                    options={doctors.map(doctor => ({
+                        value: doctor.doctor_id,
+                        label: `${doctor.name} (${doctor.specialization})`,
+                        key: doctor.doctor_id
+                    }))}
+                />
 
                 <ModalInput
                     name={"location"}
@@ -143,47 +139,38 @@ const PatientFilterModal: React.FC<PatientFilterModalProps> = ({
                     onChange={handleInputChange}
                     label="Lugar"
                 />
-                <ModalInput
-                    name={"device_id"}
+
+                {/* Device Dropdown */}
+                <ModalSelect
+                    name="device_id"
                     value={formValues.device_id || ""}
-                    onChange={handleInputChange}
-                    label="Identificado del dispositivo"
+                    onChange={handleDeviceChange}
+                    label="Identificador del dispositivo"
+                    placeholder="Seleccione un dispositivo"
+                    disabled={isLoadingDevices}
+                    options={devices.map(device => ({
+                        value: device.device_id,
+                        label: `${device.device_id} - ${device.status}`,
+                        key: device.device_id
+                    }))}
                 />
+
                 {/* Comorbidity Dropdown */}
-                <div className="col-span-2" style={{ position: 'relative', width: '100%' }}>
-                    <label htmlFor="comorbidity" className="block mb-2 text-sm">
-                        Riesgo preexistente
-                    </label>
-                    <select
-                        id="comorbidity"
-                        name="comorbidity"
-                        value={formValues.comorbidity || ""}
-                        onChange={handleComorbidityChange}
-                        className="modal__dropdown"
-                        disabled={isLoadingComorbidities}
-                    >
-                        <option value="">Selecciona un riesgo preexistente</option>
-                        {!isLoadingComorbidities &&
-                            comorbidities.map((comorbidity) => (
-                                <option key={comorbidity.comorbidity_id} value={comorbidity.comorbidity}>
-                                    {comorbidity.comorbidity}
-                                </option>
-                            ))}
-                    </select>
-                    <div
-                        style={{
-                            position: 'absolute',
-                            top: '70%',
-                            right: '0.8rem',
-                            transform: 'translateY(-50%)',
-                            pointerEvents: 'none',
-                        }}
-                    >
-                        <svg width="10" height="10" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5 6L0 0H10L5 6Z" fill="black" />
-                        </svg>
-                    </div>
-                </div>
+                <ModalSelect
+                    name="comorbidity"
+                    value={formValues.comorbidity || ""}
+                    onChange={handleComorbidityChange}
+                    label="Riesgo preexistente"
+                    placeholder="Seleccione un riesgo preexistente"
+                    disabled={isLoadingComorbidities}
+                    colSpan={2}
+                    options={comorbidities.map(comorbidity => ({
+                        value: comorbidity.comorbidity,
+                        label: comorbidity.comorbidity,
+                        key: comorbidity.comorbidity_id
+                    }))}
+                />
+
                 <ModalInput
                     name={"entry_date"}
                     value={formValues.entry_date || ""}
