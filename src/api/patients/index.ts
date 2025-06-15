@@ -1,4 +1,4 @@
-import {PatientResponse, PatientsQueryParams, PatientsResponse} from "@/src/types/patient";
+import {PatientLocationsResponse, PatientResponse, PatientsQueryParams, PatientsResponse} from "@/src/types/patient";
 import { authenticatedFetch } from "@/src/api/authenticatedFetch";
 
 const API_BASE_URL = process.env.API_BASE_URL || "http://localhost:8080";
@@ -39,4 +39,16 @@ export const fetchPatients = async (): Promise<PatientsResponse> => {
 export const fetchPatient = async (patientId: string): Promise<PatientResponse> => {
     const res = await authenticatedFetch(`${API_BASE_URL}/patients/${patientId}`, { method: 'GET' });
     return res.json();
+};
+
+export const fetchPatientLocations = async (): Promise<PatientLocationsResponse> => {
+    const res = await authenticatedFetch(
+        `${API_BASE_URL}/patients/locations`, 
+        { method: 'GET' }
+    );
+    const data = await res.json();
+
+    return {
+        locations: data.locations,
+    };
 };

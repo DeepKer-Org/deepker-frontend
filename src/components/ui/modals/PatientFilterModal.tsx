@@ -11,6 +11,7 @@ import { Comorbidity } from "@/src/types/comorbidity";
 import { fetchComorbidities } from "@/src/api/comorbities";
 import { MonitoringDeviceSimple } from "@/src/types/device";
 import { fetchDevicesSimple } from "@/src/api/devices";
+import { fetchPatientLocations } from "@/src/api/patients";
 
 interface PatientFilterModalProps {
     onClose: () => void;
@@ -41,9 +42,11 @@ const PatientFilterModal: React.FC<PatientFilterModalProps> = ({
     const [doctors, setDoctors] = useState<Doctor[]>([]);
     const [comorbidities, setComorbidities] = useState<Comorbidity[]>([]);
     const [devices, setDevices] = useState<MonitoringDeviceSimple[]>([]);
+    const [locations, setLocations] = useState<string[]>([]);
     const [isLoadingDoctors, setIsLoadingDoctors] = useState(true);
     const [isLoadingComorbidities, setIsLoadingComorbidities] = useState(true);
     const [isLoadingDevices, setIsLoadingDevices] = useState(true);
+    const [isLoadingLocations, setIsLoadingLocations] = useState(true);
 
     useEffect(() => {
         const loadData = async () => {
@@ -56,12 +59,16 @@ const PatientFilterModal: React.FC<PatientFilterModalProps> = ({
 
                 const devicesList = await fetchDevicesSimple();
                 setDevices(devicesList.devices);
+
+                const locationsList = await fetchPatientLocations();
+                setLocations(locationsList.locations);
             } catch (err) {
                 console.error("Failed to load data:", err);
             } finally {
                 setIsLoadingDoctors(false);
                 setIsLoadingComorbidities(false);
                 setIsLoadingDevices(false);
+                setIsLoadingLocations(false);
             }
         };
 
@@ -86,6 +93,13 @@ const PatientFilterModal: React.FC<PatientFilterModalProps> = ({
         setFormValues((prevValues) => ({
             ...prevValues,
             device_id: e.target.value,
+        }));
+    };
+
+    const handleLocationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            location: e.target.value,
         }));
     };
 
@@ -133,11 +147,19 @@ const PatientFilterModal: React.FC<PatientFilterModalProps> = ({
                     }))}
                 />
 
-                <ModalInput
-                    name={"location"}
+                {/* Location Dropdown */}
+                <ModalSelect
+                    name="location"
                     value={formValues.location || ""}
-                    onChange={handleInputChange}
+                    onChange={handleLocationChange}
                     label="Lugar"
+                    placeholder="Seleccione una ubicación"
+                    disabled={isLoadingLocations}
+                    options={locations.map(location => ({
+                        value: location,
+                        label: location,
+                        key: location
+                    }))}
                 />
 
                 {/* Device Dropdown */}
