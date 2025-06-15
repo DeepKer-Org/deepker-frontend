@@ -26,6 +26,12 @@ const initialDeviceLinkData = {
   patient_id: "",
 };
 
+const statusTranslations: Record<string, string> = {
+  "In Use": "En uso",
+  Free: "Libre",
+  Unavailable: "No disponible",
+};
+
 const DeviceLinkModal: React.FC<DeviceLinkModalProps> = ({
   isOpen,
   onClose,
@@ -86,7 +92,7 @@ const DeviceLinkModal: React.FC<DeviceLinkModalProps> = ({
       linked_by_id: "66778899-aaaa-bbbb-cccc-ddddeeeeffff",
     };
 
-    const response: any = await updateDevice(linkData.device_id, updateData);
+    const response = await updateDevice(linkData.device_id, updateData);
     if (response.error) {
       if (response.error.code === "PatientAlreadyLinked") {
         enqueueSnackbar(
@@ -153,7 +159,8 @@ const DeviceLinkModal: React.FC<DeviceLinkModalProps> = ({
                 <option value="">Selecciona un dispositivo</option>
                 {freeDevices.map((device) => (
                   <option key={device.device_id} value={device.device_id}>
-                    {device.device_id}
+                    {device.device_id} -{" "}
+                    {statusTranslations[device.status] || device.status}
                   </option>
                 ))}
               </select>

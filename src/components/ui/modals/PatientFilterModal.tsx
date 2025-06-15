@@ -30,6 +30,12 @@ const initialFilterData: PatientsQueryParams = {
   discharge_date: "",
 };
 
+const statusTranslations: Record<string, string> = {
+  "In Use": "En uso",
+  Free: "Libre",
+  Unavailable: "No disponible",
+};
+
 const PatientFilterModal: React.FC<PatientFilterModalProps> = ({
   onClose,
   onFilter,
@@ -170,11 +176,18 @@ const PatientFilterModal: React.FC<PatientFilterModalProps> = ({
           label="Identificador del dispositivo"
           placeholder="Seleccione un dispositivo"
           disabled={isLoadingDevices}
-          options={devices.map((device) => ({
-            value: device.device_id,
-            label: `${device.device_id} - ${device.status}`,
-            key: device.device_id,
-          }))}
+          options={devices
+            .filter(
+              (device) =>
+                device.status === "In Use" || device.status === "Unavailable"
+            )
+            .map((device) => ({
+              value: device.device_id,
+              label: `${device.device_id} - ${
+                statusTranslations[device.status] || device.status
+              }`,
+              key: device.device_id,
+            }))}
         />
 
         {/* Comorbidity Dropdown */}
