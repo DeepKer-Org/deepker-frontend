@@ -1,12 +1,12 @@
 import {
   DevicesQueryParams,
   DevicesResponse,
+  DevicesSimpleResponse,
   MonitoringDeviceUpdateRequest,
 } from "@/src/types/device";
 import { authenticatedFetch, getCookie } from "@/src/api/authenticatedFetch";
 
-const NEXT_PUBLIC_API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
+const NEXT_PUBLIC_API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
 
 export const fetchDevices = async (
   page: number,
@@ -92,4 +92,16 @@ export const updateDevice = async (
     }
   }
   return response;
+};
+
+export const fetchDevicesSimple = async (): Promise<DevicesSimpleResponse> => {
+  const res = await authenticatedFetch(
+    `${NEXT_PUBLIC_API_BASE_URL}/monitoring-devices/simple`,
+    { method: "GET" }
+  );
+  const data = await res.json();
+
+  return {
+    devices: data.devices,
+  };
 };

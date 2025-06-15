@@ -1,8 +1,4 @@
-import {
-  PatientResponse,
-  PatientsQueryParams,
-  PatientsResponse,
-} from "@/src/types/patient";
+import { PatientLocationsResponse, PatientResponse, PatientsQueryParams, PatientsResponse } from "@/src/types/patient";
 import { authenticatedFetch } from "@/src/api/authenticatedFetch";
 
 const NEXT_PUBLIC_API_BASE_URL =
@@ -56,4 +52,16 @@ export const fetchPatient = async (
     { method: "GET" }
   );
   return res.json();
+};
+
+export const fetchPatientLocations = async (): Promise<PatientLocationsResponse> => {
+    const res = await authenticatedFetch(
+        `${NEXT_PUBLIC_API_BASE_URL}/patients/locations`, 
+        { method: 'GET' }
+    );
+    const data = await res.json();
+
+    return {
+        locations: data.locations,
+    };
 };

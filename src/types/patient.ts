@@ -58,3 +58,7 @@ export interface PatientsResponse {
 export interface PatientResponse {
     patient: Patient;
 }
+
+export interface PatientLocationsResponse {
+    locations: string[];
+}
