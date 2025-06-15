@@ -4,6 +4,7 @@ import {updateDevice} from "@/src/api/devices";
 import ModalWrapper from "@/src/components/ui/wrappers/ModalWrapper";
 import Button from "@/src/components/ui/buttons/Button";
 import {ButtonColor} from "@/src/enums/ButtonColor";
+import { DeviceStatus } from '@/src/enums/DeviceStatus';
 
 interface UnlinkConfirmationModalProps {
     deviceId: string; 
@@ -15,7 +16,7 @@ interface UnlinkConfirmationModalProps {
 const UnlinkConfirmationModal: React.FC<UnlinkConfirmationModalProps> = ({deviceId, isOpen, onClose, onSuccess}) => {
     const handleUnlink = async () => {
         try {
-            const data: MonitoringDeviceUpdateRequest = {status: 'Free'};
+            const data: MonitoringDeviceUpdateRequest = {status: DeviceStatus.FREE};
             await updateDevice(deviceId, data); 
             onSuccess(); 
             onClose(); 

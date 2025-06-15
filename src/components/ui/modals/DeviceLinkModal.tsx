@@ -12,6 +12,7 @@ import { fetchPatients } from "@/src/api/patients";
 import { Patient } from "@/src/types/patient";
 import ModalWrapper from "@/src/components/ui/wrappers/ModalWrapper";
 import { enqueueSnackbar } from "notistack";
+import { DeviceStatus } from "@/src/enums/DeviceStatus";
 
 interface DeviceLinkModalProps {
   isOpen: boolean; // Added to control modal visibility
@@ -80,7 +81,7 @@ const DeviceLinkModal: React.FC<DeviceLinkModalProps> = ({
 
   async function handleLink(linkData: typeof initialDeviceLinkData) {
     const updateData: MonitoringDeviceUpdateRequest = {
-      status: "In Use",
+      status: DeviceStatus.IN_USE,
       patient_id: linkData.patient_id,
       linked_by_id: "66778899-aaaa-bbbb-cccc-ddddeeeeffff",
     };
